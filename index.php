@@ -1,4 +1,5 @@
 <?php include "core/connection/connection.php";
+      include "core/lib_core/lib_core.php";
 
 ?>
 
@@ -9,13 +10,13 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+  
   <title>Storia</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/storia-favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -47,7 +48,9 @@
     <div class="container-fluid d-flex">
 
       <div class="logo mr-auto">
-        <h1 class="text-light"><a href="#"><span>Storia</span></a></h1>
+          <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" title="Acceso para Administradores y Empleados">
+            <img src="core/icons/apps/preferences-desktop-cryptography.png"  class="img-reponsive img-rounded"> Administración
+            </button>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -58,45 +61,119 @@
           <li><a href="#about">Sobre Nosotros</a></li>
           <li><a href="#services">Servicios</a></li>
           <li><a href="#portfolio">Productos</a></li>
-          <li><a href="#team">Team</a></li>
-          <li class="drop-down"><a href="">Drop Down</a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="drop-down"><a href="#">Drop Down 2</a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-              <li><a href="#">Drop Down 5</a></li>
-            </ul>
-          </li>
+          <li><a href="#team">Nuestro Equipo</a></li>
+          <li><a href="#">Clientes</a></li>
           <li><a href="#contact">Contactanos</a></li>
-
-          <li class="get-started"><a href="#">Administración</a></li>
-        </ul>
+         
+         </ul>
       </nav><!-- .nav-menu -->
 
     </div>
   </header><!-- End Header -->
+  <br><br><hr>  
+    <?php
+         
+         if($conn){
+         
+        if(isset($_POST['A'])){
+    
+        
+	$user = mysqli_real_escape_string($conn,$_POST['user']);
+	$pass = mysqli_real_escape_string($conn,$_POST['pass']);
+	
+	
+    session_start();
+	$_SESSION['user'] = $user;
+	$_SESSION['pass'] = $pass;
+		        
+	mysqli_select_db($conn,'storia');
+	
+	$sql = "SELECT * FROM st_usuarios where user = '$user' and password = '$pass' and role = 1";
+	$q = mysqli_query($conn,$sql);
+	
+	$query = "SELECT * FROM st_usuarios where user = '$user' and password = '$pass' and role = 0";
+	$retval = mysqli_query($conn,$query);
+	
+	
+	
+	if(!$q && !$retval){	
+			echo '<div class="alert alert-danger" role="alert">';
+			echo "Error de Conexion..." .mysqli_error($conn);
+			echo "</div>";
+			echo '<a href="core/logout.php"><br><br><button type="submit" class="btn btn-primary">Aceptar</button></a>';	
+			exit;			
+			
+			}
+		
+			if($user = mysqli_fetch_assoc($retval)){
+				
 
+				echo '<div class="alert alert-danger" role="alert">';
+				echo "<strong>Atención!  </strong>" .$_SESSION["user"];
+				echo "<br>";
+				echo '<span class="pull-center "><img src="core/icons/status/security-low.png"  class="img-reponsive img-rounded"><strong> Usuario Bloqueado. Contacte al Administrador.</strong>';
+				echo "</div>";
+				exit;
+			}
+
+			else if($user = mysqli_fetch_assoc($q)){
+
+				if(strcmp($_SESSION["user"], 'root') == 0){
+                
+                //logs($_SESSION["user"]);
+				echo "<br>";
+				echo '<div class="alert alert-success" role="alert">';
+				echo '<button class="btn btn-success">
+				      <span class="spinner-border spinner-border-sm"></span>
+				      </button>';
+				echo "<strong> Bienvenido!  </strong>" .$_SESSION["user"];
+				echo "<strong> Aguarde un Instante...</strong>";
+				echo "<br>";
+				echo "</div>";
+  				echo '<meta http-equiv="refresh" content="5;URL=core/main/main.php "/>';
+				
+			}else{
+				//logs($_SESSION["user"]);
+				echo '<div class="alert alert-success" role="alert">';
+				echo '<button class="btn btn-success">
+				      <span class="spinner-border spinner-border-sm"></span>
+				      </button>';
+				echo "<strong> Bienvenido!  </strong>" .$_SESSION["user"];
+				echo "<strong> Aguarde un Instante...</strong>";
+				echo "<br>";
+				echo "</div>";
+  				echo '<meta http-equiv="refresh" content="5;URL=core/main/main.php "/>';
+				
+			}
+			}else{
+				echo '<div class="alert alert-danger" role="alert">';
+				echo '<span class="pull-center "><img src="core/icons/status/dialog-warning.png"  class="img-reponsive img-rounded"> Usuario o Contraseña Incorrecta. Reintente Por Favor....';
+				echo "</div>";
+				}
+				}
+				}else{
+				  mysqli_error($conn);
+				}
+	
+			
+	
+	//cerramos la conexion
+	
+	mysqli_close($conn);
+           
+      ?><hr>
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
 
     <div class="container">
       <div class="row">
         <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1">
-          <h1>Bettter digital experience with Ninestars</h1>
-          <h2>We are team of talented designers making websites with Bootstrap</h2>
-          <a href="#about" class="btn-get-started scrollto">Get Started</a>
+          <h1>Experimentá un Helado y Atención Diferente</h1>
+          <h2>Nuestro equipo te espera para servirte y hacerte sentir como en casa</h2>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img">
-          <img src="assets/img/hero-img.svg" class="img-fluid animated" alt="">
+          <img src="assets/img/storia - logo - 1.png" class="img-fluid animated" alt="">
+<!--           <img src="assets/img/hero-img.svg" class="img-fluid animated" alt=""> -->
         </div>
       </div>
     </div>
@@ -114,20 +191,20 @@
             <img src="assets/img/about-img.svg" class="img-fluid" alt="" data-aos="zoom-in">
           </div>
           <div class="col-lg-6 pt-5 pt-lg-0">
-            <h3 data-aos="fade-up">Voluptatem dignissimos provident quasi</h3>
+            <h3 data-aos="fade-up">Podrás hacer pedidos desde el living de casa</h3>
             <p data-aos="fade-up" data-aos-delay="100">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
+              Registrándote, podrás realizar tu pedido sin moverte de la comodidad del living de tu casa. Seguí mirando tv, nosotros te lo llevamos!!.
             </p>
             <div class="row">
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
                 <i class="bx bx-receipt"></i>
-                <h4>Corporis voluptates sit</h4>
-                <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+                <h4>Simple y Sencillo</h4>
+                <p>Pedis y lo podes pagar por Mercado Pago.</p>
               </div>
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
                 <i class="bx bx-cube-alt"></i>
-                <h4>Ullamco laboris nisi</h4>
-                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+                <h4>Nuestro Producto en tu puerta</h4>
+                <p>Trabajamos para que sientas que sos parte de nosotros.</p>
               </div>
             </div>
           </div>
@@ -533,7 +610,7 @@
               <div class="address">
                 <i class="icofont-google-map"></i>
                 <h4>Ubicación:</h4>
-                <p>A108 Adam Street, New York, NY 535022</p>
+                <p>Av. Directorio 4867 - Capital Federal - Buenos Aires</p>
               </div>
 
               <div class="email">
@@ -548,8 +625,7 @@
                 <p>+1 5589 55488 55s</p>
               </div>
 
-                         
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13118.140805354169!2d-58.5506935175614!3d-34.71690157047986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccf450b0a0ef3%3A0x6798683cd4c17716!2sLa%20Chilca%201883%2C%20Cdad.%20Evita%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1618487020148!5m2!1ses!2sar" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.191765387845!2d-58.4922780847692!3d-34.64985968044753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc90a400f03cd%3A0x16c5b8b6b7121c8e!2sAv.%20Directorio%204867%2C%20C1440ASA%20CABA!5e0!3m2!1ses!2sar!4v1618495792296!5m2!1ses!2sar" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
             </div>
 
           </div>
@@ -693,6 +769,9 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  
+  
+  <?php modal_1(); ?>
 
 </body>
 
