@@ -57,7 +57,7 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="#">Home</a></li>
+          <li class="active"><a href="#hero">Home</a></li>
           <li><a href="#about">Sobre Nosotros</a></li>
           <li><a href="#services">Servicios</a></li>
           <li><a href="#portfolio">Productos</a></li>
@@ -97,9 +97,11 @@
 	
 	
 	if(!$q && !$retval){	
-			echo '<div class="alert alert-danger" role="alert">';
+			echo '<div clas="row" align="center">
+                    <div class="col-sm-6">
+                    <div class="alert alert-danger" role="alert">';
 			echo "Error de Conexion..." .mysqli_error($conn);
-			echo "</div>";
+			echo "</div></div></div>";
 			echo '<a href="core/logout.php"><br><br><button type="submit" class="btn btn-primary">Aceptar</button></a>';	
 			exit;			
 			
@@ -108,11 +110,13 @@
 			if($user = mysqli_fetch_assoc($retval)){
 				
 
-				echo '<div class="alert alert-danger" role="alert">';
+				echo '<div clas="row" align="center">
+                        <div class="col-sm-6">
+                        <div class="alert alert-danger" role="alert">';
 				echo "<strong>Atención!  </strong>" .$_SESSION["user"];
 				echo "<br>";
 				echo '<span class="pull-center "><img src="core/icons/status/security-low.png"  class="img-reponsive img-rounded"><strong> Usuario Bloqueado. Contacte al Administrador.</strong>';
-				echo "</div>";
+				echo "</div></div></div>";
 				exit;
 			}
 
@@ -122,33 +126,40 @@
                 
                 //logs($_SESSION["user"]);
 				echo "<br>";
-				echo '<div class="alert alert-success" role="alert">';
+				echo '<div clas="row" align="center">
+                        <div clas="row" align="center">
+                        <div class="col-sm-6">
+                        <div class="alert alert-success" role="alert">';
 				echo '<button class="btn btn-success">
 				      <span class="spinner-border spinner-border-sm"></span>
 				      </button>';
 				echo "<strong> Bienvenido!  </strong>" .$_SESSION["user"];
 				echo "<strong> Aguarde un Instante...</strong>";
 				echo "<br>";
-				echo "</div>";
+				echo "</div></div></div></div>";
   				echo '<meta http-equiv="refresh" content="5;URL=core/main/main.php "/>';
 				
 			}else{
 				//logs($_SESSION["user"]);
-				echo '<div class="alert alert-success" role="alert">';
+				echo '<div clas="row" align="center">
+                        <div class="col-sm-6">
+                        <div class="alert alert-success" role="alert">';
 				echo '<button class="btn btn-success">
 				      <span class="spinner-border spinner-border-sm"></span>
 				      </button>';
 				echo "<strong> Bienvenido!  </strong>" .$_SESSION["user"];
 				echo "<strong> Aguarde un Instante...</strong>";
 				echo "<br>";
-				echo "</div>";
+				echo "</div></div></div>";
   				echo '<meta http-equiv="refresh" content="5;URL=core/main/main.php "/>';
 				
 			}
 			}else{
-				echo '<div class="alert alert-danger" role="alert">';
+				echo '<div clas="row" align="center">
+                        <div class="col-sm-6">
+                        <div class="alert alert-danger" role="alert">';
 				echo '<span class="pull-center "><img src="core/icons/status/dialog-warning.png"  class="img-reponsive img-rounded"> Usuario o Contraseña Incorrecta. Reintente Por Favor....';
-				echo "</div>";
+				echo "</div></div></div>";
 				}
 				}
 				}else{

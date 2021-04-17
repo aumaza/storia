@@ -54,11 +54,11 @@ function modal_1(){
            <form action="#" method="POST">
             <div class="form-group">
                 <label for="email">Usuario:</label>
-                <input type="text" class="form-control" placeholder="Ingrese su usuario" name="user">
+                <input type="text" class="form-control" placeholder="Ingrese su usuario" name="user" required>
             </div>
             <div class="form-group">
                 <label for="pwd">Password:</label>
-                <input type="password" class="form-control" placeholder="Ingrese su password" name="pass">
+                <input type="password" class="form-control" placeholder="Ingrese su password" name="pass" required>
             </div>
             
             <button type="submit" class="btn btn-success btn-block" name="A">Aceptar</button>
@@ -144,9 +144,9 @@ function dumpMysql($conn){
 
     if($conn){
     
-    $dbname = "slack_devel";
+    $dbname = "storia";
     $file = $dbname.'-' . date("d-m-Y") . '.sql';
-    $dump = "mysqldump --user=root --password=slack142 slack_devel > $file";
+    $dump = "mysqldump --user=root --password=slack142 storia > $file";
     $command = system($dump);
     chmod($file, 0777);
 

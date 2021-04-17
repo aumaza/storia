@@ -1,6 +1,8 @@
 <?php session_start();
       include "../connection/connection.php";
       include "../lib_core/lib_core.php";
+      include "../lib_usuarios/lib_usuarios.php";
+      include "../lib_clientes/lib_clientes.php";
         
         $usuario = $_SESSION['user'];
         $password = $_SESSION['pass'];
@@ -110,7 +112,12 @@
     <div class="col-sm-3 sidenav"><hr>
     <!-- Trigger the modal with a button -->
     <button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#exit">
-        <img class="img-reponsive img-rounded" src="../icons/actions/system-shutdown.png" /> Salir</button><hr>
+        <img class="img-reponsive img-rounded" src="../icons/actions/system-shutdown.png" /> Salir</button><br>
+        <form action="#" method="POST">
+            <button type="submit" class="btn btn-default btn-sm" name="home">
+            <img class="img-reponsive img-rounded" src="../icons/actions/go-home.png" /> Home</button>
+        </form>
+        <hr>
 
 <!--   Colapse Group       -->
         
@@ -119,7 +126,7 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-        Módulo Heladería</a>
+            <img class="img-reponsive img-rounded" src="../../assets/img/ice_crem-32x32.png" /> Módulo Heladería</a>
       </h4>
     </div>
     <div id="collapse1" class="panel-collapse collapse">
@@ -133,7 +140,7 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-        Módulo Cafetería</a>
+        <img class="img-reponsive img-rounded" src="../../assets/img/coffee-32x32.png" /> Módulo Cafetería</a>
       </h4>
     </div>
     <div id="collapse2" class="panel-collapse collapse">
@@ -143,87 +150,186 @@
       commodo consequat.</div>
     </div>
   </div>
-  <div class="panel panel-default">
+  
+  <?php
+  
+  if($_SESSION['user'] == 'root'){
+  
+  echo '<div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-        Administración General</a>
+        <img class="img-reponsive img-rounded" src="../icons/categories/preferences-desktop.png" /> Administración General</a>
       </h4>
     </div>
     <div id="collapse3" class="panel-collapse collapse">
-      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.</div>
+      <div class="panel-body">
+      
+      <ul class="list-group">
+      <form action="#" method="POST">
+      
+      <li class="list-group-item">
+	<a href="#" data-toggle="tooltip" data-placement="right" title="Cambiar mi Contraseña">
+	  <button type="submit" class="btn btn-default btn-sm" name="cambiar_password">
+	    <img class="img-reponsive img-rounded" src="../icons/actions/view-refresh.png" /> Cambiar Password</button></a></li>
+      
+      <li class="list-group-item">
+	<a href="#" data-toggle="tooltip" data-placement="right" title="Listado de Usuarios">
+	  <button type="submit" class="btn btn-default btn-sm" name="usuarios">
+	    <img class="img-reponsive img-rounded" src="../icons/actions/meeting-attending.png" /> Usuarios</button></a></li>
+	   
+	   <li class="list-group-item">
+	<a href="#" data-toggle="tooltip" data-placement="right" title="Altas de Clientes / Empleados / Repartidores">
+	  <button type="submit" class="btn btn-default btn-sm" name="clientes">
+	    <img class="img-reponsive img-rounded" src="../icons/actions/meeting-attending.png" /> Altas</button></a></li>
+	   
+      <li class="list-group-item">
+	<a href="#" data-toggle="tooltip" data-placement="right" title="Back up Base de Datos">
+	  <button type="submit" class="btn btn-default btn-sm" name="back_up">
+	    <img class="img-reponsive img-rounded" src="../icons/actions/svn-update.png" /> BackUp Base</button></a></li>
+      
+      </form>
+      </ul>
+      
+      </div>
     </div>
-  </div>
+  </div>';
+  }
+  
+  ?>
+  
 </div> 
 </div>
 <!-- End Colapse Group -->
 
-    <div class="col-sm-9">
-      <h4><small>RECENT POSTS</small></h4>
-      <hr>
-      <h2>I Love Food</h2>
-      <h5><span class="glyphicon glyphicon-time"></span> Post by Jane Dane, Sep 27, 2015.</h5>
-      <h5><span class="label label-danger">Food</span> <span class="label label-primary">Ipsum</span></h5><br>
-      <p>Food is my passion. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <br><br>
-      
-      <h4><small>RECENT POSTS</small></h4>
-      <hr>
-      <h2>Officially Blogging</h2>
-      <h5><span class="glyphicon glyphicon-time"></span> Post by John Doe, Sep 24, 2015.</h5>
-      <h5><span class="label label-success">Lorem</span></h5><br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <hr>
-
-      <h4>Leave a Comment:</h4>
-      <form role="form">
-        <div class="form-group">
-          <textarea class="form-control" rows="3" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-success">Submit</button>
-      </form>
-      <br><br>
-      
-      <p><span class="badge">2</span> Comments:</p><br>
-      
-      <div class="row">
-        <div class="col-sm-2 text-center">
-          <img src="bandmember.jpg" class="img-circle" height="65" width="65" alt="Avatar">
-        </div>
-        <div class="col-sm-10">
-          <h4>Anja <small>Sep 29, 2015, 9:12 PM</small></h4>
-          <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <br>
-        </div>
-        <div class="col-sm-2 text-center">
-          <img src="bird.jpg" class="img-circle" height="65" width="65" alt="Avatar">
-        </div>
-        <div class="col-sm-10">
-          <h4>John Row <small>Sep 25, 2015, 8:25 PM</small></h4>
-          <p>I am so happy for you man! Finally. I am looking forward to read about your trendy life. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <br>
-          <p><span class="badge">1</span> Comment:</p><br>
-          <div class="row">
-            <div class="col-sm-2 text-center">
-              <img src="bird.jpg" class="img-circle" height="65" width="65" alt="Avatar">
-            </div>
-            <div class="col-xs-10">
-              <h4>Nested Bro <small>Sep 25, 2015, 8:28 PM</small></h4>
-              <p>Me too! WOW!</p>
-              <br>
-            </div>
-          </div>
-        </div>
+    <div class="col-sm-9"><hr>
+      <div class="alert alert-info">
+        <img class="img-reponsive img-rounded" src="../icons/actions/dashboard-show.png" /> <strong>Espacio de Trabajo</strong> - <strong> Bienvenido <?php echo $nombre ?></strong>
       </div>
+      <hr>
+      
+<!-- Inicio Espacio de Trabajo -->
+    
+    <?php
+    
+    if($conn){
+        
+        if(isset($_POST['home'])){
+            echo '<a href="#"></a>';
+        }
+    
+//     ESPACIO ADMINISTRACIÓN GENERAL
+        
+        // usuarios - cambio de password
+        if(isset($_POST['cambiar_password'])){
+            loadUserPass($conn,$nombre);
+        }
+        if(isset($_POST['user_pass'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formEditPassword($id,$conn);
+        }
+        if(isset($_POST['update_password'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            $pass1 = mysqli_real_escape_string($conn,$_POST['pass1']);
+            $pass2 = mysqli_real_escape_string($conn,$_POST['pass2']);
+            passwordValidate($conn,$id,$pass1,$pass2);
+        }
+        // usuarios - lista usuarios
+        if(isset($_POST['usuarios'])){
+            usuarios($conn);
+        }
+        //usuarios - cambio de permisos
+        if(isset($_POST['allow_user'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formEditRole($id,$conn);
+        }
+        //usuarios - persistencia de cambio de permisos
+        if(isset($_POST['role'])){
+           $id = mysqli_real_escape_string($conn,$_POST['id']);
+           $role = mysqli_real_escape_string($conn,$_POST['role']);
+           cambiarPermisos($id,$role,$conn);
+        }
+        
+        //clientes - listado
+        if(isset($_POST['clientes'])){
+            clientes($conn);
+        }
+        //clientes - formulario de alta         
+        if(isset($_POST['add_cliente'])){
+            formAddCliente();
+        }
+        //clientes - persistencia         
+        if(isset($_POST['addCliente'])){
+            $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
+            $email = mysqli_real_escape_string($conn,$_POST['email']);
+            $direccion = mysqli_real_escape_string($conn,$_POST['direccion']);
+            $localidad = mysqli_real_escape_string($conn,$_POST['localidad']);
+            $telefono = mysqli_real_escape_string($conn,$_POST['telefono']);
+            $movil = mysqli_real_escape_string($conn,$_POST['movil']);
+            $espacio = mysqli_real_escape_string($conn,$_POST['espacio']);
+            addCliente($cliente,$email,$direccion,$localidad,$telefono,$movil,$espacio,$conn);
+        }
+        //clientes - formulario de edición         
+        if(isset($_POST['edit_cliente'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formEditCliente($id,$conn);
+        }
+        //clientes - persistencia de actualización
+        if(isset($_POST['update_cliente'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
+            $email = mysqli_real_escape_string($conn,$_POST['email']);
+            $direccion = mysqli_real_escape_string($conn,$_POST['direccion']);
+            $localidad = mysqli_real_escape_string($conn,$_POST['localidad']);
+            $telefono = mysqli_real_escape_string($conn,$_POST['telefono']);
+            $movil = mysqli_real_escape_string($conn,$_POST['movil']);
+            $espacio = mysqli_real_escape_string($conn,$_POST['espacio']);
+            updateCliente($id,$cliente,$email,$direccion,$localidad,$telefono,$movil,$espacio,$conn);
+        }
+        
+        
+        
+        
+        
+        //back-Up base de datos
+        if(isset($_POST['back_up'])){
+            dumpMysql($conn);
+        }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    }else{
+    
+        echo "<br>";
+		echo '<div class="container">';
+		echo '<div class="alert alert-warning" role="alert">';
+		echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> 
+                Hubo al Intentar Conectarse a la Base de Datos.  '  .mysqli_error($conn);
+		echo "</div>";
+		echo "</div>";
+    
+    }
+    
+    
+    ?>
+
+
+<!-- Fin Espacio de Trabajo -->
+    
     </div>
   </div>
 </div>
 
 <footer class="container-fluid">
-  <p>Footer Text</p>
+  <p><img class="img-reponsive img-rounded" src="../../assets/img/storia-favicon.png" /> Storia - Heladería / Café</p>
 </footer>
 
 <?php modal_exit(); ?>
