@@ -3,6 +3,7 @@
       include "../lib_core/lib_core.php";
       include "../lib_usuarios/lib_usuarios.php";
       include "../lib_clientes/lib_clientes.php";
+      include "../lib_productos/lib_productos.php";
         
         $usuario = $_SESSION['user'];
         $password = $_SESSION['pass'];
@@ -182,6 +183,11 @@
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Altas de Clientes / Empleados / Repartidores">
 	  <button type="submit" class="btn btn-default btn-sm" name="clientes">
 	    <img class="img-reponsive img-rounded" src="../icons/actions/meeting-attending.png" /> Altas</button></a></li>
+	    
+	    <li class="list-group-item">
+	<a href="#" data-toggle="tooltip" data-placement="right" title="Listado de Productos">
+	  <button type="submit" class="btn btn-default btn-sm" name="productos">
+	    <img class="img-reponsive img-rounded" src="../icons/actions/feed-subscribe.png" /> Productos</button></a></li>
 	   
       <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Back up Base de Datos">
@@ -285,6 +291,46 @@
             $movil = mysqli_real_escape_string($conn,$_POST['movil']);
             $espacio = mysqli_real_escape_string($conn,$_POST['espacio']);
             updateCliente($id,$cliente,$email,$direccion,$localidad,$telefono,$movil,$espacio,$conn);
+        }
+        
+        // PRODUCTOS
+        // LISTAR PRODUCTOS
+        if(isset($_POST['productos'])){
+            productos($conn);
+        }
+        //formulario de alta de producto
+        if(isset($_POST['add_producto'])){
+            formAddProducto();
+        }
+        //persistencia de producto a base de datos
+        if(isset($_POST['addProducto'])){
+           $tipo = mysqli_real_escape_string($conn,$_POST['tipo']); 
+           $cod_producto = mysqli_real_escape_string($conn,$_POST['cod_producto']);
+           $descripcion = mysqli_real_escape_string($conn,$_POST['descripcion']);
+           $precio = mysqli_real_escape_string($conn,$_POST['precio']);
+           addProducto($tipo,$cod_producto,$descripcion,$precio,$conn);
+        }
+        //formulario de edición de producto
+        if(isset($_POST['edit_producto'])){
+           $id = mysqli_real_escape_string($conn,$_POST['id']);
+           formEditProducto($id,$conn);
+        }
+        //persistencia de actualización del producto
+        if(isset($_POST['editProducto'])){
+           $id = mysqli_real_escape_string($conn,$_POST['id']);
+           $descripcion = mysqli_real_escape_string($conn,$_POST['descripcion']);
+           $precio = mysqli_real_escape_string($conn,$_POST['precio']);
+           updateProducto($id,$descripcion,$precio,$conn);
+        }
+        //formulario de aviso eliminar un registro del sistema
+        if(isset($_POST['del_producto'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formEliminarProducto($id,$conn);
+        }
+        //persistencia de eliminacio de un registro producto de la base de datos
+        if(isset($_POST['delete_producto'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            deleteProducto($id,$conn);
         }
         
         
