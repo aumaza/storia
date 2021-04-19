@@ -4,6 +4,7 @@
       include "../lib_usuarios/lib_usuarios.php";
       include "../lib_clientes/lib_clientes.php";
       include "../lib_productos/lib_productos.php";
+      include "../lib_sabores/lib_sabores.php";
         
         $usuario = $_SESSION['user'];
         $password = $_SESSION['pass'];
@@ -123,6 +124,7 @@
 <!--   Colapse Group       -->
         
        <div class="panel-group" id="accordion">
+  
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -131,12 +133,28 @@
       </h4>
     </div>
     <div id="collapse1" class="panel-collapse collapse">
-      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.</div>
+      <div class="panel-body">
+      
+      <ul class="list-group">
+      <form action="#" method="POST">
+      
+      <li class="list-group-item">
+	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Heladería">
+	  <button type="submit" class="btn btn-default btn-sm" name="ventas_heladeria">
+	    <img class="img-reponsive img-rounded" src="../icons/actions/view-bank-account.png" /> Ventas Local</button></a></li>
+	    
+	    <li class="list-group-item">
+	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Heladería - Pedidos">
+	  <button type="submit" class="btn btn-default btn-sm" name="pedidos_heladeria">
+	    <img class="img-reponsive img-rounded" src="../icons/actions/view-pim-notes.png" /> Pedidos - Heladería</button></a></li>
+                  
+      </form>
+      </ul>
+      
+      </div>
     </div>
   </div>
+  
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -182,12 +200,17 @@
 	   <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Altas de Clientes / Empleados / Repartidores">
 	  <button type="submit" class="btn btn-default btn-sm" name="clientes">
-	    <img class="img-reponsive img-rounded" src="../icons/actions/meeting-attending.png" /> Altas</button></a></li>
+	    <img class="img-reponsive img-rounded" src="../icons/actions/user-group-new.png" /> Altas</button></a></li>
 	    
 	    <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Listado de Productos">
 	  <button type="submit" class="btn btn-default btn-sm" name="productos">
 	    <img class="img-reponsive img-rounded" src="../icons/actions/feed-subscribe.png" /> Productos</button></a></li>
+	    
+	    <li class="list-group-item">
+	<a href="#" data-toggle="tooltip" data-placement="right" title="Listado de Sabores">
+	  <button type="submit" class="btn btn-default btn-sm" name="sabores">
+	    <img class="img-reponsive img-rounded" src="../icons/actions/fill-color.png" /> Sabores</button></a></li>
 	   
       <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Back up Base de Datos">
@@ -199,13 +222,31 @@
       
       </div>
     </div>
+    </div>
+    
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+        <img class="img-reponsive img-rounded" src="../icons/actions/view-statistics.png" /> Estadísticas</a>
+      </h4>
+    </div>
+    <div id="collapse4" class="panel-collapse collapse">
+      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat.</div>
+    </div>
+  </div>
+ </div>
+ 
   </div>';
   }
   
   ?>
   
-</div> 
-</div>
+
+
 <!-- End Colapse Group -->
 
     <div class="col-sm-9"><hr>
@@ -224,8 +265,9 @@
             echo '<a href="#"></a>';
         }
     
-//     ESPACIO ADMINISTRACIÓN GENERAL
+        //ESPACIO ADMINISTRACIÓN GENERAL
         
+        //USUARIOS
         // usuarios - cambio de password
         if(isset($_POST['cambiar_password'])){
             loadUserPass($conn,$nombre);
@@ -256,6 +298,9 @@
            cambiarPermisos($id,$role,$conn);
         }
         
+        // =============================================================================================
+        
+        //CLIENTES
         //clientes - listado
         if(isset($_POST['clientes'])){
             clientes($conn);
@@ -292,6 +337,8 @@
             $espacio = mysqli_real_escape_string($conn,$_POST['espacio']);
             updateCliente($id,$cliente,$email,$direccion,$localidad,$telefono,$movil,$espacio,$conn);
         }
+        
+        // =============================================================================================
         
         // PRODUCTOS
         // LISTAR PRODUCTOS
@@ -334,8 +381,48 @@
         }
         
         
+        // =============================================================================================
+        
+        // SABORES
+        //listar sabores
+        if(isset($_POST['sabores'])){
+            sabores($conn);
+        }
+        //formulario de alta de sabor
+        if(isset($_POST['add_sabor'])){
+            formAddSabor();
+        }
+        //persistencia de registro sabor
+        if(isset($_POST['addSabor'])){
+            $cod_sabor = mysqli_real_escape_string($conn,$_POST['cod_sabor']);
+            $descripcion = mysqli_real_escape_string($conn,$_POST['descripcion']);
+            addSabor($cod_sabor,$descripcion,$conn);
+        }
+        //formularo de edición de sabor
+        if(isset($_POST['edit_sabor'])){
+           $id = mysqli_real_escape_string($conn,$_POST['id']);
+           formEditSabor($id,$conn);
+        }
+        //persistencia actualización edición sabor
+        if(isset($_POST['editSabor'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            $descripcion = mysqli_real_escape_string($conn,$_POST['descripcion']);
+            updateSabor($id,$descripcion,$conn);
+        }
+        //formulario de aviso de eliminación de registro
+        if(isset($_POST['del_sabor'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formEliminarSabor($id,$conn);
+        }
+        //persistencia - eliminar registro de base de datos
+        if(isset($_POST['delete_sabor'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            deleteSabor($id,$conn);
+        }
         
         
+        
+        // =============================================================================================
         
         //back-Up base de datos
         if(isset($_POST['back_up'])){

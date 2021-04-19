@@ -54,9 +54,17 @@ sabor_2 varchar(60),
 sabor_3 varchar(60),
 sabor_4 varchar(60),
 empleado varchar(90),
-tipo_venta enum('Local','Web') not null,
+lugar_venta enum('Local','Web') not null,
+tipo_pago enum('MP','Efectivo') not null,
 fecha_venta date not null,
 hora_venta time not null,
-cliente_nombre varchar(90) not null,
+cliente_nombre varchar(90),
 importe float(8,2) not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#tabla sabores
+create table st_sabores (
+id int(11) auto_increment primary key,
+cod_sabor varchar(6) not null,
+descripcion varchar(90) not null
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
