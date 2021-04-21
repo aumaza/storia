@@ -5,6 +5,7 @@
       include "../lib_clientes/lib_clientes.php";
       include "../lib_productos/lib_productos.php";
       include "../lib_sabores/lib_sabores.php";
+      include "../lib_heladeria/lib_heladeria.php";
         
         $usuario = $_SESSION['user'];
         $password = $_SESSION['pass'];
@@ -111,12 +112,12 @@
 
 <div class="container-fluid">
   <div class="row content">
-    <div class="col-sm-3 sidenav"><hr>
+    <div class="col-sm-2 sidenav"><hr>
     <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#exit">
+    <button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#exit" data-toggle="tooltip" data-placement="right" title="Desconectarse del Sistema">
         <img class="img-reponsive img-rounded" src="../icons/actions/system-shutdown.png" /> Salir</button><br>
         <form action="#" method="POST">
-            <button type="submit" class="btn btn-default btn-sm" name="home">
+            <button type="submit" class="btn btn-default btn-sm" name="home" data-toggle="tooltip" data-placement="right" title="Limpiar Espacio de Trabajo">
             <img class="img-reponsive img-rounded" src="../icons/actions/go-home.png" /> Home</button>
         </form>
         <hr>
@@ -128,7 +129,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" data-toggle="tooltip" data-placement="right" title="Espacio Administración de Heladería">
             <img class="img-reponsive img-rounded" src="../../assets/img/ice_crem-32x32.png" /> Módulo Heladería</a>
       </h4>
     </div>
@@ -158,7 +159,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" data-toggle="tooltip" data-placement="right" title="Espacio Administración de Cafetería">
         <img class="img-reponsive img-rounded" src="../../assets/img/coffee-32x32.png" /> Módulo Cafetería</a>
       </h4>
     </div>
@@ -177,7 +178,7 @@
   echo '<div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" data-toggle="tooltip" data-placement="right" title="Espacio sólo Permitido para el Administrador">
         <img class="img-reponsive img-rounded" src="../icons/categories/preferences-desktop.png" /> Administración General</a>
       </h4>
     </div>
@@ -227,7 +228,7 @@
     <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4" data-toggle="tooltip" data-placement="right" title="Espacio Análisis de Datos y Estadísticas">
         <img class="img-reponsive img-rounded" src="../icons/actions/view-statistics.png" /> Estadísticas</a>
       </h4>
     </div>
@@ -249,7 +250,7 @@
 
 <!-- End Colapse Group -->
 
-    <div class="col-sm-9"><hr>
+    <div class="col-sm-10"><hr>
       <div class="alert alert-info">
         <img class="img-reponsive img-rounded" src="../icons/actions/dashboard-show.png" /> <strong>Espacio de Trabajo</strong> - <strong> Bienvenido <?php echo $nombre ?></strong>
       </div>
@@ -418,6 +419,60 @@
         if(isset($_POST['delete_sabor'])){
             $id = mysqli_real_escape_string($conn,$_POST['id']);
             deleteSabor($id,$conn);
+        }
+        
+        
+        // =============================================================================================
+        //HELADERIA
+        //listar ventas
+        if(isset($_POST['ventas_heladeria'])){
+            ventasHeladeria($conn);
+        }
+        //formulario de nueva ventas
+        if(isset($_POST['add_venta'])){
+            formAddVenta($conn);
+        }
+        //persistencia nueva ventas
+        if(isset($_POST['addVenta'])){
+            $producto = mysqli_real_escape_string($conn,$_POST['producto']);
+            $sabor_1 = mysqli_real_escape_string($conn,$_POST['sabor_1']);
+            $sabor_2 = mysqli_real_escape_string($conn,$_POST['sabor_2']);
+            $sabor_3 = mysqli_real_escape_string($conn,$_POST['sabor_3']);
+            $sabor_4 = mysqli_real_escape_string($conn,$_POST['sabor_4']);
+            $empleado = mysqli_real_escape_string($conn,$_POST['empleado']);
+            $lugar_venta = mysqli_real_escape_string($conn,$_POST['lugar_venta']);
+            $modo_pago = mysqli_real_escape_string($conn,$_POST['modo_pago']);
+            $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
+            addVentaHeladeria($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$empleado,$lugar_venta,$modo_pago,$cliente,$conn);
+        }
+        //formulario de edicion de venta
+        if(isset($_POST['edit_venta'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formEditVenta($id,$conn);
+        }
+        //persistencia de actualizacion de un registro de ventas 
+        if(isset($_POST['editVenta'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            $producto = mysqli_real_escape_string($conn,$_POST['producto']);
+            $sabor_1 = mysqli_real_escape_string($conn,$_POST['sabor_1']);
+            $sabor_2 = mysqli_real_escape_string($conn,$_POST['sabor_2']);
+            $sabor_3 = mysqli_real_escape_string($conn,$_POST['sabor_3']);
+            $sabor_4 = mysqli_real_escape_string($conn,$_POST['sabor_4']);
+            $empleado = mysqli_real_escape_string($conn,$_POST['empleado']);
+            $lugar_venta = mysqli_real_escape_string($conn,$_POST['lugar_venta']);
+            $modo_pago = mysqli_real_escape_string($conn,$_POST['modo_pago']);
+            $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
+            updateVentaHeladeria($id,$producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$empleado,$lugar_venta,$modo_pago,$cliente,$conn);
+        }
+        //eliminar registro de venta
+        if(isset($_POST['del_venta'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formEliminarVenta($id,$conn);
+        }
+        //persistencia - eliminar registro de ventas
+        if(isset($_POST['delete_venta'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            deleteVenta($id,$conn);
         }
         
         
