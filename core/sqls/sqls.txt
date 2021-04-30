@@ -68,3 +68,25 @@ id int(11) auto_increment primary key,
 cod_sabor varchar(6) not null,
 descripcion varchar(90) not null
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+#tabla mesas
+create table st_mesas (
+id int(11) auto_increment primary key,
+mesa_numero int(11) not null,
+estado enum('Abierta','Cerrada') not null,
+fecha date not null,
+empleado varchar(60) not null,
+hora_apertura time not null,
+hora_cierre time not null,
+total float(8,2)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#tabla items por mesa
+create table st_items_mesa (
+id int(11) auto_increment primary key,
+id_mesa_numero int(11) not null,
+item varchar(40) not null,
+importe float(8,2) not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

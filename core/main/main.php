@@ -6,7 +6,8 @@
       include "../lib_productos/lib_productos.php";
       include "../lib_sabores/lib_sabores.php";
       include "../lib_heladeria/lib_heladeria.php";
-        
+      include "../lib_cafeteria/lib_cafeteria.php";
+              
         $usuario = $_SESSION['user'];
         $password = $_SESSION['pass'];
       
@@ -18,7 +19,7 @@
 	      $nombre = $row['nombre'];
 	}
 	
-	if($usuario == null || $usuario = ''){
+    if($usuario == null || $usuario = ''){
  
     echo '<!DOCTYPE html>
             <html lang="es">
@@ -38,6 +39,8 @@
             echo '</body></html>';
 	}
 
+	
+	
 ?>
 
 <!DOCTYPE html>
@@ -80,6 +83,7 @@
   });
   </script>
   <!-- END Data Table Script -->
+  
  
  <style>
     /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
@@ -142,7 +146,7 @@
       <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Heladería">
 	  <button type="submit" class="btn btn-default btn-sm" name="ventas_heladeria">
-	    <img class="img-reponsive img-rounded" src="../icons/actions/view-bank-account.png" /> Ventas Local</button></a></li>
+	    <img class="img-reponsive img-rounded" src="../icons/actions/view-bank-account.png" /> Ventas en Local</button></a></li>
 	    
 	    <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Heladería - Pedidos">
@@ -164,10 +168,30 @@
       </h4>
     </div>
     <div id="collapse2" class="panel-collapse collapse">
-      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.</div>
+      <div class="panel-body">
+      
+      <ul class="list-group">
+      <form action="#" method="POST">
+      
+      <li class="list-group-item">
+	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Cafetería">
+	  <button type="submit" class="btn btn-default btn-sm" name="ventas_cafeteria">
+	    <img class="img-reponsive img-rounded" src="../icons/actions/view-bank-account.png" /> Total Ventas</button></a></li>
+	    
+	    <li class="list-group-item">
+	<a href="#" data-toggle="tooltip" data-placement="right" title="Apertura y Cierre de Mesas">
+	  <button type="submit" class="btn btn-default btn-sm" name="mesas_cafeteria">
+	    <img class="img-reponsive img-rounded" src="../icons/actions/story-editor.png" /> Mesas</button></a></li>
+	    
+	    <li class="list-group-item">
+	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Cafetería - Pedidos">
+	  <button type="submit" class="btn btn-default btn-sm" name="pedidos_cafeteria">
+	    <img class="img-reponsive img-rounded" src="../icons/actions/view-pim-notes.png" /> Pedidos - Cafetería</button></a></li>
+                  
+      </form>
+      </ul>
+      
+      </div>
     </div>
   </div>
   
@@ -478,6 +502,53 @@
         
         
         // =============================================================================================
+        //CAFETERIA
+        //listar ventas
+        if(isset($_POST['ventas_cafeteria'])){
+            ventasCafeteria($conn);
+        }
+        //vista de todas las mesas
+        if(isset($_POST['mesas_cafeteria'])){
+            mesas($conn);
+        }
+        //formulario de apertura de mesa
+        if(isset($_POST['open_mesa'])){
+            $mesa = mysqli_real_escape_string($conn,$_POST['mesa_number']);
+            openTable($mesa,$nombre,$conn);
+        }
+        //persistencia apertura de mesa
+        if(isset($_POST['abrir_mesa'])){
+            $mesa = mysqli_real_escape_string($conn,$_POST['mesa_number']);
+            $fecha = mysqli_real_escape_string($conn,$_POST['fecha']);
+            $hora = mysqli_real_escape_string($conn,$_POST['hora']);
+            $empleado = mysqli_real_escape_string($conn,$_POST['empleado']);
+            aperturaMesa($mesa,$fecha,$hora,$empleado,$conn);
+        }
+        //formulario para agregar items a la mesa
+        if(isset($_POST['add_producto_mesa'])){
+            $mesa = mysqli_real_escape_string($conn,$_POST['mesa_number']);
+            formAddItems($mesa,$conn);
+        }
+        //detalle de pedidos en mesa
+        if(isset($_POST['details_mesa'])){
+            $mesa = mysqli_real_escape_string($conn,$_POST['mesa_number']);
+            detallesMesa($mesa,$conn);
+        }
+        //formulario de cierre de mesa
+        if(isset($_POST['cerrar_mesa'])){
+            $mesa = mysqli_real_escape_string($conn,$_POST['mesa_numero']);
+            $id_mesa = mysqli_real_escape_string($conn,$_POST['id_mesa']);
+            formCloseMesa($id_mesa,$mesa,$conn);
+        }
+        //persistencia cierre de mesa
+        if(isset($_POST['close_mesa'])){
+            $id_mesa = mysqli_real_escape_string($conn,$_POST['id_mesa']);
+            $total = mysqli_real_escape_string($conn,$_POST['total']);
+            closeMesa($id_mesa,$total,$conn);
+        }
+        
+        
+        // =============================================================================================
         
         //back-Up base de datos
         if(isset($_POST['back_up'])){
@@ -522,5 +593,29 @@
 
 <?php modal_exit(); ?>
 
+       
+
 </body>
 </html>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#insertar_item').click(function(){
+        var datos=$('#frmajax').serialize();
+        $.ajax({
+            type:"POST",
+            url:"../lib_cafeteria/insert_items.php",
+            data:datos,
+            success:function(r){
+                if(r==1){
+                    alert("Item Agregado Exitosamente");
+                    }else{
+                    alert("Hubo un problema al intentar Guardar el Item");
+                }
+            }
+        });
+
+        return false;
+    });
+});
+</script>
