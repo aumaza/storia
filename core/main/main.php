@@ -182,12 +182,8 @@
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Apertura y Cierre de Mesas">
 	  <button type="submit" class="btn btn-default btn-sm" name="mesas_cafeteria">
 	    <img class="img-reponsive img-rounded" src="../icons/actions/story-editor.png" /> Mesas</button></a></li>
-	    
-	    <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Cafetería - Pedidos">
-	  <button type="submit" class="btn btn-default btn-sm" name="pedidos_cafeteria">
-	    <img class="img-reponsive img-rounded" src="../icons/actions/view-pim-notes.png" /> Pedidos - Cafetería</button></a></li>
-                  
+	   
+	       
       </form>
       </ul>
       
@@ -545,6 +541,12 @@
             $id_mesa = mysqli_real_escape_string($conn,$_POST['id_mesa']);
             $total = mysqli_real_escape_string($conn,$_POST['total']);
             closeMesa($id_mesa,$total,$conn);
+        }
+        //impresion de ticket al cerrar la mesa
+        if(isset($_POST['print_ticket'])){
+            $id_mesa = mysqli_real_escape_string($conn,$_POST['id']);
+            ticket($id_mesa,$conn);
+            //echo '<a href="../lib_cafeteria/print.php?id_mesa='.$id_mesa.'"></a>';
         }
         
         

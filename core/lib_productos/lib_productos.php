@@ -51,7 +51,7 @@ if($conn)
 			<button type="submit" class="btn btn-default btn-sm" name="add_producto">
 			  <img src="../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Producto</button>
 		      </form><br>';
-		echo '<button type="button" class="btn btn-primary">Cantidad de Clientes:  '.$count.' </button>';
+		echo '<button type="button" class="btn btn-primary">Cantidad de Productos:  '.$count.' </button>';
 		echo '</div>';
 		}else{
 		  echo 'Connection Failure...' .mysqli_error($conn);

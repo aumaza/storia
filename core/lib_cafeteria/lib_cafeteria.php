@@ -12,7 +12,7 @@ function ventasCafeteria($conn){
 
 if($conn)
 {
-	$sql = "SELECT * FROM st_ventas where espacio = 'cafeteria'";
+	$sql = "SELECT * FROM st_mesas where estado = 'Cerrada'";
     	mysqli_select_db($conn,'storia');
     	$resultado = mysqli_query($conn,$sql);
 	//mostramos fila x fila
@@ -24,15 +24,13 @@ if($conn)
             echo "<table class='display compact' style='width:100%' id='myTable'>";
               echo "<thead>
 		    <th class='text-nowrap text-center'>ID</th>
-		    <th class='text-nowrap text-center'>Código Producto</th>
-            <th class='text-nowrap text-center'>Producto</th>
+		    <th class='text-nowrap text-center'>Mesa Número</th>
+            <th class='text-nowrap text-center'>Estado</th>
+            <th class='text-nowrap text-center'>Fecha</th>
             <th class='text-nowrap text-center'>Empleado</th>
-            <th class='text-nowrap text-center'>Canal Venta</th>
-            <th class='text-nowrap text-center'>Modo Pago</th>
-            <th class='text-nowrap text-center'>Fecha Venta</th>
-            <th class='text-nowrap text-center'>Hora Venta</th>
-            <th class='text-nowrap text-center'>Mesa</th>
-            <th class='text-nowrap text-center'>Importe</th>
+            <th class='text-nowrap text-center'>Hora Apertura</th>
+            <th class='text-nowrap text-center'>Hora Cierre</th>
+            <th class='text-nowrap text-center'>Total</th>
             <th>&nbsp;</th>
             </thead>";
 
@@ -41,21 +39,17 @@ if($conn)
 			  // Listado normal
 			 echo "<tr>";
 			 echo "<td align=center>".$fila['id']."</td>";
-			 echo "<td align=center>".$fila['cod_producto']."</td>";
-			 echo "<td align=center>".$fila['descripcion']."</a></td>";
+			 echo "<td align=center>".$fila['mesa_numero']."</td>";
+			 echo "<td align=center>".$fila['estado']."</td>";
+			 echo "<td align=center>".$fila['fecha']."</a></td>";
 			 echo "<td align=center>".$fila['empleado']."</a></td>";
-			 echo "<td align=center>".$fila['lugar_venta']."</a></td>";
-			 echo "<td align=center>".$fila['tipo_pago']."</a></td>";
-			 echo "<td align=center>".$fila['fecha_venta']."</a></td>";
-			 echo "<td align=center>".$fila['hora_venta']."</a></td>";
-			 echo "<td align=center>".$fila['mesa']."</a></td>";
-			 echo "<td align=center>$".$fila['importe']."</a></td>";
+			 echo "<td align=center>".$fila['hora_apertura']."</a></td>";
+			 echo "<td align=center>".$fila['hora_cierre']."</a></td>";
+			 echo "<td align=center>$".$fila['total']."</a></td>";
 			 echo "<td class='text-nowrap'>";
 			 echo '<form <action="#" method="POST">
                     <input type="hidden" name="id" value="'.$fila['id'].'">';
-                   echo '<button type="submit" class="btn btn-primary btn-sm" name="edit_venta_cafe"><img src="../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
-                   echo '<button type="submit" class="btn btn-danger btn-sm" name="del_venta_cafe"><img src="../icons/actions/trash-empty.png"  class="img-reponsive img-rounded"> Eliminar</button>';
-                   echo '<button type="submit" class="btn btn-success btn-sm" name="ticket_venta"><img src="../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Ticket</button>';
+                   echo '<button type="submit" class="btn btn-success btn-sm" name="print_ticket"><img src="../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Ticket</button>';
                    echo '</form>';
 			 echo "</td>";
 			 $count++;
@@ -64,8 +58,8 @@ if($conn)
 		echo "</table>";
 		echo "<br>";
 		echo '<form <action="#" method="POST">
-			<button type="submit" class="btn btn-default btn-sm" name="add_venta_cafe">
-			  <img src="../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Nueva Venta</button>
+			<button type="submit" class="btn btn-default btn-sm" name="ventas_fechas">
+			  <img src="../icons/actions/view-calendar-day.png"  class="img-reponsive img-rounded"> Ventas por Fechas</button>
 		      </form><br>';
 		echo '<button type="button" class="btn btn-primary">Cantidad de Ventas:  '.$count.' </button>';
 		echo '</div>';
@@ -597,6 +591,72 @@ function formCloseMesa($id_mesa,$mesa,$conn){
             </div>';
 
 
+
+
+
+}
+
+/*
+** formulario de ticket para cierre de mesa
+*/
+function ticket($id_mesa,$conn){
+
+    echo '<div class="col-sm-4"> 
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <img src="../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Ticket
+                </div><br>';
+               
+        if($conn){
+        
+             
+        $consulta_1 = "select sum(importe) as total from st_items_mesa where id_mesa_numero = '$id_mesa'";
+        $resval = mysqli_query($conn,$consulta_1);
+        while($rows = mysqli_fetch_array($resval)){
+            $total = $rows['total'];
+        }
+        
+        $sql = "SELECT * FROM st_items_mesa where id_mesa_numero = '$id_mesa'";
+    	mysqli_select_db($conn,'storia');
+    	$resultado = mysqli_query($conn,$sql);
+	//mostramos fila x fila
+	$count = 0;
+	
+            echo "<table class='table table-condensed' style='width:100%'>";
+            echo "<thead>
+		    <th class='text-nowrap text-center'>Item</th>
+            <th class='text-nowrap text-center'>Importe</th>
+            <th>&nbsp;</th>
+            </thead>";
+
+
+	while($fila = mysqli_fetch_array($resultado)){
+			  // Listado normal
+			 echo "<tr>";
+			 echo "<td align=center>".$fila['item']."</a></td>";
+			 echo "<td align=center>$".$fila['importe']."</a></td>";
+			 echo "<td class='text-nowrap'>";
+			 echo "</td>";
+			 $count++;
+		}
+
+		echo "</table>";
+		echo "<br>";
+		
+		}else{
+		  echo 'Connection Failure...' .mysqli_error($conn);
+		}
+
+    mysqli_close($conn);
+        
+        
+        echo '</div>
+                <div class="panel-footer">
+                    <p><strong>Total</strong>: $'.$total.'</p>
+                    <a href="../lib_cafeteria/print.php?file=print_ticket.php&id_mesa='.$id_mesa.'" target="_blank"><button type="button" class="btn btn-info btn-block">
+                        <img src="../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir</button></a>
+                </div>
+                </div>';
 
 
 
