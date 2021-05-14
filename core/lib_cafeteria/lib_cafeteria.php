@@ -18,12 +18,12 @@ if($conn)
 	//mostramos fila x fila
 	$count = 0;
 	echo '<div class="panel panel-success" >
-	      <div class="panel-heading"><span class="pull-center "><img src="../icons/apps/java.png"  class="img-reponsive img-rounded"> Administración de Ventas en Cafetería';
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/apps/java.png"  class="img-reponsive img-rounded"> Administración de Ventas en Cafetería';
 	echo '</div><br>';
 
             echo "<table class='display compact' style='width:100%' id='myTable'>";
               echo "<thead>
-		    <th class='text-nowrap text-center'>ID</th>
+		    <th class='text-nowrap text-center' hidden>ID</th>
 		    <th class='text-nowrap text-center'>Mesa Número</th>
             <th class='text-nowrap text-center'>Estado</th>
             <th class='text-nowrap text-center'>Fecha</th>
@@ -38,7 +38,7 @@ if($conn)
 	while($fila = mysqli_fetch_array($resultado)){
 			  // Listado normal
 			 echo "<tr>";
-			 echo "<td align=center>".$fila['id']."</td>";
+			 echo "<td align=center hidden>".$fila['id']."</td>";
 			 echo "<td align=center>".$fila['mesa_numero']."</td>";
 			 echo "<td align=center>".$fila['estado']."</td>";
 			 echo "<td align=center>".$fila['fecha']."</a></td>";
@@ -49,7 +49,10 @@ if($conn)
 			 echo "<td class='text-nowrap'>";
 			 echo '<form <action="#" method="POST">
                     <input type="hidden" name="id" value="'.$fila['id'].'">';
-                   echo '<button type="submit" class="btn btn-success btn-sm" name="print_ticket"><img src="../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Ticket</button>';
+                    if($fila['estado'] == 'Cerrada'){
+                   echo '<button type="submit" class="btn btn-success btn-sm" name="print_ticket">
+                            <img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Ticket</button>';
+                   }
                    echo '</form>';
 			 echo "</td>";
 			 $count++;
@@ -58,10 +61,10 @@ if($conn)
 		echo "</table>";
 		echo "<br>";
 		echo '<form <action="#" method="POST">
-			<button type="submit" class="btn btn-default btn-sm" name="ventas_fechas">
-			  <img src="../icons/actions/view-calendar-day.png"  class="img-reponsive img-rounded"> Ventas por Fechas</button>
+			<button type="submit" class="btn btn-default btn-sm" name="filtro_cafeteria">
+			  <img src="../../icons/actions/view-calendar-day.png"  class="img-reponsive img-rounded"> Filtros Mesas Cerradas</button>
 		      </form><br>';
-		echo '<button type="button" class="btn btn-primary">Cantidad de Ventas:  '.$count.' </button>';
+		echo '<button type="button" class="btn btn-primary">Cantidad de Cajas Cerradas:  '.$count.' </button>';
 		echo '</div>';
 		}else{
 		  echo 'Connection Failure...' .mysqli_error($conn);
@@ -116,7 +119,7 @@ function mesas($conn){
     $row_6 = mysqli_fetch_assoc($resp_6);
     
     echo '<div class="alert alert-success">
-            <img src="../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Mesas</strong>: Estado de todas las Mesas
+            <img src="../../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Mesas</strong>: Estado de todas las Mesas
             </div><hr>    
     
     <div class="container">    
@@ -124,7 +127,7 @@ function mesas($conn){
     <div class="col-sm-4">
       <div class="panel panel-success">
         <div class="panel-heading">
-            <img src="../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Mesa 1</strong>
+            <img src="../../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Mesa 1</strong>
         </div>
         <div class="panel-body">
         <p><strong>Fecha</strong>: '.$row['fecha'].'</p>
@@ -135,16 +138,16 @@ function mesas($conn){
         <input type="hidden" name="mesa_number" value="1">
             
             <button type="submit" class="btn btn-info btn-block" name="details_mesa" data-toggle="tooltip" data-placement="right" title="Detalles de Pedidos de la Mesa">
-			  <img src="../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
        
         </div>
         <div class="panel-footer">
         
                     
             <button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
-			  <img src="../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
             <button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
-			  <img src="../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
+			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
 			  
         </form>
         </div>
@@ -154,7 +157,7 @@ function mesas($conn){
     <div class="col-sm-4"> 
       <div class="panel panel-info">
         <div class="panel-heading">
-            <img src="../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Mesa 2</strong>
+            <img src="../../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Mesa 2</strong>
         </div>
         <div class="panel-body">
         <p><strong>Fecha</strong>: '.$row_2['fecha'].'</p>
@@ -165,16 +168,16 @@ function mesas($conn){
         <input type="hidden" name="mesa_number" value="2">
             
             <button type="submit" class="btn btn-info btn-block" name="details_mesa" data-toggle="tooltip" data-placement="right" title="Detalles de Pedidos de la Mesa">
-			  <img src="../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
        
         </div>
         <div class="panel-footer">
         
                     
             <button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
-			  <img src="../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
             <button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
-			  <img src="../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
+			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
 			  
         </form>
         </div>
@@ -184,7 +187,7 @@ function mesas($conn){
     <div class="col-sm-4"> 
       <div class="panel panel-warning">
         <div class="panel-heading">
-            <img src="../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Mesa 3</strong>
+            <img src="../../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Mesa 3</strong>
         </div>
         <div class="panel-body">
         <p><strong>Fecha</strong>: '.$row_3['fecha'].'</p>
@@ -195,16 +198,16 @@ function mesas($conn){
         <input type="hidden" name="mesa_number" value="3">
             
             <button type="submit" class="btn btn-info btn-block" name="details_mesa" data-toggle="tooltip" data-placement="right" title="Detalles de Pedidos de la Mesa">
-			  <img src="../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
        
         </div>
         <div class="panel-footer">
         
                     
             <button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
-			  <img src="../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
             <button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
-			  <img src="../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
+			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
 			 
         </form>
         </div>
@@ -219,7 +222,7 @@ function mesas($conn){
     <div class="col-sm-4">
      <div class="panel panel-success">
         <div class="panel-heading">
-            <img src="../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Mesa 4</strong>
+            <img src="../../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Mesa 4</strong>
         </div>
         <div class="panel-body">
         <p><strong>Fecha</strong>: '.$row_4['fecha'].'</p>
@@ -230,16 +233,16 @@ function mesas($conn){
         <input type="hidden" name="mesa_number" value="4">
             
             <button type="submit" class="btn btn-info btn-block" name="details_mesa" data-toggle="tooltip" data-placement="right" title="Detalles de Pedidos de la Mesa">
-			  <img src="../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
        
         </div>
         <div class="panel-footer">
         
                     
             <button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
-			  <img src="../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
             <button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
-			  <img src="../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
+			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
 			  
         </form>
         </div>
@@ -249,7 +252,7 @@ function mesas($conn){
     <div class="col-sm-4"> 
       <div class="panel panel-info">
         <div class="panel-heading">
-            <img src="../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Mesa 5</strong>
+            <img src="../../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Mesa 5</strong>
         </div>
         <div class="panel-body">
         <p><strong>Fecha</strong>: '.$row_5['fecha'].'</p>
@@ -260,16 +263,16 @@ function mesas($conn){
         <input type="hidden" name="mesa_number" value="5">
             
             <button type="submit" class="btn btn-info btn-block" name="details_mesa" data-toggle="tooltip" data-placement="right" title="Detalles de Pedidos de la Mesa">
-			  <img src="../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
        
         </div>
         <div class="panel-footer">
         
                     
             <button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
-			  <img src="../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
             <button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
-			  <img src="../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
+			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
 			 
         </form>
         </div>
@@ -279,7 +282,7 @@ function mesas($conn){
     <div class="col-sm-4"> 
       <div class="panel panel-warning">
         <div class="panel-heading">
-            <img src="../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Mesa 6</strong>
+            <img src="../../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Mesa 6</strong>
         </div>
         <div class="panel-body">
         <p><strong>Fecha</strong>: '.$row_6['fecha'].'</p>
@@ -290,16 +293,16 @@ function mesas($conn){
         <input type="hidden" name="mesa_number" value="6">
             
             <button type="submit" class="btn btn-info btn-block" name="details_mesa" data-toggle="tooltip" data-placement="right" title="Detalles de Pedidos de la Mesa">
-			  <img src="../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
        
         </div>
         <div class="panel-footer">
         
                     
             <button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
-			  <img src="../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
             <button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
-			  <img src="../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
+			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
 			  
         </form>
         </div>
@@ -317,12 +320,6 @@ function mesas($conn){
 */
 function detallesMesa($mesa,$conn){
     
-        
-    echo '<div class="col-sm-10"> 
-      <div class="panel panel-info">
-        <div class="panel-heading">
-            <img src="../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Detalles Mesa: </strong> '.$mesa.'
-        </div><br>';
                
         if($conn){
         
@@ -339,11 +336,18 @@ function detallesMesa($mesa,$conn){
             $total = $rows['total'];
         }
         
+        
         $sql = "SELECT * FROM st_items_mesa where id_mesa_numero = '$id'";
     	mysqli_select_db($conn,'storia');
     	$resultado = mysqli_query($conn,$sql);
 	//mostramos fila x fila
 	$count = 0;
+	
+            echo '<div class="col-sm-10"> 
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <img src="../../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Detalles Mesa: </strong> '.$mesa.'<br>' .$row_number.'
+                        </div><br>';
 	
             echo "<table class='table table-condensed' style='width:100%' id='myTable'>";
             echo "<thead>
@@ -372,12 +376,10 @@ function detallesMesa($mesa,$conn){
                 <input type="hidden" name="id_mesa" value="'.$id.'">
                 
 			<button type="submit" class="btn btn-default btn-sm" name="cerrar_mesa" data-toggle="tooltip" data-placement="right" title="Cálculo del total consumido y Cierre de Mesa">
-			  <img src="../icons/actions/help-donate.png"  class="img-reponsive img-rounded"> Cerrar Mesa</button>
+			  <img src="../../icons/actions/help-donate.png"  class="img-reponsive img-rounded"> Cerrar Mesa</button>
 		      </form><br>';
 		echo '<button type="button" class="btn btn-primary">Cantidad de Items:  '.$count.' </button>';
-		}else{
-		  echo 'Connection Failure...' .mysqli_error($conn);
-		}
+		
 
     mysqli_close($conn);
         
@@ -385,9 +387,12 @@ function detallesMesa($mesa,$conn){
         echo '</div>
                 <div class="panel-footer">
                     <p><strong>Total parcial</strong>: $'.$total.'</p>
-                    </div>
-                </div>
                 </div>';
+        echo '</div></div>';
+                
+        }else{
+		  echo 'Connection Failure...' .mysqli_error($conn);
+		}
 
 }
 
@@ -409,13 +414,13 @@ function openTable($mesa,$nombre,$conn){
             
             <div class="panel panel-success">
 	      <div class="panel-heading">
-		<img class="img-reponsive img-rounded" src="../icons/status/dialog-information.png" /> Apertura de Mesa</div>
+		<img class="img-reponsive img-rounded" src="../../icons/status/dialog-information.png" /> Apertura de Mesa</div>
             <div class="panel-body">
             
             <form action="main.php" method="POST">
 	                  
             <div class="alert alert-success">
-                <img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> <strong>Atención!</strong>
+                <img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> <strong>Atención!</strong>
             </div>
             
 		    <div class="form-group">
@@ -479,7 +484,7 @@ function formAddItems($mesa,$conn){
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Primero debe realizar la apertura de la Mesa';
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Primero debe realizar la apertura de la Mesa';
 			    echo "</div>";
 			    echo "</div>";
     
@@ -492,7 +497,7 @@ function formAddItems($mesa,$conn){
             
             <div class="panel panel-success">
             <div class="panel-heading">
-                <img class="img-reponsive img-rounded" src="../icons/actions/list-add.png" /> Agregar Items a la Mesa</div>
+                <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Agregar Items a la Mesa</div>
             <div class="panel-body">
             
             <form id="frmajax" method="POST">
@@ -565,7 +570,7 @@ function formCloseMesa($id_mesa,$mesa,$conn){
             
             <div class="panel panel-info">
 	      <div class="panel-heading">
-		<img class="img-reponsive img-rounded" src="../icons/actions/view-loan.png" /> Cálculo Final - Cierre de la Mesa: '.$mesa.'</div>
+		<img class="img-reponsive img-rounded" src="../../icons/actions/view-loan.png" /> Cálculo Final - Cierre de la Mesa: '.$mesa.'</div>
             <div class="panel-body">
             
             <form action="main.php" method="POST">
@@ -573,7 +578,7 @@ function formCloseMesa($id_mesa,$mesa,$conn){
 	      <input type="hidden" class="form-control" name="total" value="'.$importe.'">
             
                 <div class="alert alert-danger">
-		    <img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> <strong>Atención!</strong><hr>
+		    <img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> <strong>Atención!</strong><hr>
 		    <p>Está por cerrar la mesa: <strong>'.$mesa.'</strong></p>
 		    <p>Importe Final: $<strong>'.$importe.'</strong></p><hr>
 		    <p>Si está seguro, presione Aceptar, de lo contrario presione Cancelar.</p>
@@ -604,7 +609,7 @@ function ticket($id_mesa,$conn){
     echo '<div class="col-sm-4"> 
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <img src="../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Ticket
+                    <img src="../../icons/apps/preferences-web-browser-cookies.png"  class="img-reponsive img-rounded"> <strong>Ticket
                 </div><br>';
                
         if($conn){
@@ -653,15 +658,134 @@ function ticket($id_mesa,$conn){
         echo '</div>
                 <div class="panel-footer">
                     <p><strong>Total</strong>: $'.$total.'</p>
-                    <a href="../lib_cafeteria/print.php?file=print_ticket.php&id_mesa='.$id_mesa.'" target="_blank"><button type="button" class="btn btn-info btn-block">
-                        <img src="../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir</button></a>
+                    <a href="../../lib_cafeteria/print.php?file=print_ticket.php&id_mesa='.$id_mesa.'" target="_blank"><button type="button" class="btn btn-info btn-block">
+                        <img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir</button></a>
                 </div>
                 </div>';
+
+}
+
+
+/*
+** calculo de vendido en cafeteria 
+*/
+function filtrosCafeteria(){
+
+        echo '<div class="container">
+		    <div class="row">
+		      <div class="col-sm-8">
+            
+            <div class="panel panel-success">
+            <div class="panel-heading">
+                <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Calcular Recaudado en Cafetería</div>
+            <div class="panel-body">
+            
+            <form action="#" method="POST">
+                        
+		     <div class="form-group">
+                <label for="sel1">Mesa Número:</label>
+                <select class="form-control" name="mesa_numero">
+                    <option value="" disabled selected>Seleccionar</option>
+                    <option value="1">Mesa 1</option>
+                    <option value="2">Mesa 2</option>
+                    <option value="3">Mesa 3</option>
+                    <option value="4">Mesa 4</option>
+                    <option value="5">Mesa 5</option>
+                    <option value="6">Mesa 6</option>
+                    <option value="Todas">Todas</option>
+                </select>
+                </div><hr>
+		     
+		                
+		    <div class="form-group">
+              <label>Fecha Desde:</label>
+		     <input type="date" class="form-control" name="fecha_desde" required>
+		     </div><hr>
+		     
+		     <div class="form-group">
+              <label>Fecha Hasta:</label>
+		     <input type="date" class="form-control" name="fecha_hasta" required>
+		     </div><hr>
+		    
+		      
+		    <p>Seleccione la Mesa deseada y el período entre fechas por el cual desea calcular ventas</p>
+		    </div><hr>
+            
+            <button class="btn btn-success btn-block" name="calculo_cafeteria">
+                <img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok.png" /> Calcular</button><br>
+            
+            </form>
+            </div>
+            </div>
+            
+            </div>
+            </div>
+            </div>';
+
+}
+ 
+/*
+** funcion que devuelve el calculo de totales de cafeteria
+*/
+function totalCafeteria($mesa_numero,$fecha_desde,$fecha_hasta,$conn){
+
+    if($conn)
+{
+		
+	if($mesa_numero == 'Todas'){
+	
+       $sql = "SELECT sum(total) as total FROM st_mesas where estado = 'Cerrada' and fecha between '$fecha_desde' and '$fecha_hasta'";
+	
+	}else{
+	
+        $sql = "SELECT sum(total) as total, mesa_numero FROM st_mesas where estado = 'Cerrada' and mesa_numero = '$mesa_numero' and fecha between '$fecha_desde' and '$fecha_hasta'";
+        
+	}
+	
+    	mysqli_select_db($conn,'storia');
+    	$resultado = mysqli_query($conn,$sql);
+	//mostramos fila x fila
+	$count = 0;
+	echo '<div class="panel panel-success" >
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/apps/java.png"  class="img-reponsive img-rounded"> Total de Ventas entre '.$fecha_desde.' y '.$fecha_hasta.' para la/s Mesa/s: '.$mesa_numero.'';
+	echo '</div><br>';
+
+            echo "<table class='display compact' style='width:100%' id='myTable'>";
+              echo "<thead>
+		    <th class='text-nowrap text-center' hidden>ID</th>
+		    <th class='text-nowrap text-center'>Mesa Número</th>
+            <th class='text-nowrap text-center'>Total</th>
+            <th>&nbsp;</th>
+            </thead>";
+
+
+	while($fila = mysqli_fetch_array($resultado)){
+			  // Listado normal
+			 echo "<tr>";
+			 echo "<td align=center hidden>".$fila['id']."</td>";
+			 echo "<td align=center>".$fila['mesa_numero']."</td>";
+			 echo "<td align=center>$".$fila['total']."</a></td>";
+			 echo "<td class='text-nowrap'>";
+			 echo '<a href="../../lib_cafeteria/print.php?file=print_informe_cafeteria.php&mesa_numero='.$mesa_numero.'&fecha_desde='.$fecha_desde.'&fecha_hasta='.$fecha_hasta.'" target="_blank">
+                    <button type="button" class="btn btn-success btn-sm" name="print_ticket">
+                    <img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Informe</button></a>';
+			 echo "</td>";
+			 $count++;
+		}
+
+		echo "</table>";
+		echo "<br>";
+		echo '</div>';
+		}else{
+		  echo 'Connection Failure...' .mysqli_error($conn);
+		}
+
+    mysqli_close($conn);
+
 
 
 
 }
-
 
 /*
 ** modal detalle de pedidos en mesas
@@ -737,7 +861,7 @@ function aperturaMesa($mesa,$fecha,$hora,$empleado,$conn){
 		    echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../icons/actions/dialog-ok-apply.png" /> Apertura Satisfactoria.';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Apertura Satisfactoria.';
 		    echo "</div>";
 		    echo "</div>";
     }else{
@@ -745,7 +869,7 @@ function aperturaMesa($mesa,$fecha,$hora,$empleado,$conn){
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema en la Apertura de la Mesa. '  .mysqli_error($conn);
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema en la Apertura de la Mesa. '  .mysqli_error($conn);
 			    echo "</div>";
 			    echo "</div>";
 		    }
@@ -793,7 +917,7 @@ function closeMesa($id_mesa,$total,$conn){
 		    echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../icons/actions/dialog-ok-apply.png" /> Mesa Cerrada Satisfactoriamente.';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Mesa Cerrada Satisfactoriamente.';
 		    echo "</div>";
 		    echo "</div>";
     }else{
@@ -801,7 +925,7 @@ function closeMesa($id_mesa,$total,$conn){
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema al Cerrar la Venta. '  .mysqli_error($conn);
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al Cerrar la Venta. '  .mysqli_error($conn);
 			    echo "</div>";
 			    echo "</div>";
 		    }

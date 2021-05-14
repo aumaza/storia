@@ -15,12 +15,11 @@ if($conn)
 	//mostramos fila x fila
 	$count = 0;
 	echo '<div class="panel panel-success" >
-	      <div class="panel-heading"><span class="pull-center "><img src="../icons/actions/feed-subscribe.png"  class="img-reponsive img-rounded"> Administración de Productos';
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/feed-subscribe.png"  class="img-reponsive img-rounded"> Administración de Productos';
 	echo '</div><br>';
 
             echo "<table class='display compact' style='width:100%' id='myTable'>";
               echo "<thead>
-		    <th class='text-nowrap text-center'>ID</th>
 		    <th class='text-nowrap text-center'>Código Producto</th>
             <th class='text-nowrap text-center'>Producto</th>
             <th class='text-nowrap text-center'>Precio</th>
@@ -31,15 +30,14 @@ if($conn)
 	while($fila = mysqli_fetch_array($resultado)){
 			  // Listado normal
 			 echo "<tr>";
-			 echo "<td align=center>".$fila['id']."</td>";
 			 echo "<td align=center>".$fila['cod_producto']."</td>";
 			 echo "<td align=center>".$fila['descripcion']."</a></td>";
 			 echo "<td align=center>".$fila['precio']."</td>";
 			 echo "<td class='text-nowrap'>";
 			 echo '<form <action="#" method="POST">
                     <input type="hidden" name="id" value="'.$fila['id'].'">';
-                   echo '<button type="submit" class="btn btn-primary btn-sm" name="edit_producto"><img src="../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
-                   echo '<button type="submit" class="btn btn-danger btn-sm" name="del_producto"><img src="../icons/actions/trash-empty.png"  class="img-reponsive img-rounded"> Eliminar</button>';
+                   echo '<button type="submit" class="btn btn-primary btn-sm" name="edit_producto"><img src="../../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
+                   echo '<button type="submit" class="btn btn-danger btn-sm" name="del_producto"><img src="../../icons/actions/trash-empty.png"  class="img-reponsive img-rounded"> Eliminar</button>';
                    echo '</form>';
 			 echo "</td>";
 			 $count++;
@@ -49,7 +47,7 @@ if($conn)
 		echo "<br>";
 		echo '<form <action="#" method="POST">
 			<button type="submit" class="btn btn-default btn-sm" name="add_producto">
-			  <img src="../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Producto</button>
+			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Producto</button>
 		      </form><br>';
 		echo '<button type="button" class="btn btn-primary">Cantidad de Productos:  '.$count.' </button>';
 		echo '</div>';
@@ -75,7 +73,7 @@ function formAddProducto(){
             
             <div class="panel panel-success">
 	      <div class="panel-heading">
-		<img class="img-reponsive img-rounded" src="../icons/actions/list-add.png" /> Agregar Nuevo Producto</div>
+		<img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Agregar Nuevo Producto</div>
 		  <div class="panel-body">
 	
 	    <form action="#" method="POST">
@@ -108,7 +106,7 @@ function formAddProducto(){
                      
                  
             <button type="submit" class="btn btn-success btn-block" name="addProducto">
-                <img src="../icons/devices/media-floppy.png"  class="img-reponsive img-rounded"> Guardar</button>
+                <img src="../../icons/devices/media-floppy.png"  class="img-reponsive img-rounded"> Guardar</button>
             </form>
             </div>
             </div>
@@ -139,7 +137,7 @@ function formEditProducto($id,$conn){
             
             <div class="panel panel-success">
 	      <div class="panel-heading">
-		<img class="img-reponsive img-rounded" src="../icons/actions/document-edit.png" /> Editar Producto</div>
+		<img class="img-reponsive img-rounded" src="../../icons/actions/document-edit.png" /> Editar Producto</div>
 		  <div class="panel-body">
 	
 	    <form action="#" method="POST">
@@ -164,7 +162,7 @@ function formEditProducto($id,$conn){
                      
                  
             <button type="submit" class="btn btn-success btn-block" name="editProducto">
-                <img src="../icons/actions/document-save-as.png"  class="img-reponsive img-rounded"> Guardar</button>
+                <img src="../../icons/actions/document-save-as.png"  class="img-reponsive img-rounded"> Guardar</button>
             </form>
             </div>
             </div>
@@ -203,7 +201,7 @@ function addProducto($tipo,$cod_producto,$descripcion,$precio,$conn){
 		    echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../icons/actions/dialog-ok-apply.png" /> Producto Agregado Satisfactoriamente.';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Producto Agregado Satisfactoriamente.';
 		    echo "</div>";
 		    echo "</div>";
     }else{
@@ -211,7 +209,7 @@ function addProducto($tipo,$cod_producto,$descripcion,$precio,$conn){
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema al Agregar el Producto. '  .mysqli_error($conn);
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al Agregar el Producto. '  .mysqli_error($conn);
 			    echo "</div>";
 			    echo "</div>";
 		    }
@@ -221,7 +219,7 @@ function addProducto($tipo,$cod_producto,$descripcion,$precio,$conn){
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Ya existe registro de ese Producto.';
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Ya existe registro de ese Producto.';
 			    echo "</div>";
 			    echo "</div>";
 			    exit;
@@ -245,7 +243,7 @@ function updateProducto($id,$descripcion,$precio,$conn){
 		    echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../icons/actions/dialog-ok-apply.png" /> Registro Actualizado Satisfactoriamente.';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Registro Actualizado Satisfactoriamente.';
 		    echo "</div>";
 		    echo "</div>";
         }else{
@@ -253,7 +251,7 @@ function updateProducto($id,$descripcion,$precio,$conn){
                     echo '<div class="container">';
                     echo '<div class="alert alert-warning" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-                    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema al Actualizar el Registro. '  .mysqli_error($conn);
+                    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al Actualizar el Registro. '  .mysqli_error($conn);
                     echo "</div>";
                     echo "</div>";
                 }
@@ -280,14 +278,14 @@ function formEliminarProducto($id,$conn){
             
             <div class="panel panel-danger">
 	      <div class="panel-heading">
-		<img class="img-reponsive img-rounded" src="../icons/status/security-low.png" /> Productos - Eliminar Registro</div>
+		<img class="img-reponsive img-rounded" src="../../icons/status/security-low.png" /> Productos - Eliminar Registro</div>
             <div class="panel-body">
             
             <form action="main.php" method="POST">
 	      <input type="hidden" class="form-control" name="id" value="'.$id.'">
             
                 <div class="alert alert-danger">
-		  <img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> <strong>Atención!</strong><hr>
+		  <img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> <strong>Atención!</strong><hr>
 		    <p>Está por eliminar el registro: <strong>'.$producto.'</strong></p>
 		    <p>Si está seguro, presione Aceptar, de lo contrario presione Cancelar.</p>
                 </div><hr>
@@ -319,7 +317,7 @@ function deleteProducto($id,$conn){
 		    echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../icons/actions/dialog-ok-apply.png" /> Registro Eliminado Satisfactoriamente.';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Registro Eliminado Satisfactoriamente.';
 		    echo "</div>";
 		    echo "</div>";
     }else{
@@ -327,7 +325,7 @@ function deleteProducto($id,$conn){
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema al Eliminar el Registro.'  .mysqli_error($conn);
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al Eliminar el Registro.'  .mysqli_error($conn);
 			    echo "</div>";
 			    echo "</div>";
 		    }

@@ -17,12 +17,11 @@ if($conn)
 	//mostramos fila x fila
 	$count = 0;
 	echo '<div class="panel panel-success" >
-	      <div class="panel-heading"><span class="pull-center "><img src="../icons/actions/fill-color.png"  class="img-reponsive img-rounded"> Administración de Sabores';
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/fill-color.png"  class="img-reponsive img-rounded"> Administración de Sabores';
 	echo '</div><br>';
 
             echo "<table class='display compact' style='width:100%' id='myTable'>";
               echo "<thead>
-		    <th class='text-nowrap text-center'>ID</th>
 		    <th class='text-nowrap text-center'>Código Sabor</th>
             <th class='text-nowrap text-center'>Descripción</th>
             <th>&nbsp;</th>
@@ -32,14 +31,13 @@ if($conn)
 	while($fila = mysqli_fetch_array($resultado)){
 			  // Listado normal
 			 echo "<tr>";
-			 echo "<td align=center>".$fila['id']."</td>";
 			 echo "<td align=center>".$fila['cod_sabor']."</td>";
 			 echo "<td align=center>".$fila['descripcion']."</a></td>";
 			 echo "<td class='text-nowrap'>";
 			 echo '<form <action="#" method="POST">
                     <input type="hidden" name="id" value="'.$fila['id'].'">';
-                   echo '<button type="submit" class="btn btn-primary btn-sm" name="edit_sabor"><img src="../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
-                   echo '<button type="submit" class="btn btn-danger btn-sm" name="del_sabor"><img src="../icons/actions/trash-empty.png"  class="img-reponsive img-rounded"> Eliminar</button>';
+                   echo '<button type="submit" class="btn btn-primary btn-sm" name="edit_sabor"><img src="../../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
+                   echo '<button type="submit" class="btn btn-danger btn-sm" name="del_sabor"><img src="../../icons/actions/trash-empty.png"  class="img-reponsive img-rounded"> Eliminar</button>';
                    echo '</form>';
 			 echo "</td>";
 			 $count++;
@@ -49,7 +47,7 @@ if($conn)
 		echo "<br>";
 		echo '<form <action="#" method="POST">
 			<button type="submit" class="btn btn-default btn-sm" name="add_sabor">
-			  <img src="../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Sabor</button>
+			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Sabor</button>
 		      </form><br>';
 		echo '<button type="button" class="btn btn-primary">Cantidad de Sabores:  '.$count.' </button>';
 		echo '</div>';
@@ -74,7 +72,7 @@ function formAddSabor(){
             
             <div class="panel panel-success">
 	      <div class="panel-heading">
-		<img class="img-reponsive img-rounded" src="../icons/actions/list-add.png" /> Agregar Nuevo Sabor</div>
+		<img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Agregar Nuevo Sabor</div>
 		  <div class="panel-body">
 	
 	    <form action="#" method="POST">
@@ -92,7 +90,7 @@ function formAddSabor(){
             
                  
             <button type="submit" class="btn btn-success btn-block" name="addSabor">
-                <img src="../icons/devices/media-floppy.png"  class="img-reponsive img-rounded"> Guardar</button>
+                <img src="../../icons/devices/media-floppy.png"  class="img-reponsive img-rounded"> Guardar</button>
             </form>
             </div>
             </div>
@@ -123,7 +121,7 @@ function formEditSabor($id,$conn){
             
             <div class="panel panel-success">
 	      <div class="panel-heading">
-		<img class="img-reponsive img-rounded" src="../icons/actions/document-edit.png" /> Editar Sabor</div>
+		<img class="img-reponsive img-rounded" src="../../icons/actions/document-edit.png" /> Editar Sabor</div>
 		  <div class="panel-body">
 	
 	    <form action="#" method="POST">
@@ -142,7 +140,7 @@ function formEditSabor($id,$conn){
             
                  
             <button type="submit" class="btn btn-success btn-block" name="editSabor">
-                <img src="../icons/actions/document-save-as.png"  class="img-reponsive img-rounded"> Guardar</button>
+                <img src="../../icons/actions/document-save-as.png"  class="img-reponsive img-rounded"> Guardar</button>
             </form>
             </div>
             </div>
@@ -171,14 +169,14 @@ function formEliminarSabor($id,$conn){
             
             <div class="panel panel-danger">
 	      <div class="panel-heading">
-		<img class="img-reponsive img-rounded" src="../icons/status/security-low.png" /> Sabores - Eliminar Registro</div>
+		<img class="img-reponsive img-rounded" src="../../icons/status/security-low.png" /> Sabores - Eliminar Registro</div>
             <div class="panel-body">
             
             <form action="main.php" method="POST">
 	      <input type="hidden" class="form-control" name="id" value="'.$id.'">
             
                 <div class="alert alert-danger">
-		  <img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> <strong>Atención!</strong><hr>
+		  <img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> <strong>Atención!</strong><hr>
 		    <p>Está por eliminar el registro: <strong>'.$sabor.'</strong></p>
 		    <p>Si está seguro, presione Aceptar, de lo contrario presione Cancelar.</p>
                 </div><hr>
@@ -225,7 +223,7 @@ function addSabor($cod_sabor,$descripcion,$conn){
 		    echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../icons/actions/dialog-ok-apply.png" /> Sabor Agregado Satisfactoriamente.';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Sabor Agregado Satisfactoriamente.';
 		    echo "</div>";
 		    echo "</div>";
     }else{
@@ -233,7 +231,7 @@ function addSabor($cod_sabor,$descripcion,$conn){
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema al Agregar el Sabor. '  .mysqli_error($conn);
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al Agregar el Sabor. '  .mysqli_error($conn);
 			    echo "</div>";
 			    echo "</div>";
 		    }
@@ -243,7 +241,7 @@ function addSabor($cod_sabor,$descripcion,$conn){
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Ya existe registro de ese Sabor.';
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Ya existe registro de ese Sabor.';
 			    echo "</div>";
 			    echo "</div>";
 			    exit;
@@ -267,7 +265,7 @@ function updateSabor($id,$descripcion,$conn){
 		    echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../icons/actions/dialog-ok-apply.png" /> Registro Actualizado Satisfactoriamente.';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Registro Actualizado Satisfactoriamente.';
 		    echo "</div>";
 		    echo "</div>";
         }else{
@@ -275,7 +273,7 @@ function updateSabor($id,$descripcion,$conn){
                     echo '<div class="container">';
                     echo '<div class="alert alert-warning" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-                    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema al Actualizar el Registro. '  .mysqli_error($conn);
+                    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al Actualizar el Registro. '  .mysqli_error($conn);
                     echo "</div>";
                     echo "</div>";
                 }
@@ -297,7 +295,7 @@ function deleteSabor($id,$conn){
 		    echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../icons/actions/dialog-ok-apply.png" /> Registro Eliminado Satisfactoriamente.';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Registro Eliminado Satisfactoriamente.';
 		    echo "</div>";
 		    echo "</div>";
     }else{
@@ -305,7 +303,7 @@ function deleteSabor($id,$conn){
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema al Eliminar el Registro.'  .mysqli_error($conn);
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al Eliminar el Registro.'  .mysqli_error($conn);
 			    echo "</div>";
 			    echo "</div>";
 		    }

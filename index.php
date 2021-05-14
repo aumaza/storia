@@ -62,7 +62,7 @@
           <li><a href="#services">Servicios</a></li>
           <li><a href="#portfolio">Productos</a></li>
           <li><a href="#team">Nuestro Equipo</a></li>
-          <li><a href="#">Clientes</a></li>
+          <li><a href="clientes/index.php">Clientes</a></li>
           <li><a href="#contact">Contactanos</a></li>
          
          </ul>
@@ -90,6 +90,7 @@
 	
 	$sql = "SELECT * FROM st_usuarios where user = '$user' and password = '$pass' and role = 1";
 	$q = mysqli_query($conn,$sql);
+	
 	
 	$query = "SELECT * FROM st_usuarios where user = '$user' and password = '$pass' and role = 0";
 	$retval = mysqli_query($conn,$query);
@@ -137,10 +138,13 @@
 				echo "<strong> Aguarde un Instante...</strong>";
 				echo "<br>";
 				echo "</div></div></div></div>";
-  				echo '<meta http-equiv="refresh" content="5;URL=core/main/main.php "/>';
+  				echo '<meta http-equiv="refresh" content="5;URL=core/manager/main/main.php "/>';
 				
 			}else{
 				//logs($_SESSION["user"]);
+				
+				if($user['espacio'] == 'emp'){
+				
 				echo '<div clas="row" align="center">
                         <div class="col-sm-6">
                         <div class="alert alert-success" role="alert">';
@@ -151,8 +155,24 @@
 				echo "<strong> Aguarde un Instante...</strong>";
 				echo "<br>";
 				echo "</div></div></div>";
-  				echo '<meta http-equiv="refresh" content="5;URL=core/main/main.php "/>';
+  				echo '<meta http-equiv="refresh" content="5;URL=core/employee/main/main.php "/>';
 				
+			}
+			if($user['espacio'] == 'rep'){
+			
+                echo '<div clas="row" align="center">
+                        <div class="col-sm-6">
+                        <div class="alert alert-success" role="alert">';
+				echo '<button class="btn btn-success">
+				      <span class="spinner-border spinner-border-sm"></span>
+				      </button>';
+				echo "<strong> Bienvenido!  </strong>" .$_SESSION["user"];
+				echo "<strong> Aguarde un Instante...</strong>";
+				echo "<br>";
+				echo "</div></div></div>";
+  				echo '<meta http-equiv="refresh" content="5;URL=core/delivery/main/main.php "/>';
+			
+			}
 			}
 			}else{
 				echo '<div clas="row" align="center">

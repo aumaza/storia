@@ -54,7 +54,7 @@ sabor_2 varchar(60),
 sabor_3 varchar(60),
 sabor_4 varchar(60),
 empleado varchar(90),
-lugar_venta enum('Local','Web') not null,
+lugar_venta enum('Local','Web','WhatsApp') not null,
 tipo_pago enum('MP','Efectivo') not null,
 fecha_venta date not null,
 hora_venta time not null,
@@ -90,3 +90,14 @@ item varchar(40) not null,
 importe float(8,2) not null
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+#tabla reparto
+create table st_repartos (
+id int(11) auto_increment primary key,
+id_venta int(11) not null,
+descripcion varchar(40) not null,
+forma_pago varchar(8) not null,
+repartidor varchar(70) not null,
+estado enum('Entregado','No Entregado','No Responde') not null,
+fecha_entrega date not null,
+hora_entrega time not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

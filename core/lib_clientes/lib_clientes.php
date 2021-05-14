@@ -15,7 +15,7 @@ if($conn)
 	//mostramos fila x fila
 	$count = 0;
 	echo '<div class="panel panel-success" >
-	      <div class="panel-heading"><span class="pull-center "><img src="../icons/actions/user-group-properties.png"  class="img-reponsive img-rounded"> Administración de Datos de Clientes / Empleados / Repartidores';
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/user-group-properties.png"  class="img-reponsive img-rounded"> Administración de Datos de Clientes / Empleados / Repartidores';
 	echo '</div><br>';
 
             echo "<table class='display compact' style='width:100%' id='myTable'>";
@@ -46,7 +46,7 @@ if($conn)
 			 echo "<td class='text-nowrap'>";
 			 echo '<form <action="#" method="POST">
                     <input type="hidden" name="id" value="'.$fila['id'].'">';
-                   echo '<button type="submit" class="btn btn-primary btn-sm" name="edit_cliente"><img src="../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
+                   echo '<button type="submit" class="btn btn-primary btn-sm" name="edit_cliente"><img src="../../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
                    echo '</form>';
 			 echo "</td>";
 			 $count++;
@@ -56,7 +56,7 @@ if($conn)
 		echo "<br>";
 		echo '<form <action="#" method="POST">
 			<button type="submit" class="btn btn-default btn-sm" name="add_cliente">
-			  <img src="../icons/actions/list-add-user.png"  class="img-reponsive img-rounded"> Agregar</button>
+			  <img src="../../icons/actions/list-add-user.png"  class="img-reponsive img-rounded"> Agregar</button>
 		      </form><br>';
 		echo '<button type="button" class="btn btn-primary">Cantidad de Clientes:  '.$count.' </button>';
 		echo '</div>';
@@ -84,13 +84,12 @@ if($conn)
 	//mostramos fila x fila
 	$count = 0;
 	echo '<div class="panel panel-success" >
-	      <div class="panel-heading"><span class="pull-center "><img src="../icons/actions/user-group-properties.png"  class="img-reponsive img-rounded"> Administración de Datos de Cliente';
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/user-group-properties.png"  class="img-reponsive img-rounded"> Administración de Datos de Cliente';
 	echo '</div><br>';
 
             echo "<table class='display compact' style='width:100%' id='myTable'>";
               echo "<thead>
-		    <th class='text-nowrap text-center'>ID</th>
-		    <th class='text-nowrap text-center'>Cliente</th>
+		    <th class='text-nowrap text-center'>Nombre</th>
             <th class='text-nowrap text-center'>Email</th>
             <th class='text-nowrap text-center'>Dirección</th>
             <th class='text-nowrap text-center'>Localidad</th>
@@ -104,7 +103,6 @@ if($conn)
 	while($fila = mysqli_fetch_array($resultado)){
 			  // Listado normal
 			 echo "<tr>";
-			 echo "<td align=center>".$fila['id']."</td>";
 			 echo "<td align=center>".$fila['cliente_nombre']."</td>";
 			 echo "<td align=center>"."<a href='mailto:".$fila['email']."'>".$fila['email']."</a></td>";
 			 echo "<td align=center>".$fila['direccion']."</td>";
@@ -115,7 +113,10 @@ if($conn)
 			 echo "<td class='text-nowrap'>";
 			 echo '<form <action="#" method="POST">
                     <input type="hidden" name="id" value="'.$fila['id'].'">';
-                   echo '<button type="submit" class="btn btn-primary btn-sm" name="edit_cliente"><img src="../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
+                   echo '<button type="submit" class="btn btn-primary btn-sm" name="edit_cliente"><img src="../../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
+                   if($fila['espacio'] == 'cli'){
+                    echo '<button type="submit" class="btn btn-success btn-sm" name="avatar"><img src="../../icons/actions/edit-image-face-recognize.png"  class="img-reponsive img-rounded"> Avatar</button>';
+                   }
                    echo '</form>';
 			 echo "</td>";
 			 $count++;
@@ -141,11 +142,11 @@ function formAddCliente(){
          
        echo '<div class="container">
 	      <div class="row">
-		<div class="col-sm-10">
+		<div class="col-sm-8">
             
             <div class="panel panel-success">
 	      <div class="panel-heading">
-		<img class="img-reponsive img-rounded" src="../icons/actions/list-add-user.png" /> Agregar Nuevo Cliente / Empleado / Repartidor</div>
+		<img class="img-reponsive img-rounded" src="../../icons/actions/list-add-user.png" /> Agregar Nuevo Cliente / Empleado / Repartidor</div>
 		  <div class="panel-body">
 	
 	    <form action="#" method="POST">
@@ -192,7 +193,7 @@ function formAddCliente(){
             
                  
             <button type="submit" class="btn btn-success btn-block" name="addCliente">
-                <img src="../icons/devices/media-floppy.png"  class="img-reponsive img-rounded"> Guardar</button>
+                <img src="../../icons/devices/media-floppy.png"  class="img-reponsive img-rounded"> Guardar</button>
             </form>
             </div>
             </div>
@@ -206,7 +207,7 @@ function formAddCliente(){
 /*
 ** formulario para editar Clientes
 */
-function formEditCliente($id,$conn){
+function formEditCliente($id,$nombre,$conn){
         
         $sql = "select * from st_clientes where id = '$id'";
          mysqli_select_db($conn,'storia');
@@ -227,7 +228,7 @@ function formEditCliente($id,$conn){
             
             <div class="panel panel-success">
 	      <div class="panel-heading">
-		<img class="img-reponsive img-rounded" src="../icons/actions/list-add-user.png" /> Editar Cliente / Empleado / Repartidor</div>
+		<img class="img-reponsive img-rounded" src="../../icons/actions/list-add-user.png" /> Editar Cliente / Empleado / Repartidor</div>
 		  <div class="panel-body">
 	
 	    <form action="#" method="POST">
@@ -261,9 +262,11 @@ function formEditCliente($id,$conn){
             <div class="form-group">
 	      <label">Teléfono Móvil:</label>
 		<input type="text" class="form-control" name="movil" value="'.$movil.'" required>
-            </div><hr>
+            </div><hr>';
             
-             <div class="form-group">
+            if($nombre == 'Administrador'){
+            
+            echo '<div class="form-group">
                 <label for="sel1">Espacio:</label>
                 <select class="form-control" name="espacio" required>
                     <option value="" selected disabled>Seleccionar</option>
@@ -271,11 +274,16 @@ function formEditCliente($id,$conn){
                     <option value="cli" '.($espacio == "cli" ? "selected" : ""). '>Cliente</option>
                     <option value="rep" '.($espacio == "rep" ? "selected" : ""). '>Repartidor</option>
                 </select>
-            </div><hr> 
+            </div><hr>';
             
-                 
-            <button type="submit" class="btn btn-success btn-block" name="update_cliente">
-                <img src="../icons/devices/media-floppy.png"  class="img-reponsive img-rounded"> Guardar</button>
+            }else if($nombre != 'Administrador'){
+                       
+                echo '<input type="hidden" class="form-control" name="espacio" value="'.$espacio.'" required>';
+             
+            }
+                  
+            echo '<button type="submit" class="btn btn-success btn-block" name="update_cliente">
+                <img src="../../icons/devices/media-floppy.png"  class="img-reponsive img-rounded"> Guardar</button>
             </form>
             </div>
             </div>
@@ -312,7 +320,7 @@ function addCliente($cliente,$email,$direccion,$localidad,$telefono,$movil,$espa
 		    echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../icons/actions/dialog-ok-apply.png" /> Cliente y Usuario Agregado Satisfactoriamente.';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Cliente y Usuario Agregado Satisfactoriamente.';
 		    newPass($conn,$cliente,$email,$espacio);
 		    echo "</div>";
 		    echo "</div>";
@@ -321,7 +329,7 @@ function addCliente($cliente,$email,$direccion,$localidad,$telefono,$movil,$espa
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema al Agregar el Cliente. '  .mysqli_error($conn);
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al Agregar el Cliente. '  .mysqli_error($conn);
 			    echo "</div>";
 			    echo "</div>";
 		    }
@@ -331,7 +339,7 @@ function addCliente($cliente,$email,$direccion,$localidad,$telefono,$movil,$espa
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Ya existe registro de ese Cliente.';
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Ya existe registro de ese Cliente.';
 			    echo "</div>";
 			    echo "</div>";
 			    exit;
@@ -355,7 +363,7 @@ function updateCliente($id,$cliente,$email,$direccion,$localidad,$telefono,$movi
 		    echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../icons/actions/dialog-ok-apply.png" /> Registro Actualizado Satisfactoriamente.';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Registro Actualizado Satisfactoriamente.';
 		    echo "</div>";
 		    echo "</div>";
         }else{
@@ -363,7 +371,7 @@ function updateCliente($id,$cliente,$email,$direccion,$localidad,$telefono,$movi
                     echo '<div class="container">';
                     echo '<div class="alert alert-warning" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-                    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema al Actualizar el Registro. '  .mysqli_error($conn);
+                    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al Actualizar el Registro. '  .mysqli_error($conn);
                     echo "</div>";
                     echo "</div>";
                 }
@@ -383,7 +391,7 @@ function updateCliente($id,$cliente,$email,$direccion,$localidad,$telefono,$movi
 
 function gentxt($usuario,$password){
   
-  $fileName = "../registro/gen_pass/$usuario.pass.txt"; 
+  $fileName = "../../registro/gen_pass/$usuario.pass.txt"; 
     
   if (file_exists($fileName)){
   
@@ -428,7 +436,7 @@ function gentxt($usuario,$password){
 
 function genNewTxt($cliente,$password){
   
-  $fileName = "../registro/gen_pass/$cliente.pass.txt"; 
+  $fileName = "../../registro/gen_pass/$cliente.pass.txt"; 
     
   if (file_exists($fileName)){
   
@@ -591,6 +599,100 @@ function newPass($conn,$cliente,$email,$espacio){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////// FIN SECCION GENERACION PASSWORD////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/*
+* Funcion para cambiar avatar de usuario
+*/
+function uploadAvatar(){
+
+    echo '<div class="panel panel-success" >
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/svn-commit.png"  class="img-reponsive img-rounded"> Subir Archivo';
+	echo '</div><br>';
+	           
+                          
+	echo '
+	  <div class="container">
+	    <div class="row">
+	      <div class="col-sm-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                <strong>Seleccione el Archivo a Subir:</strong><br>
+                <form action="main.php" method="POST" enctype="multipart/form-data">
+                                
+                <input type="file" name="file"><br>
+                <button type="submit" name="submit"><span class="glyphicon glyphicon-cloud-upload"></span> Subir</button>
+                </form>
+                </div>
+            </div>
+	      </div>  
+	    </div>
+	  </div>';
+}
+
+function uploadFileAvatar($fileName,$nombre,$conn){
+
+// File upload path
+$targetDir = '../avatar/';
+//$fileName = basename($_FILES["file"]["name"]);
+$targetFilePath = $targetDir . $fileName;
+$fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+//$destinationPath = '../../avatar/';
+
+if(!empty($fileName)){
+    // Allow certain file formats
+    $allowTypes = array('jpg','png','jpeg','gif');
+    
+    if(in_array($fileType, $allowTypes)){
+    
+        // Upload file to server
+        if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
+           
+            
+            // Insert image file name into database
+           
+           $sqlInsert = "UPDATE st_usuarios set avatar = '$targetFilePath' where nombre = '$nombre'";
+			   mysqli_select_db($conn,'storia');
+			  $insert = mysqli_query($conn,$sqlInsert);
+           
+           
+            if($insert){
+            
+			  echo '<div class="alert alert-success" role="alert">';
+			  echo '<h1 class="panel-title text-left" contenteditable="true"><img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /><strong> Base de Datos Actualizada. El Archivo '.$fileName. ' se ha subido correctamente..</strong>';
+                          echo "</div><hr>";
+                          //copy($fileName, "$destinationPath/$fileName");
+                          //unlink($fileName);
+                          //echo '<meta http-equiv="refresh" content="5;URL=../main/main.php "/>';
+                          
+                                           
+            }else{
+		  
+			  echo '<div class="alert alert-success" role="alert">';
+			  echo '<h1 class="panel-title text-left" contenteditable="true"><img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /><strong> El Archivo '.$fileName. ' se ha subido correctamente.</strong>';
+                          echo "</div><hr>";
+                          
+            } 
+        }else{
+			  echo '<div class="alert alert-warning" role="alert">';
+			  echo '<h1 class="panel-title text-left" contenteditable="true"><img class="img-reponsive img-rounded" src="../../icons/actions/dialog-cancel.png" /><strong> Ups. Hubo un error subiendo el Archivo.</strong>';
+                          echo "</div><hr>";
+                           
+        }
+    }else{
+			  echo '<div class="alert alert-danger" role="alert">';
+			  echo '<h1 class="panel-title text-left" contenteditable="true"><img class="img-reponsive img-rounded" src="../../icons/actions/dialog-cancel.png" /><strong> Ups, solo archivos con extensión: JPG, PNG, BMP, GIF son soportados.</strong>';
+			  echo "</div><hr>";
+                          
+    }
+}else{
+			  echo '<div class="alert alert-info" role="alert">';
+                          echo '<h1 class="panel-title text-left" contenteditable="true"><img class="img-reponsive img-rounded" src="../../icons/actions/system-reboot.png" /><strong> Por favor, seleccione al archivo a subir.</strong>';
+                          echo "</div><hr>";
+                          
+}
+}
+
 
 
 

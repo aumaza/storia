@@ -17,14 +17,12 @@ if($conn)
 	//mostramos fila x fila
 	$count = 0;
 	echo '<div class="panel panel-success" >
-	      <div class="panel-heading"><span class="pull-center "><img src="../icons/actions/fill-color.png"  class="img-reponsive img-rounded"> Administración de Ventas en Heladería';
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/fill-color.png"  class="img-reponsive img-rounded"> Administración de Ventas en Heladería';
 	echo '</div><br>';
 
             echo "<table class='display compact' style='width:100%' id='myTable'>";
               echo "<thead>
-		    <th class='text-nowrap text-center'>ID</th>
-		    <th class='text-nowrap text-center'>Código Producto</th>
-            <th class='text-nowrap text-center'>Producto</th>
+		    <th class='text-nowrap text-center'>Producto</th>
             <th class='text-nowrap text-center'>Sabor I</th>
             <th class='text-nowrap text-center'>Sabor II</th>
             <th class='text-nowrap text-center'>Sabor III</th>
@@ -43,8 +41,6 @@ if($conn)
 	while($fila = mysqli_fetch_array($resultado)){
 			  // Listado normal
 			 echo "<tr>";
-			 echo "<td align=center>".$fila['id']."</td>";
-			 echo "<td align=center>".$fila['cod_producto']."</td>";
 			 echo "<td align=center>".$fila['descripcion']."</a></td>";
 			 echo "<td align=center>".$fila['sabor_1']."</a></td>";
 			 echo "<td align=center>".$fila['sabor_2']."</a></td>";
@@ -60,9 +56,9 @@ if($conn)
 			 echo "<td class='text-nowrap'>";
 			 echo '<form <action="#" method="POST">
                     <input type="hidden" name="id" value="'.$fila['id'].'">';
-                   echo '<button type="submit" class="btn btn-primary btn-sm" name="edit_venta"><img src="../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
-                   echo '<button type="submit" class="btn btn-danger btn-sm" name="del_venta"><img src="../icons/actions/trash-empty.png"  class="img-reponsive img-rounded"> Eliminar</button>';
-                   echo '<button type="submit" class="btn btn-success btn-sm" name="ticket_venta"><img src="../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Ticket</button>';
+                   echo '<button type="submit" class="btn btn-primary btn-sm" name="edit_venta"><img src="../../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
+                   echo '<button type="submit" class="btn btn-danger btn-sm" name="del_venta"><img src="../../icons/actions/trash-empty.png"  class="img-reponsive img-rounded"> Eliminar</button>';
+                   echo '<button type="submit" class="btn btn-success btn-sm" name="ticket_venta"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Ticket</button>';
                    echo '</form>';
 			 echo "</td>";
 			 $count++;
@@ -72,7 +68,7 @@ if($conn)
 		echo "<br>";
 		echo '<form <action="#" method="POST">
 			<button type="submit" class="btn btn-default btn-sm" name="add_venta">
-			  <img src="../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Nueva Venta</button>
+			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Nueva Venta</button>
 		      </form><br>';
 		echo '<button type="button" class="btn btn-primary">Cantidad de Ventas:  '.$count.' </button>';
 		echo '</div>';
@@ -98,7 +94,7 @@ function formAddVenta($conn){
             
             <div class="panel panel-success">
 	      <div class="panel-heading">
-            <img class="img-reponsive img-rounded" src="../icons/actions/list-add.png" /> Nueva Venta</div>
+            <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta</div>
 		  <div class="panel-body">
 	
 	    <form action="#" method="POST">
@@ -109,7 +105,7 @@ function formAddVenta($conn){
 		  <option value="" disabled selected>Seleccionar</option>';
 		    
 		    if($conn){
-		      $query = "SELECT * FROM st_productos order by descripcion ASC";
+		      $query = "SELECT * FROM st_productos where cod_producto like 'hd%' order by descripcion ASC";
 		      mysqli_select_db($conn,'storia');
 		      $res = mysqli_query($conn,$query);
 
@@ -119,9 +115,7 @@ function formAddVenta($conn){
 				}
                 }
 			}
-
-			//mysqli_close($conn);
-		  
+			  
 		 echo '</select>
 		</div><hr>
             
@@ -129,7 +123,7 @@ function formAddVenta($conn){
             <div class="form-group">
 		  <label for="sel1">Sabor 1:</label>
 		  <select class="form-control" name="sabor_1" required>
-		  <option value="" disabled selected>Seleccionar</option>';
+		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
 		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
@@ -142,16 +136,13 @@ function formAddVenta($conn){
 				}
                 }
 			}
-
-			//mysqli_close($conn);
-		  
-		 echo '</select>
-		</div><hr>
+          echo '</select>
+		        </div><hr>
             
              <div class="form-group">
 		  <label for="sel1">Sabor 2:</label>
 		  <select class="form-control" name="sabor_2" required>
-		  <option value="" disabled selected>Seleccionar</option>';
+		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
 		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
@@ -165,15 +156,13 @@ function formAddVenta($conn){
                 }
 			}
 
-			//mysqli_close($conn);
-		  
-		 echo '</select>
-		</div><hr>
+			echo '</select>
+                    </div><hr>
 		
 		 <div class="form-group">
 		  <label for="sel1">Sabor 3:</label>
 		  <select class="form-control" name="sabor_3" required>
-		  <option value="" disabled selected>Seleccionar</option>';
+		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
 		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
@@ -187,15 +176,13 @@ function formAddVenta($conn){
                 }
 			}
 
-			//mysqli_close($conn);
-		  
-		 echo '</select>
-		</div><hr>
+			echo '</select>
+                    </div><hr>
 		
 		 <div class="form-group">
 		  <label for="sel1">Sabor 4:</label>
 		  <select class="form-control" name="sabor_4" required>
-		  <option value="" disabled selected>Seleccionar</option>';
+		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
 		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
@@ -209,10 +196,8 @@ function formAddVenta($conn){
                 }
 			}
 
-			//mysqli_close($conn);
-		  
-		 echo '</select>
-		</div><hr>
+			echo '</select>
+                    </div><hr>
 		
 		 <div class="form-group">
 		  <label for="sel1">Empleado:</label>
@@ -230,23 +215,23 @@ function formAddVenta($conn){
 				}
                 }
 			}
-
-			//mysqli_close($conn);
-		  
-		 echo '</select>
-		</div><hr>
+            
+            echo '</select>
+                    </div><hr>
             
             <div class="form-group">
-            <label for="sel1">Lugar de Venta:</label>
+            <label for="sel1">Lugar / Modo de Venta:</label>
             <select class="form-control" name="lugar_venta">
                 <option value="" disabled selected>Seleccionar</option>
                 <option value="Web">Web</option>
                 <option value="Local">Local</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Telefonica">Telefónica</option>
                 </select>
             </div><hr>
             
             <div class="form-group">
-            <label for="sel1">Modo de Pago:</label>
+            <label for="sel1">Tipo de Pago:</label>
             <select class="form-control" name="modo_pago">
                 <option value="" disabled selected>Seleccionar</option>
                 <option value="MP">Mercado Pago</option>
@@ -274,11 +259,15 @@ function formAddVenta($conn){
 			mysqli_close($conn);
 		  
 		 echo '</select>
-		</div><hr>
+		</div>
+		<p>Si el Cliente no se encuentra en la base presione el botón "Nuevo Cliente" para darlo de alta</p>
+		<!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newCliente">Nuevo Cliente</button>
+		<hr>
             
                  
             <button type="submit" class="btn btn-success btn-block" name="addVenta">
-                <img src="../icons/devices/media-floppy.png"  class="img-reponsive img-rounded"> Terminar</button>
+                <img src="../../icons/devices/media-floppy.png"  class="img-reponsive img-rounded"> Terminar</button>
             </form>
             </div>
             </div>
@@ -307,7 +296,7 @@ function formEditVenta($id,$conn){
             
             <div class="panel panel-success">
 	      <div class="panel-heading">
-            <img class="img-reponsive img-rounded" src="../icons/actions/document-edit.png" /> Editar Venta</div>
+            <img class="img-reponsive img-rounded" src="../../icons/actions/document-edit.png" /> Editar Venta</div>
 		  <div class="panel-body">
 	
 	    <form action="#" method="POST">
@@ -319,7 +308,7 @@ function formEditVenta($id,$conn){
 		  <option value="" disabled selected>Seleccionar</option>';
 		    
 		    if($conn){
-		      $query = "SELECT * FROM st_productos order by descripcion ASC";
+		      $query = "SELECT * FROM st_productos where cod_producto like 'hd%' order by descripcion ASC";
 		      mysqli_select_db($conn,'storia');
 		      $res = mysqli_query($conn,$query);
 
@@ -449,16 +438,18 @@ function formEditVenta($id,$conn){
 		</div><hr>
             
             <div class="form-group">
-            <label for="sel1">Lugar de Venta:</label>
+            <label for="sel1">Lugar / Modo de Venta:</label>
             <select class="form-control" name="lugar_venta">
                 <option value="" disabled selected>Seleccionar</option>
                 <option value="Web" '.($fila['lugar_venta'] == "Web" ? "selected" : ""). '>Web</option>
                 <option value="Local" '.($fila['lugar_venta'] == "Local" ? "selected" : ""). '>Local</option>
+                <option value="WhatsApp" '.($fila['lugar_venta'] == "WhatsApp" ? "selected" : ""). '>WhatsApp</option>
+                <option value="Telefonica" '.($fila['lugar_venta'] == "Telefónica" ? "selected" : ""). '>Telefónica</option>
                 </select>
             </div><hr>
             
             <div class="form-group">
-            <label for="sel1">Modo de Pago:</label>
+            <label for="sel1">Tipo de Pago:</label>
             <select class="form-control" name="modo_pago">
                 <option value="" disabled selected>Seleccionar</option>
                 <option value="MP" '.($fila['tipo_pago'] == "MP" ? "selected" : ""). '>Mercado Pago</option>
@@ -490,7 +481,7 @@ function formEditVenta($id,$conn){
             
                  
             <button type="submit" class="btn btn-success btn-block" name="editVenta">
-                <img src="../icons/actions/document-save-as.png"  class="img-reponsive img-rounded"> Actualizar</button>
+                <img src="../../icons/actions/document-save-as.png"  class="img-reponsive img-rounded"> Actualizar</button>
             </form>
             </div>
             </div>
@@ -521,14 +512,14 @@ function formEliminarVenta($id,$conn){
             
             <div class="panel panel-danger">
 	      <div class="panel-heading">
-		<img class="img-reponsive img-rounded" src="../icons/status/security-low.png" /> Ventas - Eliminar Registro</div>
+		<img class="img-reponsive img-rounded" src="../../icons/status/security-low.png" /> Ventas - Eliminar Registro</div>
             <div class="panel-body">
             
             <form action="main.php" method="POST">
 	      <input type="hidden" class="form-control" name="id" value="'.$id.'">
             
                 <div class="alert alert-danger">
-		  <img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> <strong>Atención!</strong><hr>
+		  <img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> <strong>Atención!</strong><hr>
 		    <p>Está por eliminar el registro: <strong>'.$producto.'</strong></p>
 		    <p>Venta realizada por: <strong>'.$empleado.'</strong></p>
 		    <p>Fecha: <strong>'.$fecha.'</strong></p><hr>
@@ -609,7 +600,7 @@ function addVentaHeladeria($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$emplea
 		    echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../icons/actions/dialog-ok-apply.png" /> Venta Agregada Satisfactoriamente.';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Venta Agregada Satisfactoriamente.';
 		    echo "</div>";
 		    echo "</div>";
     }else{
@@ -617,7 +608,7 @@ function addVentaHeladeria($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$emplea
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema al Agregar la Venta. '  .mysqli_error($conn);
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al Agregar la Venta. '  .mysqli_error($conn);
 			    echo "</div>";
 			    echo "</div>";
 		    }
@@ -654,7 +645,7 @@ function updateVentaHeladeria($id,$producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,
 		    echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../icons/actions/dialog-ok-apply.png" /> Venta Actualizada Satisfactoriamente.';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Venta Actualizada Satisfactoriamente.';
 		    echo "</div>";
 		    echo "</div>";
     }else{
@@ -662,7 +653,7 @@ function updateVentaHeladeria($id,$producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema al Actualizar la Venta. '  .mysqli_error($conn);
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al Actualizar la Venta. '  .mysqli_error($conn);
 			    echo "</div>";
 			    echo "</div>";
 		    }
@@ -684,7 +675,7 @@ function deleteVenta($id,$conn){
 		    echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../icons/actions/dialog-ok-apply.png" /> Registro Eliminado Satisfactoriamente.';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Registro Eliminado Satisfactoriamente.';
 		    echo "</div>";
 		    echo "</div>";
     }else{
@@ -692,7 +683,7 @@ function deleteVenta($id,$conn){
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema al Eliminar el Registro.'  .mysqli_error($conn);
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al Eliminar el Registro.'  .mysqli_error($conn);
 			    echo "</div>";
 			    echo "</div>";
 		    }

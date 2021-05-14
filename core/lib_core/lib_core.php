@@ -78,6 +78,49 @@ function modal_1(){
 
 }
 
+function modal_2(){
+
+    echo '  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Ingreso Clientes</h4><hr>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          
+           <form action="#" method="POST">
+            <div class="form-group">
+                <label for="email">Usuario:</label>
+                <input type="text" class="form-control" placeholder="Ingrese su usuario" name="user" required>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" placeholder="Ingrese su password" name="pass" required>
+            </div>
+            
+            <button type="submit" class="btn btn-success btn-block" name="A">Aceptar</button>
+            </form> 
+          
+          
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>';
+
+}
+
 
 function modal_exit(){
 
@@ -93,9 +136,9 @@ function modal_exit(){
             </div>
             <div class="modal-body" align="center">
                 
-                <a href="../logout.php" data-toggle="tooltip" data-placement="left" title="Cerrar Sesión"> 
+                <a href="../../logout.php" data-toggle="tooltip" data-placement="left" title="Cerrar Sesión"> 
                     <button class="btn btn-success navbar-btn">
-                        <img class="img-reponsive img-rounded" src="../icons/actions/mail-mark-notjunk.png" /> Aceptar</button></a>
+                        <img class="img-reponsive img-rounded" src="../../icons/actions/mail-mark-notjunk.png" /> Aceptar</button></a>
             
             </div>
             <div class="modal-footer">
@@ -154,7 +197,7 @@ function dumpMysql($conn){
     unlink($file);
     echo '<div class="alert alert-success" role="alert">';
     echo '<h1 class="panel-title text-left" contenteditable="true">
-	    <img src="../icons/actions/dialog-ok-apply.png"  class="img-reponsive img-rounded"><strong> Base de Datos Resguardada Exitosamente</strong></h1>';
+	    <img src="../../icons/actions/dialog-ok-apply.png"  class="img-reponsive img-rounded"><strong> Base de Datos Resguardada Exitosamente</strong></h1>';
     echo "</div>";
         
     }else{
@@ -166,6 +209,32 @@ function dumpMysql($conn){
          
          }
          
+
+}
+
+
+function modalNewCliente(){
+
+    echo '<!-- Modal -->
+            <div id="newCliente" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" align="center">Alta de Cliente</h4>
+                </div>
+                <div class="modal-body">';
+                    formAddCliente();
+                echo '</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+                </div>
+
+            </div>
+            </div>';
 
 }
 

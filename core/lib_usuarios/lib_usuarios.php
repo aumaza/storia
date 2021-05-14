@@ -14,7 +14,7 @@ if($conn)
 	//mostramos fila x fila
 	$count = 0;
 	echo '<div class="panel panel-success" >
-	      <div class="panel-heading"><span class="pull-center "><img src="../icons/actions/user-group-properties.png"  class="img-reponsive img-rounded"> Administración de Usuarios - Cambiar Permisos';
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/user-group-properties.png"  class="img-reponsive img-rounded"> Administración de Usuarios - Cambiar Permisos';
 	echo '</div><br>';
 
             echo "<table class='display compact' style='width:100%' id='myTable'>";
@@ -40,7 +40,7 @@ if($conn)
 			 echo '<form <action="#" method="POST">
                     <input type="hidden" name="id" value="'.$fila['id'].'">';
                     if($fila['user'] != 'root'){
-                     echo '<button type="submit" class="btn btn-warning btn-sm" name="allow_user"><img src="../icons/status/dialog-password.png"  class="img-reponsive img-rounded"> Cambiar Permisos</button>';
+                     echo '<button type="submit" class="btn btn-warning btn-sm" name="allow_user"><img src="../../icons/status/dialog-password.png"  class="img-reponsive img-rounded"> Cambiar Permisos</button>';
                      }
              echo '</form>';
 			 echo "</td>";
@@ -98,7 +98,7 @@ function formEditRole($id,$conn){
         </div> 
 	  <br>
 	
-	  <button type="submit" class="btn btn-success btn-block" name="roles"><img src="../icons/actions/dialog-ok-apply.png"  class="img-reponsive img-rounded">  Cambiar Permiso</button><br><hr>
+	  <button type="submit" class="btn btn-success btn-block" name="roles"><img src="../../icons/actions/dialog-ok-apply.png"  class="img-reponsive img-rounded">  Cambiar Permiso</button><br><hr>
 	  </form>';
 	  
 }
@@ -122,7 +122,7 @@ function cambiarPermisos($id,$role,$conn){
 			      <div class="row">
 			      <div class="col-md-12">';
 			echo '<div class="alert alert-success" role="alert">';
-			echo '<img class="img-reponsive img-rounded" src="../icons/actions/dialog-ok-apply.png" /> Permiso Actualizado Satisfactoriamente';
+			echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Permiso Actualizado Satisfactoriamente';
 			echo "</div>";
 			echo "</div>";
 			echo "</div>";
@@ -136,7 +136,7 @@ function cambiarPermisos($id,$role,$conn){
 			      <div class="row">
 			      <div class="col-md-12">';
 			echo '<div class="alert alert-warning" role="alert">';
-			echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un Error al intentar cambiar permisos. Intente Nuevamente! ' .mysqli_error($conn);
+			echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un Error al intentar cambiar permisos. Intente Nuevamente! ' .mysqli_error($conn);
 			echo "</div>";
 			echo "</div>";
 			echo "</div>";
@@ -160,7 +160,7 @@ if($conn){
 	//mostramos fila x fila
 	$count = 0;
 	echo '<div class="panel panel-success" >
-	      <div class="panel-heading"><span class="pull-center "><img src="../icons/actions/view-refresh.png"  class="img-reponsive img-rounded"> Cambiar Password';
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/view-refresh.png"  class="img-reponsive img-rounded"> Cambiar Password';
 	echo '</div><br>';
 
             echo "<table class='display compact' style='width:100%' id='myTable'>";
@@ -181,7 +181,7 @@ if($conn){
 			 echo "<td class='text-nowrap'>";
 			 echo '<form <action="#" method="POST">
                     <input type="hidden" name="id" value="'.$fila['id'].'">
-                    <button type="submit" class="btn btn-warning btn-sm" name="user_pass"><img src="../icons/status/dialog-password.png"  class="img-reponsive img-rounded"> Cambiar Password</button>';
+                    <button type="submit" class="btn btn-warning btn-sm" name="user_pass"><img src="../../icons/status/dialog-password.png"  class="img-reponsive img-rounded"> Cambiar Password</button>';
              echo '</form>';
 			 echo "</td>";
 			 $count++;
@@ -236,7 +236,7 @@ function formEditPassword($id,$conn){
 	    <input id="text" type="password" class="form-control" name="pass2" maxlength="15" placeholder="Longitud máxima de 15 caracteres" required>
 	  </div><hr>
 	
-	  <button type="submit" class="btn btn-success btn-block" name="update_password"><img src="../icons/actions/dialog-ok-apply.png"  class="img-reponsive img-rounded">  Cambiar Password</button><br><hr>
+	  <button type="submit" class="btn btn-success btn-block" name="update_password"><img src="../../icons/actions/dialog-ok-apply.png"  class="img-reponsive img-rounded">  Cambiar Password</button><br><hr>
 	  </form>';
 	  
 }
@@ -259,7 +259,7 @@ function passwordValidate($conn,$id,$pass1,$pass2){
         
                 echo "<br>";
 			    echo '<div class="alert alert-warning" role="alert">';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Las Contraseñas no Coinciden. Intente Nuevamente!.';
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Las Contraseñas no Coinciden. Intente Nuevamente!.';
 			    echo "</div>";
 			    echo '<meta http-equiv="refresh" content="5;URL=#"/>';
     }
@@ -267,7 +267,7 @@ function passwordValidate($conn,$id,$pass1,$pass2){
         
                 echo "<br>";
 			    echo '<div class="alert alert-warning" role="alert">';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" />El Password supera los 15 caracteres! Reintentelo.';
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" />El Password supera los 15 caracteres! Reintentelo.';
 			    echo "</div>";
 			    echo '<meta http-equiv="refresh" content="5;URL=#"/>';
 			          
@@ -291,13 +291,13 @@ function updatePassUser($id,$pass1,$conn){
 	if($res){
 		echo "<br>";
 		echo '<div class="alert alert-success" role="alert">';
-		echo '<img src="../icons/actions/dialog-ok-apply.png"  class="img-reponsive img-rounded"> Password Actualizada Correctamente.                             Deberá Ingresar Nuevamente. Aguarde un Instante que será Redireccionado. ';
+		echo '<img src="../../icons/actions/dialog-ok-apply.png"  class="img-reponsive img-rounded"> Password Actualizada Correctamente.                             Deberá Ingresar Nuevamente. Aguarde un Instante que será Redireccionado. ';
 		echo "</div>";
-		echo '<meta http-equiv="refresh" content="5;URL=../logout.php">';
+		echo '<meta http-equiv="refresh" content="5;URL=../../logout.php">';
 	}else{
 		echo "<br>";
 		echo '<div class="alert alert-warning" role="alert">';
-		echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un error al Actualizar el Password!. Aguarde un Instante que será Redireccionado' .mysqli_error($conn);
+		echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un error al Actualizar el Password!. Aguarde un Instante que será Redireccionado' .mysqli_error($conn);
 		echo "</div>";
 		echo '<meta http-equiv="refresh" content="5;URL=#">';
 	}

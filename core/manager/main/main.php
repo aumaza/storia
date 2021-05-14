@@ -1,12 +1,12 @@
 <?php session_start();
-      include "../connection/connection.php";
-      include "../lib_core/lib_core.php";
-      include "../lib_usuarios/lib_usuarios.php";
-      include "../lib_clientes/lib_clientes.php";
-      include "../lib_productos/lib_productos.php";
-      include "../lib_sabores/lib_sabores.php";
-      include "../lib_heladeria/lib_heladeria.php";
-      include "../lib_cafeteria/lib_cafeteria.php";
+      include "../../connection/connection.php";
+      include "../../lib_core/lib_core.php";
+      include "../../lib_usuarios/lib_usuarios.php";
+      include "../../lib_clientes/lib_clientes.php";
+      include "../../lib_productos/lib_productos.php";
+      include "../../lib_sabores/lib_sabores.php";
+      include "../../lib_heladeria/lib_heladeria.php";
+      include "../../lib_cafeteria/lib_cafeteria.php";
               
         $usuario = $_SESSION['user'];
         $password = $_SESSION['pass'];
@@ -27,13 +27,13 @@
             <title>Storia</title>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link href="../../assets/img/storia-favicon.png" rel="icon">';
+            <link href="../../../assets/img/storia-favicon.png" rel="icon">';
             skeleton();
             echo '</head><body>';
             echo '<br><div class="container">
                     <div class="alert alert-danger" role="alert">';
-            echo '<p align="center"><img src="../icons/status/task-attempt.png"  class="img-reponsive img-rounded"> '.$usuario.' Su sesión a caducado. Por favor, inicie sesión nuevamente</p>';
-            echo '<a href="../logout.php"><hr><button type="buton" class="btn btn-default btn-block"><img src="../icons/status/dialog-password.png"  class="img-reponsive img-rounded"> Iniciar</button></a>';	
+            echo '<p align="center"><img src="../../icons/status/task-attempt.png"  class="img-reponsive img-rounded"> '.$usuario.' Su sesión a caducado. Por favor, inicie sesión nuevamente</p>';
+            echo '<a href="../../logout.php"><hr><button type="buton" class="btn btn-default btn-block"><img src="../../icons/status/dialog-password.png"  class="img-reponsive img-rounded"> Iniciar</button></a>';	
             echo "</div></div>";
             die();
             echo '</body></html>';
@@ -46,10 +46,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <title>Storia - Panel de Control</title>
+  <title>Storia - Panel de Control - Espacio Administrador</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="../../assets/img/storia-favicon.png" rel="icon">
+  <link href="../../../assets/img/storia-favicon.png" rel="icon">
   <?php skeleton(); ?>
  
  
@@ -119,10 +119,10 @@
     <div class="col-sm-2 sidenav"><hr>
     <!-- Trigger the modal with a button -->
     <button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#exit" data-toggle="tooltip" data-placement="right" title="Desconectarse del Sistema">
-        <img class="img-reponsive img-rounded" src="../icons/actions/system-shutdown.png" /> Salir</button><br>
+        <img class="img-reponsive img-rounded" src="../../icons/actions/system-shutdown.png" /> Salir</button><br>
         <form action="#" method="POST">
             <button type="submit" class="btn btn-default btn-sm" name="home" data-toggle="tooltip" data-placement="right" title="Limpiar Espacio de Trabajo">
-            <img class="img-reponsive img-rounded" src="../icons/actions/go-home.png" /> Home</button>
+            <img class="img-reponsive img-rounded" src="../../icons/actions/go-home.png" /> Home</button>
         </form>
         <hr>
 
@@ -134,7 +134,7 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" data-toggle="tooltip" data-placement="right" title="Espacio Administración de Heladería">
-            <img class="img-reponsive img-rounded" src="../../assets/img/ice_crem-32x32.png" /> Módulo Heladería</a>
+            <img class="img-reponsive img-rounded" src="../../../assets/img/ice_crem-32x32.png" /> Módulo Heladería</a>
       </h4>
     </div>
     <div id="collapse1" class="panel-collapse collapse">
@@ -146,12 +146,12 @@
       <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Heladería">
 	  <button type="submit" class="btn btn-default btn-sm" name="ventas_heladeria">
-	    <img class="img-reponsive img-rounded" src="../icons/actions/view-bank-account.png" /> Ventas en Local</button></a></li>
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Ventas en Local</button></a></li>
 	    
 	    <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Heladería - Pedidos">
 	  <button type="submit" class="btn btn-default btn-sm" name="pedidos_heladeria">
-	    <img class="img-reponsive img-rounded" src="../icons/actions/view-pim-notes.png" /> Pedidos - Heladería</button></a></li>
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-pim-notes.png" /> Pedidos - Heladería</button></a></li>
                   
       </form>
       </ul>
@@ -164,7 +164,7 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" data-toggle="tooltip" data-placement="right" title="Espacio Administración de Cafetería">
-        <img class="img-reponsive img-rounded" src="../../assets/img/coffee-32x32.png" /> Módulo Cafetería</a>
+        <img class="img-reponsive img-rounded" src="../../../assets/img/coffee-32x32.png" /> Módulo Cafetería</a>
       </h4>
     </div>
     <div id="collapse2" class="panel-collapse collapse">
@@ -176,12 +176,12 @@
       <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Cafetería">
 	  <button type="submit" class="btn btn-default btn-sm" name="ventas_cafeteria">
-	    <img class="img-reponsive img-rounded" src="../icons/actions/view-bank-account.png" /> Total Ventas</button></a></li>
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Total Ventas</button></a></li>
 	    
 	    <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Apertura y Cierre de Mesas">
 	  <button type="submit" class="btn btn-default btn-sm" name="mesas_cafeteria">
-	    <img class="img-reponsive img-rounded" src="../icons/actions/story-editor.png" /> Mesas</button></a></li>
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/story-editor.png" /> Mesas</button></a></li>
 	   
 	       
       </form>
@@ -199,7 +199,7 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" data-toggle="tooltip" data-placement="right" title="Espacio sólo Permitido para el Administrador">
-        <img class="img-reponsive img-rounded" src="../icons/categories/preferences-desktop.png" /> Administración General</a>
+        <img class="img-reponsive img-rounded" src="../../icons/categories/preferences-desktop.png" /> Administración General</a>
       </h4>
     </div>
     <div id="collapse3" class="panel-collapse collapse">
@@ -211,32 +211,32 @@
       <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Cambiar mi Contraseña">
 	  <button type="submit" class="btn btn-default btn-sm" name="cambiar_password">
-	    <img class="img-reponsive img-rounded" src="../icons/actions/view-refresh.png" /> Cambiar Password</button></a></li>
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-refresh.png" /> Cambiar Password</button></a></li>
       
       <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Listado de Usuarios">
 	  <button type="submit" class="btn btn-default btn-sm" name="usuarios">
-	    <img class="img-reponsive img-rounded" src="../icons/actions/meeting-attending.png" /> Usuarios</button></a></li>
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/meeting-attending.png" /> Usuarios</button></a></li>
 	   
 	   <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Altas de Clientes / Empleados / Repartidores">
 	  <button type="submit" class="btn btn-default btn-sm" name="clientes">
-	    <img class="img-reponsive img-rounded" src="../icons/actions/user-group-new.png" /> Altas</button></a></li>
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/user-group-new.png" /> Altas</button></a></li>
 	    
 	    <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Listado de Productos">
 	  <button type="submit" class="btn btn-default btn-sm" name="productos">
-	    <img class="img-reponsive img-rounded" src="../icons/actions/feed-subscribe.png" /> Productos</button></a></li>
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/feed-subscribe.png" /> Productos</button></a></li>
 	    
 	    <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Listado de Sabores">
 	  <button type="submit" class="btn btn-default btn-sm" name="sabores">
-	    <img class="img-reponsive img-rounded" src="../icons/actions/fill-color.png" /> Sabores</button></a></li>
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/fill-color.png" /> Sabores</button></a></li>
 	   
       <li class="list-group-item">
 	<a href="#" data-toggle="tooltip" data-placement="right" title="Back up Base de Datos">
 	  <button type="submit" class="btn btn-default btn-sm" name="back_up">
-	    <img class="img-reponsive img-rounded" src="../icons/actions/svn-update.png" /> BackUp Base</button></a></li>
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/svn-update.png" /> BackUp Base</button></a></li>
       
       </form>
       </ul>
@@ -249,7 +249,7 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse4" data-toggle="tooltip" data-placement="right" title="Espacio Análisis de Datos y Estadísticas">
-        <img class="img-reponsive img-rounded" src="../icons/actions/view-statistics.png" /> Estadísticas</a>
+        <img class="img-reponsive img-rounded" src="../../icons/actions/view-statistics.png" /> Estadísticas</a>
       </h4>
     </div>
     <div id="collapse4" class="panel-collapse collapse">
@@ -272,7 +272,7 @@
 
     <div class="col-sm-10"><hr>
       <div class="alert alert-info">
-        <img class="img-reponsive img-rounded" src="../icons/actions/dashboard-show.png" /> <strong>Espacio de Trabajo</strong> - <strong> Bienvenido <?php echo $nombre ?></strong>
+        <img class="img-reponsive img-rounded" src="../../icons/actions/dashboard-show.png" /> <strong>Espacio de Trabajo</strong> - <strong> Bienvenido <?php echo $nombre ?></strong>
       </div>
       <hr>
       
@@ -344,7 +344,7 @@
         //clientes - formulario de edición         
         if(isset($_POST['edit_cliente'])){
             $id = mysqli_real_escape_string($conn,$_POST['id']);
-            formEditCliente($id,$conn);
+            formEditCliente($id,$nombre,$conn);
         }
         //clientes - persistencia de actualización
         if(isset($_POST['update_cliente'])){
@@ -546,7 +546,15 @@
         if(isset($_POST['print_ticket'])){
             $id_mesa = mysqli_real_escape_string($conn,$_POST['id']);
             ticket($id_mesa,$conn);
-            //echo '<a href="../lib_cafeteria/print.php?id_mesa='.$id_mesa.'"></a>';
+        }
+        if(isset($_POST['filtro_cafeteria'])){
+            filtrosCafeteria();
+        }
+        if(isset($_POST['calculo_cafeteria'])){
+            $mesa_numero = mysqli_real_escape_string($conn,$_POST['mesa_numero']);
+            $fecha_desde = mysqli_real_escape_string($conn,$_POST['fecha_desde']);
+            $fecha_hasta = mysqli_real_escape_string($conn,$_POST['fecha_hasta']);
+            totalCafeteria($mesa_numero,$fecha_desde,$fecha_hasta,$conn);
         }
         
         
@@ -606,7 +614,7 @@ $(document).ready(function(){
         var datos=$('#frmajax').serialize();
         $.ajax({
             type:"POST",
-            url:"../lib_cafeteria/insert_items.php",
+            url:"../../lib_cafeteria/insert_items.php",
             data:datos,
             success:function(r){
                 if(r==1){
