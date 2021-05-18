@@ -7,6 +7,7 @@
       include "../../lib_sabores/lib_sabores.php";
       include "../../lib_heladeria/lib_heladeria.php";
       include "../../lib_cafeteria/lib_cafeteria.php";
+      include "../../lib_consultas/lib_consultas.php";
               
         $usuario = $_SESSION['user'];
         $password = $_SESSION['pass'];
@@ -109,6 +110,9 @@
         padding: 15px;
       }
       .row.content {height: auto;} 
+    }
+    th {
+    text-align:center
     }
   </style>
 </head>
@@ -249,14 +253,23 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse4" data-toggle="tooltip" data-placement="right" title="Espacio Análisis de Datos y Estadísticas">
-        <img class="img-reponsive img-rounded" src="../../icons/actions/view-statistics.png" /> Estadísticas</a>
+        <img class="img-reponsive img-rounded" src="../../icons/actions/view-statistics.png" /> Módulo Estadísticas</a>
       </h4>
     </div>
     <div id="collapse4" class="panel-collapse collapse">
-      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.</div>
+      <div class="panel-body">
+      
+      <ul class="list-group">
+      <form action="#" method="POST">
+      
+      <li class="list-group-item">
+	<a href="#" data-toggle="tooltip" data-placement="right" title="Estadísticas Generales">
+	  <button type="submit" class="btn btn-default btn-sm" name="estadisticas">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/office-chart-pie.png" /> Estadísticas</button></a></li>
+      
+      </form>
+      </ul>
+      </div>
     </div>
   </div>
  </div>
@@ -317,6 +330,9 @@
            $id = mysqli_real_escape_string($conn,$_POST['id']);
            $role = mysqli_real_escape_string($conn,$_POST['role']);
            cambiarPermisos($id,$role,$conn);
+        }
+        if(isset($_POST['estadisticas'])){
+            analytics($conn);
         }
         
         // =============================================================================================
@@ -598,7 +614,7 @@
 </div>
 
 <footer class="container-fluid">
-  <p><img class="img-reponsive img-rounded" src="../../assets/img/storia-favicon.png" /> Storia - Heladería / Café</p>
+  <p><img class="img-reponsive img-rounded" src="../../../assets/img/storia-favicon.png" /> Storia - Heladería / Café</p>
 </footer>
 
 <?php modal_exit(); ?>

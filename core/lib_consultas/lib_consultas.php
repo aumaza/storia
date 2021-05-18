@@ -431,9 +431,580 @@ function vistaMesas($conn){
 
 }
 
+/*
+** funcion que carga pastillas con informacion en espacio de cliente
+*/
+function tabletsInfoCliente($conn,$nombre){
+    
+    // análisis para heladería
+	$sql_heladeria_1 = "select count(id) as cantidad from st_ventas where espacio = 'heladeria' and fecha_venta = curdate() and cliente_nombre = '$nombre'";
+	mysqli_select_db($conn,'storia');
+	$query_heladeria_1 = mysqli_query($conn,$sql_heladeria_1);
+	while($rows_1 = mysqli_fetch_array($query_heladeria_1)){
+	      $cantidad_hoy = $rows_1['cantidad'];
+    }
+	
+	$sql_heladeria_2 = "select count(id) as cantidad from st_ventas where espacio = 'heladeria' and cliente_nombre = '$nombre'";
+	mysqli_select_db($conn,'storia');
+	$query_heladeria_2 = mysqli_query($conn,$sql_heladeria_2);
+	while($rows_2 = mysqli_fetch_array($query_heladeria_2)){
+	      $cantidad_total = $rows_2['cantidad'];
+    }
+    
+    $sql_heladeria_3 = "select sum(importe) as total from st_ventas where espacio = 'heladeria' and fecha_venta = curdate() and cliente_nombre = '$nombre'";
+	mysqli_select_db($conn,'storia');
+	$query_heladeria_3 = mysqli_query($conn,$sql_heladeria_3);
+	while($rows_3 = mysqli_fetch_array($query_heladeria_3)){
+	      $total_hoy_heladeria = $rows_3['total'];
+    }
+    
+    $sql_heladeria_4 = "select sum(importe) as total from st_ventas where espacio = 'heladeria' and cliente_nombre = '$nombre'";
+	mysqli_select_db($conn,'storia');
+	$query_heladeria_4 = mysqli_query($conn,$sql_heladeria_4);
+	while($rows_4 = mysqli_fetch_array($query_heladeria_4)){
+	      $total_heladeria = $rows_4['total'];
+    }
+	
+	// ========================================================================================================================//
+	
+	// análisis para cafetería
+	$sql_cafe_1 = "select count(id) as cantidad from st_ventas where espacio = 'cafeteria' and fecha_venta = curdate() and cliente_nombre = '$nombre'";
+	mysqli_select_db($conn,'storia');
+	$query_cafe_1 = mysqli_query($conn,$sql_cafe_1);
+	while($rows_5 = mysqli_fetch_array($query_cafe_1)){
+	      $cantidad_hoy_cafe = $rows_5['cantidad'];
+    }
+	
+	$sql_cafe_2 = "select count(id) as cantidad from st_ventas where espacio = 'cafeteria' and cliente_nombre = '$nombre'";
+	mysqli_select_db($conn,'storia');
+	$query_cafe_2 = mysqli_query($conn,$sql_cafe_2);
+	while($rows_6 = mysqli_fetch_array($query_cafe_2)){
+	      $cantidad_total_cafe = $rows_6['cantidad'];
+    }
+    
+    $sql_cafe_3 = "select sum(importe) as total from st_ventas where espacio = 'cafeteria' and fecha_venta = curdate() and cliente_nombre = '$nombre'";
+	mysqli_select_db($conn,'storia');
+	$query_cafe_3 = mysqli_query($conn,$sql_cafe_3);
+	while($rows_7 = mysqli_fetch_array($query_cafe_3)){
+	      $total_hoy_cafe = $rows_7['total'];
+    }
+    
+    $sql_cafe_4 = "select sum(importe) as total from st_ventas where espacio = 'cafeteria' and cliente_nombre = '$nombre'";
+	mysqli_select_db($conn,'storia');
+	$query_cafe_4 = mysqli_query($conn,$sql_cafe_4);
+	while($rows_8 = mysqli_fetch_array($query_cafe_4)){
+	      $total_cafe = $rows_8['total'];
+    }
+    
+    echo '<div class="row">
+        <div class="col-sm-3">
+          <div class="well">
+            <h4><img class="img-reponsive img-rounded" src="../../icons/actions/im-aim.png" /> Pedidos Heladería</h4><hr>
+            <p>Hoy: <span class="label label-success">'.$cantidad_hoy.'</span></p> 
+            <p>Totales: <span class="label label-primary">'.$cantidad_total.'</span></p>
+          </div>
+        </div>
+        
+        <div class="col-sm-3">
+         <div class="well">
+            <h4><img class="img-reponsive img-rounded" src="../../icons/actions/im-aim.png" /> Pedidos a Confitería</h4><hr>
+            <p>Hoy: <span class="label label-success">'.$cantidad_hoy_cafe.'</span></p> 
+            <p>Totales: <span class="label label-primary">'.$cantidad_total_cafe.'</span></p>
+          </div>
+        </div>
+        
+        <div class="col-sm-3">
+          <div class="well">
+            <h4><img class="img-reponsive img-rounded" src="../../icons/actions/view-investment.png" /> Consumo Heladería</h4><hr>
+            <p>Hoy: <span class="label label-warning">$'.$total_hoy_heladeria.'</span></p> 
+            <p>Acumulado: <span class="label label-info">$'.$total_heladeria.'</span></p>
+          </div>
+        </div>
+        
+        <div class="col-sm-3">
+          <div class="well">
+            <h4><img class="img-reponsive img-rounded" src="../../icons/actions/view-investment.png" /> Consumo Confitería</h4><hr>
+            <p>Hoy: <span class="label label-warning">$'.$total_hoy_cafe.'</span></p>
+            <p>Acumulado: <span class="label label-info">$'.$total_cafe.'</span></p>
+          </div>
+        </div>
+      </div><hr>';
 
 
+}
 
+
+/*
+** carga de estadisticas para espacio de administrador
+*/
+function analytics($conn){
+
+    // total ventas en el día de la fecha
+    $sql_1 = "select sum(importe) as total from st_ventas where fecha_venta = curdate()";
+    mysqli_select_db($conn,'storia');
+    $query_1 = mysqli_query($conn,$sql_1);
+    while($rows_1 = mysqli_fetch_array($query_1)){
+        $total_ventas_hoy = $rows_1['total'];
+    }
+    
+    // total ventas acumulado
+    $sql_2 = "select sum(importe) as total from st_ventas";
+    mysqli_select_db($conn,'storia');
+    $query_2 = mysqli_query($conn,$sql_2);
+    while($rows_2 = mysqli_fetch_array($query_2)){
+        $total_ventas_acumulado = $rows_2['total'];
+    }
+    
+    // ================================================================================ //
+    // CANTIDAD PEDIDOS HELADERIA WEB
+    // ================================================================================ //
+    // TOTAL PEDIDOS WEB HELADERIA EN EL DIA DE LA FECHA
+    $sql_pedidos_web_hel_hoy = "select count(lugar_venta) as cantidad from st_ventas where espacio = 'heladeria' and lugar_venta = 'Web' and                            fecha_venta = curdate()";
+    mysqli_select_db($conn,'storia');
+    $query_pedidos_web_hel_hoy = mysqli_query($conn,$sql_pedidos_web_hel_hoy);
+    while($row_pedido_web_hel_hoy = mysqli_fetch_array($query_pedidos_web_hel_hoy)){
+        $cantidad_pedidos_hel_web_hoy = $row_pedido_web_hel_hoy['cantidad'];
+    }
+    // TOTAL PEDIDOS WEB HELADERIA
+    $sql_pedidos_web_hel = "select count(lugar_venta) as cantidad from st_ventas where espacio = 'heladeria' and lugar_venta = 'Web'";
+    mysqli_select_db($conn,'storia');
+    $query_pedidos_web_hel = mysqli_query($conn,$sql_pedidos_web_hel);
+    while($row_pedido_web_hel = mysqli_fetch_array($query_pedidos_web_hel)){
+        $cantidad_pedidos_hel_web = $row_pedido_web_hel['cantidad'];
+        }
+        
+    // ================================================================================ //
+    // CANTIDAD PEDIDOS HELADERIA EN LOCAL
+    // ================================================================================ //
+    // TOTAL PEDIDOS EN LOCAL HELADERIA EN EL DIA DE LA FECHA
+    $sql_pedidos_local_hel_hoy = "select count(lugar_venta) as cantidad from st_ventas where espacio = 'heladeria' and lugar_venta = 'Local' and fecha_venta = curdate()";
+    mysqli_select_db($conn,'storia');
+    $query_pedidos_local_hel_hoy = mysqli_query($conn,$sql_pedidos_local_hel_hoy);
+    while($row_pedido_local_hel_hoy = mysqli_fetch_array($query_pedidos_local_hel_hoy)){
+        $cantidad_pedidos_local_hel_hoy = $row_pedido_local_hel_hoy['cantidad'];
+    }
+    // TOTAL PEDIDOS EN LOCAL HELADERIA
+    $sql_pedidos_local_hel = "select count(lugar_venta) as cantidad from st_ventas where espacio = 'heladeria' and lugar_venta = 'Local'";
+    mysqli_select_db($conn,'storia');
+    $query_pedidos_local_hel = mysqli_query($conn,$sql_pedidos_local_hel);
+    while($row_pedido_local_hel = mysqli_fetch_array($query_pedidos_local_hel)){
+        $cantidad_pedidos_hel_local = $row_pedido_local_hel['cantidad'];
+        }
+    
+    // ================================================================================ //
+    // CANTIDAD PEDIDOS CAFE WEB
+    // ================================================================================ //
+    // TOTAL PEDIDOS WEB CAFE EN EL DIA DE LA FECHA
+    $sql_pedidos_web_cafe_hoy = "select count(lugar_venta) as cantidad from st_ventas where espacio = 'cafeteria' and lugar_venta = 'Web' and                            fecha_venta = curdate()";
+    mysqli_select_db($conn,'storia');
+    $query_pedidos_web_cafe_hoy = mysqli_query($conn,$sql_pedidos_web_cafe_hoy);
+    while($row_pedido_web_cafe_hoy = mysqli_fetch_array($query_pedidos_web_cafe_hoy)){
+        $cantidad_pedidos_cafe_web_hoy = $row_pedido_web_cafe_hoy['cantidad'];
+    }
+    // TOTAL PEDIDOS CAFE HELADERIA
+    $sql_pedidos_web_cafe = "select count(lugar_venta) as cantidad from st_ventas where espacio = 'cafeteria' and lugar_venta = 'Web'";
+    mysqli_select_db($conn,'storia');
+    $query_pedidos_web_cafe = mysqli_query($conn,$sql_pedidos_web_cafe);
+    while($row_pedido_web_cafe = mysqli_fetch_array($query_pedidos_web_cafe)){
+        $cantidad_pedidos_cafe_web = $row_pedido_web_cafe['cantidad'];
+        }
+        
+    // ================================================================================ //
+    // CANTIDAD PEDIDOS CAFE EN LOCAL
+    // ================================================================================ //
+    // TOTAL PEDIDOS EN LOCAL CAFE EN EL DIA DE LA FECHA
+    $sql_pedidos_local_cafe_hoy = "select count(lugar_venta) as cantidad from st_ventas where espacio = 'cafeteria' and lugar_venta = 'Local' and fecha_venta = curdate()";
+    mysqli_select_db($conn,'storia');
+    $query_pedidos_local_cafe_hoy = mysqli_query($conn,$sql_pedidos_local_cafe_hoy);
+    while($row_pedido_local_cafe_hoy = mysqli_fetch_array($query_pedidos_local_cafe_hoy)){
+        $cantidad_pedidos_cafe_local_hoy = $row_pedido_local_cafe_hoy['cantidad'];
+    }
+    // TOTAL PEDIDOS CAFE
+    $sql_pedidos_local_cafe = "select count(lugar_venta) as cantidad from st_ventas where espacio = 'cafeteria' and lugar_venta = 'Local'";
+    mysqli_select_db($conn,'storia');
+    $query_pedidos_local_cafe = mysqli_query($conn,$sql_pedidos_local_cafe);
+    while($row_pedido_local_cafe = mysqli_fetch_array($query_pedidos_local_cafe)){
+        $cantidad_pedidos_cafe_local = $row_pedido_local_cafe['cantidad'];
+        }
+    
+    
+    // ================================================================================ //
+    // VENTAS HELADERIA WEB
+    // ================================================================================ //
+    // total ventas hoy en heladeria
+    $sql_3 = "select sum(importe) as total from st_ventas where fecha_venta = curdate() and espacio = 'heladeria' and lugar_venta = 'Web'";
+    mysqli_select_db($conn,'storia');
+    $query_3 = mysqli_query($conn,$sql_3);
+    while($rows_3 = mysqli_fetch_array($query_3)){
+        $total_ventas_hoy_heladeria_web = $rows_3['total'];
+    }
+    // total ventas acumulado en heladeria
+    $sql_4 = "select sum(importe) as total from st_ventas where espacio = 'heladeria' and lugar_venta = 'Web'";
+    mysqli_select_db($conn,'storia');
+    $query_4 = mysqli_query($conn,$sql_4);
+    while($rows_4 = mysqli_fetch_array($query_4)){
+        $total_ventas_acumulado_heladeria_web = $rows_4['total'];
+    }
+    // ================================================================================ //
+    // VENTAS HELADERIA LOCAL
+    // ================================================================================ //
+    // total ventas hoy en heladeria
+    $sql_heladeria_hoy_local = "select sum(importe) as total from st_ventas where fecha_venta = curdate() and espacio = 'heladeria' and lugar_venta = 'Local'";
+    mysqli_select_db($conn,'storia');
+    $query_heladeria_hoy_local = mysqli_query($conn,$sql_heladeria_hoy_local);
+    while($rows_heladeria_hoy_local = mysqli_fetch_array($query_heladeria_hoy_local)){
+        $total_ventas_hoy_heladeria_local = $rows_heladeria_hoy_local['total'];
+    }
+    // total ventas acumulado en heladeria
+    $sql_heladeria_local = "select sum(importe) as total from st_ventas where espacio = 'heladeria' and lugar_venta = 'Local'";
+    mysqli_select_db($conn,'storia');
+    $query_heladeria_local = mysqli_query($conn,$sql_heladeria_local);
+    while($rows_heladeria_local = mysqli_fetch_array($query_heladeria_local)){
+        $total_ventas_acumulado_heladeria_local = $rows_heladeria_local['total'];
+    }
+    
+    // ================================================================================ //
+    // VENTAS CAFE WEB
+    // ================================================================================ //
+    // total ventas hoy en cafeteria via web
+    $sql_cafe_web_hoy = "select sum(importe) as total from st_ventas where fecha_venta = curdate() and espacio = 'cafeteria' and lugar_venta = 'Web'";
+    mysqli_select_db($conn,'storia');
+    $query_cafe_web_hoy = mysqli_query($conn,$sql_cafe_web_hoy);
+    while($rows_cafe_web_hoy = mysqli_fetch_array($query_cafe_web_hoy)){
+        $total_ventas_cafe_web_hoy = $rows_cafe_web_hoy['total'];
+    }
+    // total ventas en cafeteria via web
+    $sql_cafe_web = "select sum(importe) as total from st_ventas where espacio = 'cafeteria' and lugar_venta = 'Web'";
+    mysqli_select_db($conn,'storia');
+    $query_cafe_web = mysqli_query($conn,$sql_cafe_web);
+    while($rows_cafe_web = mysqli_fetch_array($query_cafe_web)){
+        $total_ventas_cafe_web = $rows_cafe_web['total'];
+    }
+    // ================================================================================ //
+    // VENTAS CAFE LOCAL
+    // ================================================================================ //
+    // total ventas hoy en cafeteria via web
+    $sql_cafe_local_hoy = "select sum(importe) as total from st_ventas where fecha_venta = curdate() and espacio = 'cafeteria' and lugar_venta = 'Local'";
+    mysqli_select_db($conn,'storia');
+    $query_cafe_local_hoy = mysqli_query($conn,$sql_cafe_local_hoy);
+    while($rows_cafe_local_hoy = mysqli_fetch_array($query_cafe_local_hoy)){
+        $total_ventas_cafe_local_hoy = $rows_cafe_local_hoy['total'];
+    }
+    // total ventas en cafeteria via web
+    $sql_cafe_local = "select sum(importe) as total from st_ventas where espacio = 'cafeteria' and lugar_venta = 'Local'";
+    mysqli_select_db($conn,'storia');
+    $query_cafe_local = mysqli_query($conn,$sql_cafe_local);
+    while($rows_cafe_local = mysqli_fetch_array($query_cafe_local)){
+        $total_ventas_cafe_local = $rows_cafe_local['total'];
+    }
+    
+    // ================================================================================ //
+    // calculos para MESA x MESA
+    // ================================================================================ //
+    // mesa 1 en el dia de la fecha
+    $sql_mesa_1 = "select sum(total) as total from st_mesas where estado = 'Cerrada' and fecha = curdate() and mesa_numero = 1";
+    mysqli_select_db($conn,'storia');
+    $query_mesa_1 = mysqli_query($conn,$sql_mesa_1);
+    while($rows_mesa_1 = mysqli_fetch_array($query_mesa_1)){
+        $total_ventas_hoy_mesa_1 = $rows_mesa_1['total'];
+    }
+    // mesa 2 en el dia de la fecha
+    $sql_mesa_2 = "select sum(total) as total from st_mesas where estado = 'Cerrada' and fecha = curdate() and mesa_numero = 2";
+    mysqli_select_db($conn,'storia');
+    $query_mesa_2 = mysqli_query($conn,$sql_mesa_2);
+    while($rows_mesa_2 = mysqli_fetch_array($query_mesa_2)){
+        $total_ventas_hoy_mesa_2 = $rows_mesa_2['total'];
+    }
+    // mesa 3 en el dia de la fecha
+    $sql_mesa_3 = "select sum(total) as total from st_mesas where estado = 'Cerrada' and fecha = curdate() and mesa_numero = 3";
+    mysqli_select_db($conn,'storia');
+    $query_mesa_3 = mysqli_query($conn,$sql_mesa_3);
+    while($rows_mesa_3 = mysqli_fetch_array($query_mesa_3)){
+        $total_ventas_hoy_mesa_3 = $rows_mesa_3['total'];
+    }
+    // mesa 4 en el dia de la fecha
+    $sql_mesa_4 = "select sum(total) as total from st_mesas where estado = 'Cerrada' and fecha = curdate() and mesa_numero = 4";
+    mysqli_select_db($conn,'storia');
+    $query_mesa_4 = mysqli_query($conn,$sql_mesa_4);
+    while($rows_mesa_4 = mysqli_fetch_array($query_mesa_4)){
+        $total_ventas_hoy_mesa_4 = $rows_mesa_4['total'];
+    }
+    // mesa 5 en el dia de la fecha
+    $sql_mesa_5 = "select sum(total) as total from st_mesas where estado = 'Cerrada' and fecha = curdate() and mesa_numero = 5";
+    mysqli_select_db($conn,'storia');
+    $query_mesa_5 = mysqli_query($conn,$sql_mesa_5);
+    while($rows_mesa_5 = mysqli_fetch_array($query_mesa_5)){
+        $total_ventas_hoy_mesa_5 = $rows_mesa_5['total'];
+    }
+    // mesa 6 en el dia de la fecha
+    $sql_mesa_6 = "select sum(total) as total from st_mesas where estado = 'Cerrada' and fecha = curdate() and mesa_numero = 6";
+    mysqli_select_db($conn,'storia');
+    $query_mesa_6 = mysqli_query($conn,$sql_mesa_6);
+    while($rows_mesa_6 = mysqli_fetch_array($query_mesa_6)){
+        $total_ventas_hoy_mesa_6 = $rows_mesa_6['total'];
+    }
+    // ================================================================================ //
+    // total mesas
+    // mesa 1 total
+    $sql_table_1 = "select sum(total) as total from st_mesas where estado = 'Cerrada' and mesa_numero = 1";
+    mysqli_select_db($conn,'storia');
+    $query_table_1 = mysqli_query($conn,$sql_table_1);
+    while($rows_table_1 = mysqli_fetch_array($query_table_1)){
+        $total_ventas_mesa_1 = $rows_table_1['total'];
+    }
+    // mesa 2 total
+    $sql_table_2 = "select sum(total) as total from st_mesas where estado = 'Cerrada' and mesa_numero = 2";
+    mysqli_select_db($conn,'storia');
+    $query_table_2 = mysqli_query($conn,$sql_table_2);
+    while($rows_table_2 = mysqli_fetch_array($query_table_2)){
+        $total_ventas_mesa_2 = $rows_table_2['total'];
+    }
+    // mesa 3 total
+    $sql_table_3 = "select sum(total) as total from st_mesas where estado = 'Cerrada' and mesa_numero = 3";
+    mysqli_select_db($conn,'storia');
+    $query_table_3 = mysqli_query($conn,$sql_table_3);
+    while($rows_table_3 = mysqli_fetch_array($query_table_3)){
+        $total_ventas_mesa_3 = $rows_table_3['total'];
+    }
+    // mesa 4 total
+    $sql_table_4 = "select sum(total) as total from st_mesas where estado = 'Cerrada' and mesa_numero = 4";
+    mysqli_select_db($conn,'storia');
+    $query_table_4 = mysqli_query($conn,$sql_table_4);
+    while($rows_table_4 = mysqli_fetch_array($query_table_4)){
+        $total_ventas_mesa_4 = $rows_table_4['total'];
+    }
+    // mesa 5 total
+    $sql_table_5 = "select sum(total) as total from st_mesas where estado = 'Cerrada' and mesa_numero = 5";
+    mysqli_select_db($conn,'storia');
+    $query_table_5 = mysqli_query($conn,$sql_table_5);
+    while($rows_table_5 = mysqli_fetch_array($query_table_5)){
+        $total_ventas_mesa_5 = $rows_table_5['total'];
+    }
+    // mesa 6 total
+    $sql_table_6 = "select sum(total) as total from st_mesas where estado = 'Cerrada' and mesa_numero = 6";
+    mysqli_select_db($conn,'storia');
+    $query_table_6 = mysqli_query($conn,$sql_table_6);
+    while($rows_table_6 = mysqli_fetch_array($query_table_6)){
+        $total_ventas_mesa_6 = $rows_table_6['total'];
+    }
+    
+    // ================================================================================ //
+    // calculos para TOTALES DE MESAS
+    // ================================================================================ //
+    // CALCULO TOTAL PARA TODAS LAS MESAS HOY
+    $sql_mesas_hoy = "select sum(total) as total from st_mesas where estado = 'Cerrada' and fecha = curdate()";
+    mysqli_select_db($conn,'storia');
+    $query_mesas_hoy = mysqli_query($conn,$sql_mesas_hoy);
+    while($rows_mesas_hoy = mysqli_fetch_array($query_mesas_hoy)){
+        $total_mesas_hoy = $rows_mesas_hoy['total'];
+    }
+    // CALCULO TOTAL PARA TODAS LAS MESAS
+    $sql_mesas = "select sum(total) as total from st_mesas where estado = 'Cerrada'";
+    mysqli_select_db($conn,'storia');
+    $query_mesas = mysqli_query($conn,$sql_mesas);
+    while($rows_mesas = mysqli_fetch_array($query_mesas)){
+        $total_mesas = $rows_mesas['total'];
+    }
+    
+    // ================================================================================== //
+    // ANALISIS DE SABORES MAS PEDIDOS
+    // ================================================================================== //
+    $sql_sabores = "SELECT sabor, COUNT(sabor) total FROM (SELECT sabor_1 sabor FROM st_ventas where espacio = 'heladeria' UNION ALL SELECT sabor_2 sabor FROM st_ventas where espacio = 'heladeria' UNION ALL SELECT sabor_3 sabor FROM st_ventas where espacio = 'heladeria' UNION ALL SELECT sabor_4 sabor FROM st_ventas where espacio = 'heladeria') T group by sabor having count(*)>1 order by total DESC limit 5";
+    mysqli_select_db($conn,'storia');
+    $query_sabores = mysqli_query($conn,$sql_sabores);
+    
+    // ================================================================================== //
+    // ANALISIS DE PRODUCTOS DE HELADERIA MAS PEDIDOS
+    // ================================================================================== //
+    $sql_helados = "select descripcion, count(descripcion) as cantidad  from  st_ventas  where  espacio = 'heladeria'  group by descripcion having count(descripcion)>1 order by descripcion limit 5;";
+    mysqli_select_db($conn,'storia');
+    $query_helados = mysqli_query($conn,$sql_helados);
+
+
+        echo '<div class="col-sm-12">
+                <div class="well">
+                    <h4><img class="img-reponsive img-rounded" src="../../icons/actions/office-chart-pie.png" /> Estadísticas Generales</h4>
+                    <p>Aquí están presentadas todas las estadísticas del negocio</p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-3">
+                    <div class="well">
+                        <h4><img class="img-reponsive img-rounded" src="../../icons/actions/im-aim.png" /> Pedidos Web Heladería</h4>
+                        <p>Hoy: <span class="label label-success">'.$cantidad_pedidos_hel_web_hoy.'</span></p> 
+                        <p>Acumulados: <span class="label label-warning">'.$cantidad_pedidos_hel_web.'</span></p>
+                    </div>
+                    </div>
+                    <div class="col-sm-3">
+                    <div class="well">
+                        <h4><img class="img-reponsive img-rounded" src="../../icons/actions/im-aim.png" /> Pedidos Web Confitería</h4>
+                        <p>Hoy: <span class="label label-success">'.$cantidad_pedidos_cafe_web_hoy.'</span></p> 
+                        <p>Acumulados: <span class="label label-warning">'.$cantidad_pedidos_cafe_web.'</span></p> 
+                    </div>
+                    </div>
+                    <div class="col-sm-3">
+                    <div class="well">
+                        <h4><img class="img-reponsive img-rounded" src="../../icons/actions/view-investment.png" /> Ventas Web Heladería</h4>
+                        <p>Hoy: <span class="label label-success">$'.$total_ventas_hoy_heladeria_web.'</span></p>
+                        <p>Acumulado: <span class="label label-warning">$'.$total_ventas_acumulado_heladeria_web.'</span></p>
+                    </div>
+                    </div>
+                    <div class="col-sm-3">
+                    <div class="well">
+                    <h4><img class="img-reponsive img-rounded" src="../../icons/actions/view-investment.png" /> Ventas Web Café</h4>
+                        <p>Hoy: <span class="label label-success">$'.$total_ventas_cafe_web_hoy.'</span></p> 
+                        <p>Acumulado: <span class="label label-warning">$'.$total_ventas_cafe_web.'</span></p> 
+                    </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-3">
+                    <div class="well">
+                        <h4><img class="img-reponsive img-rounded" src="../../icons/actions/im-aim.png" /> Pedidos Local Heladería</h4>
+                        <p>Hoy: <span class="label label-success">'.$cantidad_pedidos_local_hel_hoy.'</span></p> 
+                        <p>Acumulados: <span class="label label-warning">'.$cantidad_pedidos_hel_local.'</span></p>
+                    </div>
+                    </div>
+                    <div class="col-sm-3">
+                    <div class="well">
+                        <h4><img class="img-reponsive img-rounded" src="../../icons/actions/im-aim.png" /> Pedidos Local Confitería</h4>
+                        <p>Hoy: <span class="label label-success">'.$cantidad_pedidos_cafe_local_hoy.'</span></p> 
+                        <p>Acumulados: <span class="label label-warning">'.$cantidad_pedidos_cafe_local.'</span></p> 
+                    </div>
+                    </div>
+                    <div class="col-sm-3">
+                    <div class="well">
+                        <h4><img class="img-reponsive img-rounded" src="../../icons/actions/view-investment.png" /> Ventas Local Heladería</h4>
+                        <p>Hoy: <span class="label label-success">$'.$total_ventas_hoy_heladeria_local.'</span></p>
+                        <p>Acumulado: <span class="label label-warning">$'.$total_ventas_acumulado_heladeria_local.'</span></p>
+                    </div>
+                    </div>
+                    <div class="col-sm-3">
+                    <div class="well">
+                    <h4><img class="img-reponsive img-rounded" src="../../icons/actions/view-investment.png" /> Ventas Local Café</h4>
+                        <p>Hoy: <span class="label label-success">$'.$total_ventas_cafe_local_hoy.'</span></p> 
+                        <p>Acumulado: <span class="label label-warning">$'.$total_ventas_cafe_local.'</span></p> 
+                    </div>
+                    </div>
+                </div>
+               
+               <div class="row">
+                    <div class="col-sm-4">
+                    <div class="well">
+                    <h4><img class="img-reponsive img-rounded" src="../../icons/actions/view-investment.png" /> Ventas Mesas Hoy</h4>
+                        <p>Mesa 1: <span class="label label-success">$'.$total_ventas_hoy_mesa_1.'</span></p> 
+                        <p>Mesa 2: <span class="label label-warning">$'.$total_ventas_hoy_mesa_2.'</span></p> 
+                        <p>Mesa 3: <span class="label label-success">$'.$total_ventas_hoy_mesa_3.'</span></p>
+                        <p>Mesa 4: <span class="label label-warning">$'.$total_ventas_hoy_mesa_4.'</span></p> 
+                        <p>Mesa 5: <span class="label label-success">$'.$total_ventas_hoy_mesa_5.'</span></p>
+                        <p>Mesa 6: <span class="label label-warning">$'.$total_ventas_hoy_mesa_6.'</span></p> 
+                    </div>
+                    </div>
+                    <div class="col-sm-4">
+                    <div class="well">
+                    <h4><img class="img-reponsive img-rounded" src="../../icons/actions/view-investment.png" /> Ventas Mesas Acumulado</h4>
+                        <p>Mesa 1: <span class="label label-success">$'.$total_ventas_mesa_1.'</span></p> 
+                        <p>Mesa 2: <span class="label label-warning">$'.$total_ventas_mesa_2.'</span></p> 
+                        <p>Mesa 3: <span class="label label-success">$'.$total_ventas_mesa_3.'</span></p>
+                        <p>Mesa 4: <span class="label label-warning">$'.$total_ventas_mesa_4.'</span></p> 
+                        <p>Mesa 5: <span class="label label-success">$'.$total_ventas_mesa_5.'</span></p>
+                        <p>Mesa 6: <span class="label label-warning">$'.$total_ventas_mesa_6.'</span></p>
+                    </div>
+                    </div>
+                    <div class="col-sm-4">
+                    <div class="well">
+                    <h4><img class="img-reponsive img-rounded" src="../../icons/actions/view-income-categories.png" /> Total Mesas</h4>
+                        <p>Hoy: <span class="label label-success">$'.$total_mesas_hoy.'</span></p>
+                        <p>Acumulado: <span class="label label-warning">$'.$total_mesas.'</span></p> 
+                        
+                    </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-8">
+                    <div class="well">
+                    <h4><img class="img-reponsive img-rounded" src="../../icons/actions/games-highscores.png" /> Sabores - Los 5 más Pedidos</h4> 
+                    
+                                                  
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Sabores</th>
+                            <th>Cantidad</th>
+                        </tr>
+                        </thead>
+                        <tbody>';
+                        
+                        while($row_sabores = mysqli_fetch_array($query_sabores)){
+                        // Listado normal
+                        echo "<tr>";
+                        echo "<td class='text-nowrap text-center'>".$row_sabores['sabor']."</a></td>";
+                        echo "<td class='text-nowrap text-center'>".$row_sabores['total']."</a></td>";
+                        echo "<td class='text-nowrap'>";
+                        echo "</td>";
+                        }
+                         
+                        echo '</tbody>
+                            </table>
+                                       
+                    </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="well">
+                           <h4><img class="img-reponsive img-rounded" src="../../icons/actions/view-income-categories.png" /> Total Ventas</h4>
+                            <p>Hoy: <span class="label label-success">$'.$total_ventas_hoy.'</span></p>  
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="well">
+                            
+                           <h4><img class="img-reponsive img-rounded" src="../../icons/actions/games-highscores.png" /> Heladería - Los 5 más Comprados</h4> 
+                    
+                                                  
+                        <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                        </tr>
+                        </thead>
+                        <tbody>';
+                        
+                        while($row_helados = mysqli_fetch_array($query_helados)){
+                        // Listado normal
+                        echo "<tr>";
+                        echo "<td class='text-nowrap text-center'>".$row_helados['descripcion']."</a></td>";
+                        echo "<td class='text-nowrap text-center'>".$row_helados['cantidad']."</a></td>";
+                        echo "<td class='text-nowrap'>";
+                        echo "</td>";
+                        }
+                         
+                        echo '</tbody>
+                            </table>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="well">
+                            <h4><img class="img-reponsive img-rounded" src="../../icons/actions/view-income-categories.png" /> Total Ventas</h4>
+                            <p>Acumulado: <span class="label label-success">$'.$total_ventas_acumulado.'</span></p> 
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+            </div>';
+
+}
 
 
 ?>

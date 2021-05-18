@@ -1,0 +1,103 @@
+
+select sabor_1, count(sabor_1) as cantidad from st_ventas where espacio = 'heladeria' group by sabor_1 having count(sabor_1)>1 
+union all
+select sabor_2, count(sabor_2) as cantidad from st_ventas where espacio = 'heladeria' group by sabor_2 having count(sabor_2)>1 
+union all
+select sabor_3, count(sabor_3) as cantidad from st_ventas where espacio = 'heladeria' group by sabor_3 having count(sabor_3)>1 
+union all
+select sabor_4, count(sabor_4) as cantidad from st_ventas where espacio = 'heladeria' group by sabor_4 having count(sabor_4)>1 order by sabor_1 DESC;
+
+# ====================================================================
+# Consulta para sabores más pedidos
+
+SELECT sabor, COUNT(sabor) total FROM
+(
+SELECT sabor_1 sabor FROM st_ventas where espacio = 'heladeria'
+UNION ALL
+SELECT sabor_2 sabor FROM st_ventas where espacio = 'heladeria'
+UNION ALL
+SELECT sabor_3 sabor FROM st_ventas where espacio = 'heladeria'
+UNION ALL
+SELECT sabor_4 sabor FROM st_ventas where espacio = 'heladeria'
+) T
+group by sabor having count(*)>1 order by total DESC limit 10;
+
+# ====================================================================
+# Consulta para producto de heladeria mas vendido
+
+select descripcion, count(descripcion) as cantidad 
+from 
+st_ventas 
+where 
+espacio = 'heladeria' 
+group by descripcion having count(descripcion)>1
+order by
+descripcion limit 5;
+
+# ====================================================================
+# Consulta para cantidad de pedidos web en heladeria en el dia de la fecha
+
+select count(lugar_venta) as cantidad 
+from 
+st_ventas
+where 
+espacio = 'heladeria' and lugar_venta = 'Web' and fecha_venta = curdate();
+# ====================================================================
+# Consulta para cantidad de pedidos web en heladeria 
+
+select count(lugar_venta) as cantidad 
+from 
+st_ventas
+where 
+espacio = 'heladeria' and lugar_venta = 'Web';
+
+# ====================================================================
+# Consulta para cantidad de pedidos web en cafeteria en el dia de la fecha
+
+select count(lugar_venta) as cantidad 
+from 
+st_ventas
+where 
+espacio = 'cafeteria' and lugar_venta = 'Web' and fecha_venta = curdate();
+# ====================================================================
+# Consulta para cantidad de pedidos web en cafeteria 
+
+select count(lugar_venta) as cantidad 
+from 
+st_ventas
+where 
+espacio = 'cafeteria' and lugar_venta = 'Web';
+
+# ====================================================================
+# Consulta para cantidad de pedidos local en heladeria en el dia de la fecha
+
+select count(lugar_venta) as cantidad 
+from 
+st_ventas
+where 
+espacio = 'heladeria' and lugar_venta = 'Local' and fecha_venta = curdate();
+# ====================================================================
+# Consulta para cantidad de pedidos local en heladeria 
+
+select count(lugar_venta) as cantidad 
+from 
+st_ventas
+where 
+espacio = 'heladeria' and lugar_venta = 'Local';
+
+# ====================================================================
+# Consulta para cantidad de pedidos local en cafeteria en el dia de la fecha
+
+select count(lugar_venta) as cantidad 
+from 
+st_ventas
+where 
+espacio = 'cafeteria' and lugar_venta = 'Local' and fecha_venta = curdate();
+# ====================================================================
+# Consulta para cantidad de pedidos local en cafeteria 
+
+select count(lugar_venta) as cantidad 
+from 
+st_ventas
+where 
+espacio = 'cafeteria' and lugar_venta = 'Local';

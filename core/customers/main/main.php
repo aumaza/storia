@@ -9,6 +9,7 @@
       include "../../lib_cafeteria/lib_cafeteria.php";
       include "../../lib_consultas/lib_consultas.php";
       include "../../lib_heladeria_web/lib_heladeria_web.php";
+      include "../../lib_cafeteria_web/lib_cafeteria_web.php";
               
         $usuario = $_SESSION['user'];
         $password = $_SESSION['pass'];
@@ -121,6 +122,17 @@
   height: 40px;
   border-radius: 60%;
 }
+.well {
+    background:  #C0C0C0 ;
+    border-color: grey;
+    
+}
+.well:hover {
+  background-color: #808080;
+  border-color:  #f39c12;
+}
+
+
   </style>
 </head>
 <body>
@@ -177,7 +189,7 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" data-toggle="tooltip" data-placement="right" title="Espacio de Cafetería">
-        <img class="img-reponsive img-rounded" src="../../../assets/img/coffee-32x32.png" /> Coffe</a>
+        <img class="img-reponsive img-rounded" src="../../../assets/img/coffee-32x32.png" /> Coffee</a>
       </h4>
     </div>
     <div id="collapse2" class="panel-collapse collapse">
@@ -249,7 +261,6 @@
   </div>
 <!-- fin modulo datos personales  -->
   
-  
     </div>
     </div>
 
@@ -261,10 +272,12 @@
 
     <div class="col-sm-10"><hr>
       <div class="alert alert-info">
-        <img class="img-reponsive img-rounded" src="../../icons/actions/dashboard-show.png" /> <strong>Espacio de Cliente</strong> - <strong> Bienvenido <?php echo $nombre ?></strong>
+        <img class="img-reponsive img-rounded" src="../../icons/actions/dashboard-show.png" /> <strong>Espacio de Cliente</strong> - <strong> Bienvenido/a <?php echo $nombre ?></strong>
       </div>
       <hr>
       
+<!-- tablets de información  -->
+     <?php  tabletsInfoCliente($conn,$nombre); ?>      
 <!-- Inicio Espacio de Trabajo -->
     
     <?php
@@ -352,6 +365,19 @@
         
         // =============================================================================================
         //CAFETERIA
+        if(isset($_POST['pedido_cafe'])){
+            formVentaWebCaffe($conn,$nombre);
+        }
+        if(isset($_POST['add_pedido_cafeteria'])){
+            $producto = mysqli_real_escape_string($conn,$_POST['producto']);
+            $lugar_venta = mysqli_real_escape_string($conn,$_POST['lugar_venta']);
+            $modo_pago = mysqli_real_escape_string($conn,$_POST['modo_pago']);
+            $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
+            formFinalizarPedidoCafe($cliente,$producto,$lugar_venta,$modo_pago,$conn);
+        }
+        if(isset($_POST['mis_pedidos_cafe'])){
+            pedidosClienteCafe($conn,$nombre);
+        }
         
         
         
@@ -409,6 +435,7 @@
 </body>
 </html>
 
+<!-- script para insertar pedidos de heladeria via web -->
 <script type="text/javascript">
 $(document).ready(function(){
     $('#end_pedido_heladeria').click(function(){
@@ -420,6 +447,31 @@ $(document).ready(function(){
             success:function(r){
                 if(r==1){
                     alert("Pedido Realizado Exitosamente");
+                    location.href = "main.php";
+                    }else{
+                    alert("Hubo un problema al intentar realizar el pedido");
+                }
+            }
+        });
+
+        return false;
+    });
+});
+</script>
+
+<!-- script para insertar pedidos de cafeteria via web -->
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#end_pedido_cafe').click(function(){
+        var datos=$('#pedido_cafe_ajax').serialize();
+        $.ajax({
+            type:"POST",
+            url:"../../lib_cafeteria_web/insert_pedido_cafe.php",
+            data:datos,
+            success:function(r){
+                if(r==1){
+                    alert("Pedido Realizado Exitosamente");
+                    location.href = "main.php";
                     }else{
                     alert("Hubo un problema al intentar realizar el pedido");
                 }

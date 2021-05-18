@@ -62,7 +62,7 @@
           <li><a href="#services">Servicios</a></li>
           <li><a href="#portfolio">Productos</a></li>
           <li><a href="#team">Nuestro Equipo</a></li>
-          <li><a href="clientes/index.php">Clientes</a></li>
+          <li><a href="clientes/#">Clientes</a></li>
           <li><a href="#contact">Contactanos</a></li>
          
          </ul>
