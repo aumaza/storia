@@ -21,6 +21,7 @@ function skeleton(){
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/storia/skeleton/js/jquery-3.4.1.min.js"></script>
 	<script src="/storia/skeleton/js/bootstrap.min.js"></script>
+	<script src="/storia/core/lib_core/lib_scripts.js"></script>
 	
 	<script src="/storia/skeleton/js/jquery.dataTables.min.js"></script>
 	<script src="/storia/skeleton/js/dataTables.editor.min.js"></script>
@@ -59,7 +60,9 @@ function modal_1(){
             <div class="form-group">
                 <label for="pwd">Password:</label>
                 <input type="password" class="form-control" placeholder="Ingrese su password" name="pass" required>
-            </div>
+            </div><hr>
+            
+            <a href="core/registro/password.php"><button type="button" class="btn btn-warning btn-block">Olvidé mi Password</button></a><hr>
             
             <button type="submit" class="btn btn-success btn-block" name="A">Aceptar</button>
             </form> 
@@ -103,6 +106,8 @@ function modal_2(){
                 <label for="pwd">Password:</label>
                 <input type="password" class="form-control" placeholder="Ingrese su password" name="pass" required>
             </div>
+            
+            <a href="../core/registro/password.php"><button type="button" class="btn btn-warning btn-block">Olvidé mi Password</button></a><hr>
             
             <button type="submit" class="btn btn-success btn-block" name="A">Aceptar</button>
             </form> 
@@ -193,7 +198,7 @@ function dumpMysql($conn){
     $command = system($dump);
     chmod($file, 0777);
 
-    copy($file, "../sqls/$file");
+    copy($file, "../../sqls/$file");
     unlink($file);
     echo '<div class="alert alert-success" role="alert">';
     echo '<h1 class="panel-title text-left" contenteditable="true">

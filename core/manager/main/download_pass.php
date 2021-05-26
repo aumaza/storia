@@ -1,5 +1,5 @@
 <?php
-        include "../lib_clientes/lib_clientes.php";
+        include "../../lib_clientes/lib_clientes.php";
 
 	
 	$archivo = basename($_GET['file_name']);
@@ -10,7 +10,7 @@
 if($archivo){
 //if (!isset($_GET['file_name']) || empty($_GET['file_name'])) {
    
-   $path = '../registro/gen_pass/'.$archivo;
+   $path = '../../registro/gen_pass/'.$archivo;
   
   
 //Utilizamos basename por seguridad, devuelve el 

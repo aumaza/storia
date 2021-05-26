@@ -8,6 +8,7 @@
       include "../../lib_heladeria/lib_heladeria.php";
       include "../../lib_cafeteria/lib_cafeteria.php";
       include "../../lib_consultas/lib_consultas.php";
+      include "../../lib_delivery/lib_delivery.php";
               
         $usuario = $_SESSION['user'];
         $password = $_SESSION['pass'];
@@ -116,7 +117,7 @@
     }
   </style>
 </head>
-<body>
+<body onload="nobackbutton();">
 
 <div class="container-fluid">
   <div class="row content">
@@ -125,7 +126,7 @@
     <button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#exit" data-toggle="tooltip" data-placement="right" title="Desconectarse del Sistema">
         <img class="img-reponsive img-rounded" src="../../icons/actions/system-shutdown.png" /> Salir</button><br>
         <form action="#" method="POST">
-            <button type="submit" class="btn btn-default btn-sm" name="home" data-toggle="tooltip" data-placement="right" title="Limpiar Espacio de Trabajo">
+            <button type="submit" class="btn btn-default btn-block" name="home" data-toggle="tooltip" data-placement="right" title="Limpiar Espacio de Trabajo">
             <img class="img-reponsive img-rounded" src="../../icons/actions/go-home.png" /> Home</button>
         </form>
         <hr>
@@ -148,15 +149,14 @@
       <form action="#" method="POST">
       
       <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Heladería">
-	  <button type="submit" class="btn btn-default btn-sm" name="ventas_heladeria">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Ventas en Local</button></a></li>
-	    
-	    <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Heladería - Pedidos">
-	  <button type="submit" class="btn btn-default btn-sm" name="pedidos_heladeria">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-pim-notes.png" /> Pedidos - Heladería</button></a></li>
-                  
+	  
+	  <button type="submit" class="btn btn-default btn-xs btn-block" name="ventas_heladeria" data-toggle="tooltip" data-placement="right" title="Ventas Heladería en Local">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Ventas Local</button></li>
+    
+    <li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="ventas_heladeria_web" data-toggle="tooltip" data-placement="right" title="Ventas Heladería vía Web">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Ventas Web</button></li>
+    
       </form>
       </ul>
       
@@ -178,14 +178,20 @@
       <form action="#" method="POST">
       
       <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Cafetería">
-	  <button type="submit" class="btn btn-default btn-sm" name="ventas_cafeteria">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Total Ventas</button></a></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="ventas_cafeteria" data-toggle="tooltip" data-placement="right" title="Listado de mesas cerradas">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Total Mesas</button></li>
 	    
 	    <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Apertura y Cierre de Mesas">
-	  <button type="submit" class="btn btn-default btn-sm" name="mesas_cafeteria">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/story-editor.png" /> Mesas</button></a></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="mesas_cafeteria" data-toggle="tooltip" data-placement="right" title="Apertura y Cierre de Mesas">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/story-editor.png" /> Mesas</button></li>
+	    
+	    <li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="ventas_cafeteria_web" data-toggle="tooltip" data-placement="right" title="Ventas de Cafetería vía Web">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Ventas Web</button></li>
+	    
+	    <li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="ventas_cafeteria_local" data-toggle="tooltip" data-placement="right" title="Ventas de Cafetería en Local">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Ventas Local</button></li>
 	   
 	       
       </form>
@@ -213,34 +219,28 @@
       <form action="#" method="POST">
       
       <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Cambiar mi Contraseña">
-	  <button type="submit" class="btn btn-default btn-sm" name="cambiar_password">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-refresh.png" /> Cambiar Password</button></a></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="cambiar_password" data-toggle="tooltip" data-placement="right" title="Cambiar mi Contraseña">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-refresh.png" /> Cambiar Password</button></li>
       
       <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Listado de Usuarios">
-	  <button type="submit" class="btn btn-default btn-sm" name="usuarios">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/meeting-attending.png" /> Usuarios</button></a></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="usuarios" data-toggle="tooltip" data-placement="right" title="Listado de Usuarios">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/meeting-attending.png" /> Usuarios</button></li>
 	   
 	   <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Altas de Clientes / Empleados / Repartidores">
-	  <button type="submit" class="btn btn-default btn-sm" name="clientes">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/user-group-new.png" /> Altas</button></a></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="clientes" data-toggle="tooltip" data-placement="right" title="Altas de Clientes / Empleados / Repartidores">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/user-group-new.png" /> Altas</button></li>
 	    
 	    <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Listado de Productos">
-	  <button type="submit" class="btn btn-default btn-sm" name="productos">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/feed-subscribe.png" /> Productos</button></a></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="productos" data-toggle="tooltip" data-placement="right" title="Listado de Productos">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/feed-subscribe.png" /> Productos</button></li>
 	    
 	    <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Listado de Sabores">
-	  <button type="submit" class="btn btn-default btn-sm" name="sabores">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/fill-color.png" /> Sabores</button></a></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="sabores" data-toggle="tooltip" data-placement="right" title="Listado de Sabores">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/fill-color.png" /> Sabores</button></li>
 	   
       <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Back up Base de Datos">
-	  <button type="submit" class="btn btn-default btn-sm" name="back_up">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/svn-update.png" /> BackUp Base</button></a></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="back_up" data-toggle="tooltip" data-placement="right" title="Back up Base de Datos">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/svn-update.png" /> BackUp Base</button></li>
       
       </form>
       </ul>
@@ -263,9 +263,8 @@
       <form action="#" method="POST">
       
       <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Estadísticas Generales">
-	  <button type="submit" class="btn btn-default btn-sm" name="estadisticas">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/office-chart-pie.png" /> Estadísticas</button></a></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="estadisticas" data-toggle="tooltip" data-placement="right" title="Estadísticas Generales">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/office-chart-pie.png" /> Estadísticas</button></li>
       
       </form>
       </ul>
@@ -462,7 +461,10 @@
         //HELADERIA
         //listar ventas
         if(isset($_POST['ventas_heladeria'])){
-            ventasHeladeria($conn);
+            ventasHeladeriaLocal($conn);
+        }
+        if(isset($_POST['ventas_heladeria_web'])){
+            ventasHeladeriaWeb($conn);
         }
         //formulario de nueva ventas
         if(isset($_POST['add_venta'])){
@@ -510,7 +512,23 @@
             $id = mysqli_real_escape_string($conn,$_POST['id']);
             deleteVenta($id,$conn);
         }
-        
+        if(isset($_POST['asignar_repartidor'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formAsignarRepartidor($id,$conn);
+        }
+        if(isset($_POST['asignar_rep'])){
+            $id_venta = mysqli_real_escape_string($conn,$_POST['id']);
+            $producto = mysqli_real_escape_string($conn,$_POST['producto']);
+            $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
+            $direccion = mysqli_real_escape_string($conn,$_POST['direccion']);
+            $movil = mysqli_real_escape_string($conn,$_POST['movil']);
+            $tipo_pago = mysqli_real_escape_string($conn,$_POST['tipo_pago']);
+            $importe = mysqli_real_escape_string($conn,$_POST['importe']);
+            $fecha = mysqli_real_escape_string($conn,$_POST['fecha']);
+            $hora = mysqli_real_escape_string($conn,$_POST['hora']);
+            $repartidor = mysqli_real_escape_string($conn,$_POST['repartidor']);
+            addPedidoRepartidor($id_venta,$producto,$cliente,$direccion,$movil,$tipo_pago,$importe,$fecha,$hora,$repartidor,$conn);
+        }
         
         
         // =============================================================================================
@@ -518,6 +536,24 @@
         //listar ventas
         if(isset($_POST['ventas_cafeteria'])){
             ventasCafeteria($conn);
+        }
+        // listar ventas cafeteria
+        if(isset($_POST['ventas_cafeteria_web'])){
+            ventasCafeteriaWeb($conn);
+        }
+        if(isset($_POST['ventas_cafeteria_local'])){
+            ventasCafeteriaLocal($conn);
+        }
+        if(isset($_POST['new_venta_cafeteria'])){
+            formAddVentaCafeteriaLocal($conn);
+        }
+        if(isset($_POST['addVentaCafeteria'])){
+            $producto = mysqli_real_escape_string($conn,$_POST['producto']);
+            $empleado = mysqli_real_escape_string($conn,$_POST['empleado']);
+            $lugar_venta = mysqli_real_escape_string($conn,$_POST['lugar_venta']);
+            $modo_pago = mysqli_real_escape_string($conn,$_POST['modo_pago']);
+            $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
+            formFinalVentaCafeteriaLocal($producto,$empleado,$lugar_venta,$modo_pago,$cliente,$conn);
         }
         //vista de todas las mesas
         if(isset($_POST['mesas_cafeteria'])){
@@ -597,7 +633,7 @@
 		echo '<div class="container">';
 		echo '<div class="alert alert-warning" role="alert">';
 		echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> 
-                Hubo al Intentar Conectarse a la Base de Datos.  '  .mysqli_error($conn);
+                Hubo un problema al Intentar Conectarse a la Base de Datos.  '  .mysqli_error($conn);
 		echo "</div>";
 		echo "</div>";
     
@@ -618,6 +654,7 @@
 </footer>
 
 <?php modal_exit(); ?>
+<?php modalNewCliente(); ?>
 
        
 
@@ -637,6 +674,29 @@ $(document).ready(function(){
                     alert("Item Agregado Exitosamente");
                     }else{
                     alert("Hubo un problema al intentar Guardar el Item");
+                }
+            }
+        });
+
+        return false;
+    });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#add_venta_cafeteria').click(function(){
+        var datos=$('#frcafeajax').serialize();
+        $.ajax({
+            type:"POST",
+            url:"../../lib_cafeteria/insert_productos.php",
+            data:datos,
+            success:function(r){
+                if(r==1){
+                    alert("Producto Agregado Exitosamente");
+                    location.href = "main.php";
+                    }else{
+                    alert("Hubo un problema al intentar Guardar el Producto");
                 }
             }
         });

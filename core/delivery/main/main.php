@@ -10,6 +10,7 @@
       include "../../lib_consultas/lib_consultas.php";
       include "../../lib_heladeria_web/lib_heladeria_web.php";
       include "../../lib_cafeteria_web/lib_cafeteria_web.php";
+      include "../../lib_delivery/lib_delivery.php";
               
         $usuario = $_SESSION['user'];
         $password = $_SESSION['pass'];
@@ -44,14 +45,14 @@
             echo '</body></html>';
 	}
 
-      
-       
+	
+	
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <title>Storia - Espacio Cliente</title>
+  <title>Storia - Espacio Delivery</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="../../../assets/img/storia-favicon.png" rel="icon">
@@ -88,8 +89,7 @@
   });
   </script>
   <!-- END Data Table Script -->
-  
-  
+    
  
  <style>
     /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
@@ -158,7 +158,7 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" data-toggle="tooltip" data-placement="right" title="Espacio de Heladería">
-            <img class="img-reponsive img-rounded" src="../../../assets/img/ice_crem-32x32.png" /> Heladería</a>
+            <img class="img-reponsive img-rounded" src="../../icons/actions/im-aim.png" /> Entregas</a>
       </h4>
     </div>
     <div id="collapse1" class="panel-collapse collapse">
@@ -168,13 +168,13 @@
       <form action="#" method="POST">
       
       <li class="list-group-item">
-        <button type="submit" class="btn btn-default btn-xs btn-block" name="pedidos_heladeria" data-toggle="tooltip" data-placement="right" title="Realizar Pedido Heladería">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/im-aim.png" /> Realizar Pedido</button></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="entregas" data-toggle="tooltip" data-placement="right" title="Pedidos a entregar">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/im-aim.png" /> A Entregar</button></li>
+      
+      <li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="mis_entregas_heladeria" data-toggle="tooltip" data-placement="right" title="Pedidos Entregados">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-task.png" /> Pedidos Entregados</button></li>
 	    
-	    <li class="list-group-item">
-	<button type="submit" class="btn btn-default btn-xs btn-block" name="mis_pedidos_heladeria" data-toggle="tooltip" data-placement="right" title="Mis Pedidos de Helado">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-pim-notes.png" /> Mis Pedidos</button></a></li>
-                  
       </form>
       </ul>
       
@@ -198,15 +198,10 @@
       <form action="#" method="POST">
       
       <li class="list-group-item">
-	<button type="submit" class="btn btn-default btn-xs btn-block" name="pedido_cafe" data-toggle="tooltip" data-placement="right" title="Realizar Pedidos de Cafetería">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/im-aim.png" /> Realizar Pedido</button></a></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="pedido_cafe" data-toggle="tooltip" data-placement="right" title="Pedidos a entregar de Café">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/im-aim.png" /> Mis Entregas Coffee</button></li>
 	    
-	    <li class="list-group-item">
-	<button type="submit" class="btn btn-default btn-xs btn-block" name="mis_pedidos_cafe" data-toggle="tooltip" data-placement="right" title="Mis Pedidos de Cafetería">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-pim-notes.png" /> Mis Pedidos</button></a></li>
-	   
-	       
-      </form>
+	    </form>
       </ul>
       
       </div>
@@ -230,19 +225,19 @@
       <form action="#" method="POST">
       
       <li class="list-group-item">
-        <button type="submit" class="btn btn-default btn-xs btn-block" name="cambiar_password" data-toggle="tooltip" data-placement="right" title="Cambiar mi Password">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-refresh.png" /> Cambiar Password</button></a></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="cambiar_password" data-toggle="tooltip" data-placement="right" title="Cambiar mi Password">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-refresh.png" /> Cambiar Password</button></li>
 	   
 	   <?php
 	   if($avatar == ''){
 	    echo '<li class="list-group-item">
-        <button type="submit" class="btn btn-default btn-xs btn-block" name="bio_cliente" data-toggle="tooltip" data-placement="right" title="Editar Datos Personales">
-            <img class="img-reponsive img-rounded" src="../../icons/actions/user-group-properties.png" /> Mis Datos</button></a></li>';
+       <button type="submit" class="btn btn-default btn-xs btn-block" name="bio_cliente" data-toggle="tooltip" data-placement="right" title="Editar Datos Personales">
+            <img class="img-reponsive img-rounded" src="../../icons/actions/user-group-properties.png" /> Mis Datos</button></li>';
 	    }else{
 	    
             echo '<li class="list-group-item">
             <button type="submit" class="btn btn-default btn-xs btn-block" name="bio_cliente" data-toggle="tooltip" data-placement="right" title="Editar Datos Personales">
-                <img alt="Avatar" class="avatar" src="'.$avatar.'" /> Mis Datos</button></a></li>';
+                <img alt="Avatar" class="avatar" src="'.$avatar.'" /> Mis Datos</button></li>';
          
 	    }
 	   ?>
@@ -266,12 +261,12 @@
 
     <div class="col-sm-10"><hr>
       <div class="alert alert-info">
-        <img class="img-reponsive img-rounded" src="../../icons/actions/dashboard-show.png" /> <strong>Espacio de Cliente</strong> - <strong> Bienvenido/a <?php echo $nombre ?></strong>
+        <img class="img-reponsive img-rounded" src="../../icons/actions/dashboard-show.png" /> <strong>Espacio de Repartidores</strong> - <strong> Bienvenido/a <?php echo $nombre ?></strong>
       </div>
       <hr>
       
 <!-- tablets de información  -->
-     <?php  tabletsInfoCliente($conn,$nombre); ?>      
+     
 <!-- Inicio Espacio de Trabajo -->
     
     <?php
@@ -336,54 +331,24 @@
         
         // =============================================================================================
         
-        //HELADERIA
-        if(isset($_POST['pedidos_heladeria'])){
-            formVentaWeb($conn,$nombre);
+        // ENTREGAS LISTAR
+        if(isset($_POST['entregas'])){
+            entregasHoy($conn,$nombre);
         }
-        if(isset($_POST['add_pedido_heladeria'])){
-            $producto = mysqli_real_escape_string($conn,$_POST['producto']);
-            $sabor_1 = mysqli_real_escape_string($conn,$_POST['sabor_1']);
-            $sabor_2 = mysqli_real_escape_string($conn,$_POST['sabor_2']);
-            $sabor_3 = mysqli_real_escape_string($conn,$_POST['sabor_3']);
-            $sabor_4 = mysqli_real_escape_string($conn,$_POST['sabor_4']);
-            $lugar_venta = mysqli_real_escape_string($conn,$_POST['lugar_venta']);
-            $modo_pago = mysqli_real_escape_string($conn,$_POST['modo_pago']);
-            $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
-            formFinalizarPedidoHeladeria($cliente,$producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$lugar_venta,$modo_pago,$conn);
+        if(isset($_POST['mis_entregas_heladeria'])){
+            misEntregas($conn,$nombre);
         }
-        if(isset($_POST['mis_pedidos_heladeria'])){
-            pedidosCliente($conn,$nombre);
+        if(isset($_POST['cambiar_estado_entrega'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formCambioEstadoEntrega($id,$conn);            
         }
-        
-        
-        
-        
-        
-        // =============================================================================================
-        //CAFETERIA
-        if(isset($_POST['pedido_cafe'])){
-            formVentaWebCaffe($conn,$nombre);
+        if(isset($_POST['cambiar_estado_pedido'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            $id_venta = mysqli_real_escape_string($conn,$_POST['id_venta']);
+            $estado = mysqli_real_escape_string($conn,$_POST['estado']);
+            updateEstadoEntrega($id,$id_venta,$estado,$conn);
         }
-        if(isset($_POST['add_pedido_cafeteria'])){
-            $producto = mysqli_real_escape_string($conn,$_POST['producto']);
-            $lugar_venta = mysqli_real_escape_string($conn,$_POST['lugar_venta']);
-            $modo_pago = mysqli_real_escape_string($conn,$_POST['modo_pago']);
-            $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
-            formFinalizarPedidoCafe($cliente,$producto,$lugar_venta,$modo_pago,$conn);
-        }
-        if(isset($_POST['mis_pedidos_cafe'])){
-            pedidosClienteCafe($conn,$nombre);
-        }
-        
-        
-        
-        // =============================================================================================
-        //MODULO CONSULTAS
-        //consulta rápida de mesas
-        if(isset($_POST['estado_mesas'])){
-            vistaMesas($conn);
-        }
-        
+            
     
     
     
@@ -423,17 +388,13 @@
   <p><img class="img-reponsive img-rounded" src="../../../assets/img/storia-favicon.png" /> Storia - Heladería / Café</p>
 </footer>
 
-  
-
 <?php modal_exit(); ?>
-<?php modalRepartidor(); ?>
+<?php modalNewCliente(); ?>
 
        
 
 </body>
 </html>
-
-
 
 <!-- script para insertar pedidos de heladeria via web -->
 <script type="text/javascript">
@@ -482,18 +443,3 @@ $(document).ready(function(){
     });
 });
 </script>
-
-<!-- captura id -->
-  <script>
-$('.openBtn').on('click',function(){
-        var x = $(this).attr("data-id");
-        $('.modal-body').load("repartidor.php?id="+x,function(){
-        $('#quien-viene').modal({show:true});
-        
-    });
-});
-</script>
-
-
-
-

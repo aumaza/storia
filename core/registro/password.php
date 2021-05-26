@@ -34,7 +34,7 @@
         <header class="bg-primary text-white">
             <div class="container text-center">
                 <h1>Bienvenido al Blanqueo de Password de Storia</h1>
-                <p class="lead">Si olvidate tu Password, no hay problema, completá los campos que solicitamos aquí abajo y blanquearemos tu Password!</p>
+                <p class="lead">Si olvidaste tu Password, no hay problema, completá los campos que solicitamos aquí abajo y blanquearemos tu Password!</p>
             </div>
         </header>
         <?php

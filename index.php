@@ -173,6 +173,15 @@
   				echo '<meta http-equiv="refresh" content="5;URL=core/delivery/main/main.php "/>';
 			
 			}
+			if($user['espacio'] == 'cli'){
+			
+                echo '<div clas="row" align="center">
+                        <div class="col-sm-6">
+                        <div class="alert alert-danger" role="alert">';
+				echo '<span class="pull-center "><img src="core/icons/status/dialog-warning.png"  class="img-reponsive img-rounded"> Usted es un Cliente, debe ingresar desde el Botón Clientes';
+				echo "</div></div></div>";
+			
+			}
 			}
 			}else{
 				echo '<div clas="row" align="center">

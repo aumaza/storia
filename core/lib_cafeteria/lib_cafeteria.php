@@ -4,7 +4,7 @@
 //FORMULARIOS
 
 /*
-** funcion que carga la tabla de todas las ventas de cafeteria
+** funcion que carga la tabla de todas las ventas de cafeteria en mesas
 */
 
 
@@ -21,7 +21,8 @@ if($conn)
 	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/apps/java.png"  class="img-reponsive img-rounded"> Administración de Ventas en Cafetería';
 	echo '</div><br>';
 
-            echo "<table class='display compact' style='width:100%' id='myTable'>";
+            echo "<div class='table-responsive'>
+                    <table class='table table-condensed table-hover' style='width:100%' id='myTable'>";
               echo "<thead>
 		    <th class='text-nowrap text-center' hidden>ID</th>
 		    <th class='text-nowrap text-center'>Mesa Número</th>
@@ -58,13 +59,161 @@ if($conn)
 			 $count++;
 		}
 
-		echo "</table>";
+		echo "</table></div>";
 		echo "<br>";
 		echo '<form <action="#" method="POST">
 			<button type="submit" class="btn btn-default btn-sm" name="filtro_cafeteria">
 			  <img src="../../icons/actions/view-calendar-day.png"  class="img-reponsive img-rounded"> Filtros Mesas Cerradas</button>
 		      </form><br>';
 		echo '<button type="button" class="btn btn-primary">Cantidad de Cajas Cerradas:  '.$count.' </button>';
+		echo '</div>';
+		}else{
+		  echo 'Connection Failure...' .mysqli_error($conn);
+		}
+
+    mysqli_close($conn);
+
+}
+
+
+/*
+** funcion que carga la tabla de todas las ventas de cafeteria via web
+*/
+
+
+function ventasCafeteriaWeb($conn){
+
+if($conn)
+{
+	$sql = "SELECT * FROM st_ventas where espacio = 'cafeteria' and lugar_venta = 'Web'";
+    	mysqli_select_db($conn,'storia');
+    	$resultado = mysqli_query($conn,$sql);
+	//mostramos fila x fila
+	$count = 0;
+	echo '<div class="panel panel-success" >
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/apps/java.png"  class="img-reponsive img-rounded"> Administración de Ventas Web en Cafetería';
+	echo '</div><br>';
+
+            echo "<div class='table-responsive'>
+                    <table class='table table-condensed table-hover' style='width:100%' id='myTable'>";
+              echo "<thead>
+		    <th class='text-nowrap text-center' hidden>ID</th>
+		    <th class='text-nowrap text-center'>Producto</th>
+            <th class='text-nowrap text-center'>Modo de Pago</th>
+            <th class='text-nowrap text-center'>Fecha Pedido</th>
+            <th class='text-nowrap text-center'>Hora Pedido</th>
+            <th class='text-nowrap text-center'>Cliente</th>
+            <th class='text-nowrap text-center'>Importe</th>
+            <th class='text-nowrap text-center'>Estado Entrega</th>
+            <th>&nbsp;</th>
+            </thead>";
+
+
+	while($fila = mysqli_fetch_array($resultado)){
+			  // Listado normal
+			 echo "<tr>";
+			 echo "<td align=center hidden>".$fila['id']."</td>";
+			 echo "<td align=center>".$fila['descripcion']."</td>";
+			 echo "<td align=center>".$fila['tipo_pago']."</td>";
+			 echo "<td align=center>".$fila['fecha_venta']."</a></td>";
+			 echo "<td align=center>".$fila['hora_venta']."</a></td>";
+			 echo "<td align=center>".$fila['cliente_nombre']."</a></td>";
+			 echo "<td align=center>$".$fila['importe']."</a></td>";
+			 if($fila['estado_entrega'] == 'Entregado'){
+			 echo "<td align=center style='background-color: #abebc6'>".$fila['estado_entrega']."</a></td>";
+			 }
+			 if($fila['estado_entrega'] == 'No Entregado'){
+			 echo "<td align=center style='background-color:red'>".$fila['estado_entrega']."</a></td>";
+			 }
+			 if($fila['estado_entrega'] == 'No Responde'){
+			 echo "<td align=center style='background-color: #bb8fce'>".$fila['estado_entrega']."</a></td>";
+			 }
+			 if($fila['estado_entrega'] == 'En Camino'){
+			 echo "<td align=center style='background-color: #aed6f1 '>".$fila['estado_entrega']."</a></td>";
+			 }
+			 if($fila['estado_entrega'] == 'En Preparación'){
+			 echo "<td align=center style='background-color: #edbb99'>".$fila['estado_entrega']."</a></td>";
+			 }
+			 echo "<td class='text-nowrap'>";
+			 echo '<form <action="#" method="POST">
+                    <input type="hidden" name="id" value="'.$fila['id'].'">';
+                   if(($fila['lugar_venta'] != 'Local') && ($fila['estado_entrega'] != 'Entregado')){
+                   echo '<button type="submit" class="btn btn-warning btn-xs" name="asignar_repartidor"><img src="../../icons/actions/im-aim.png"  class="img-reponsive img-rounded"> Asignar Repartidor</button>';
+                   }
+                   echo '</form>';
+                   echo '<a href="../../lib_cafeteria/print.php?file=print_pedido_web_cafeteria.php&id='.$fila['id'].'" target="_blank"><button type="button" class="btn btn-success btn-xs"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Pedido</button></a>';
+             echo "</td>";
+			 $count++;
+		}
+
+		echo "</table></div>";
+		echo "<br>";
+		echo '<button type="button" class="btn btn-primary">Cantidad de Pedidos:  '.$count.' </button>';
+		echo '</div>';
+		}else{
+		  echo 'Connection Failure...' .mysqli_error($conn);
+		}
+
+    mysqli_close($conn);
+
+}
+
+
+/*
+** funcion que carga la tabla de todas las ventas de cafeteria via web
+*/
+
+
+function ventasCafeteriaLocal($conn){
+
+if($conn)
+{
+	$sql = "SELECT * FROM st_ventas where espacio = 'cafeteria' and lugar_venta = 'Local'";
+    	mysqli_select_db($conn,'storia');
+    	$resultado = mysqli_query($conn,$sql);
+	//mostramos fila x fila
+	$count = 0;
+	echo '<div class="panel panel-success" >
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/apps/java.png"  class="img-reponsive img-rounded"> Administración de Ventas en Local Cafetería';
+	echo '</div><br>';
+
+            echo "<div class='table-responsive'>
+                    <table class='table table-condensed table-hover' style='width:100%' id='myTable'>";
+              echo "<thead>
+		    <th class='text-nowrap text-center' hidden>ID</th>
+		    <th class='text-nowrap text-center'>Producto</th>
+            <th class='text-nowrap text-center'>Modo de Pago</th>
+            <th class='text-nowrap text-center'>Fecha Pedido</th>
+            <th class='text-nowrap text-center'>Hora Pedido</th>
+            <th class='text-nowrap text-center'>Cliente</th>
+            <th class='text-nowrap text-center'>Importe</th>
+            <th>&nbsp;</th>
+            </thead>";
+
+
+	while($fila = mysqli_fetch_array($resultado)){
+			  // Listado normal
+			 echo "<tr>";
+			 echo "<td align=center hidden>".$fila['id']."</td>";
+			 echo "<td align=center>".$fila['descripcion']."</td>";
+			 echo "<td align=center>".$fila['tipo_pago']."</td>";
+			 echo "<td align=center>".$fila['fecha_venta']."</a></td>";
+			 echo "<td align=center>".$fila['hora_venta']."</a></td>";
+			 echo "<td align=center>".$fila['cliente_nombre']."</a></td>";
+			 echo "<td align=center>$".$fila['importe']."</a></td>";
+			 echo "<td class='text-nowrap'>";
+			 
+			 echo "</td>";
+			 $count++;
+		}
+
+		echo "</table></div>";
+		echo "<br>";
+		echo '<form <action="#" method="POST">
+			<button type="submit" class="btn btn-default btn-xs" name="new_venta_cafeteria">
+			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Nueva Venta</button>
+		      </form><br>';
+		echo '<button type="button" class="btn btn-primary">Cantidad de Ventas:  '.$count.' </button>';
 		echo '</div>';
 		}else{
 		  echo 'Connection Failure...' .mysqli_error($conn);
@@ -312,6 +461,188 @@ function mesas($conn){
 </div><br><br>';
 
 
+}
+
+/*
+** formulario para agregar venta de cafeteria en local
+*/
+function formAddVentaCafeteriaLocal($conn){
+       
+       
+       echo '<div class="container">
+	      <div class="row">
+		<div class="col-sm-10">
+            
+            <div class="panel panel-success">
+	      <div class="panel-heading">
+            <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta Cafetería en Local</div>
+		  <div class="panel-body">
+	
+	    <form action="#" method="POST">
+            
+            <div class="form-group">
+		  <label for="sel1">Producto:</label>
+		  <select class="form-control" name="producto" required>
+		  <option value="" disabled selected>Seleccionar</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_productos where cod_producto like 'cf%' order by descripcion ASC";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[descripcion].'" >'.$valores[descripcion].'</option>';
+				}
+                }
+			}
+			  
+		 echo '</select>
+		</div><hr>
+            
+            
+		 <div class="form-group">
+		  <label for="sel1">Empleado:</label>
+		  <select class="form-control" name="empleado" required>
+		  <option value="" disabled selected>Seleccionar</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_clientes where espacio = 'emp' order by cliente_nombre ASC";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[cliente_nombre].'" >'.$valores[cliente_nombre].'</option>';
+				}
+                }
+			}
+            
+            echo '</select>
+                    </div><hr>
+            
+            <div class="form-group">
+            <label for="sel1">Lugar / Modo de Venta:</label>
+            <select class="form-control" name="lugar_venta">
+                <option value="" disabled selected>Seleccionar</option>
+                <option value="Local">Local</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Telefonica">Telefónica</option>
+                </select>
+            </div><hr>
+            
+            <div class="form-group">
+            <label for="sel1">Tipo de Pago:</label>
+            <select class="form-control" name="modo_pago">
+                <option value="" disabled selected>Seleccionar</option>
+                <option value="MP">Mercado Pago</option>
+                <option value="Efectivo">Efectivo</option>
+                </select>
+            </div><hr>
+            
+            <div class="form-group">
+		  <label for="sel1">Cliente:</label>
+		  <select class="form-control" name="cliente" required>
+		  <option value="" disabled selected>Seleccionar</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_clientes where espacio = 'cli' order by cliente_nombre ASC ";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[cliente_nombre].'" >'.$valores[cliente_nombre].'</option>';
+				}
+                }
+			}
+
+			mysqli_close($conn);
+		  
+		 echo '</select>
+		</div>
+		<p>Si el Cliente no se encuentra en la base presione el botón "Nuevo Cliente" para darlo de alta</p>
+		<!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newCliente">Nuevo Cliente</button>
+		<hr>
+            
+                 
+            <button type="submit" class="btn btn-success btn-xs btn-block" name="addVentaCafeteria">
+                <img src="../../icons/actions/go-next.png"  class="img-reponsive img-rounded"> Continuar</button>
+            </form>
+            </div>
+            </div>
+            
+            </div>
+            </div>
+            </div>';
+}
+
+
+/*
+** formulario para agregar venta de cafeteria en local
+*/
+function formFinalVentaCafeteriaLocal($producto,$empleado,$lugar_venta,$modo_pago,$cliente,$conn){
+       
+       $sql = "select precio from st_productos where descripcion = '$producto'";
+       mysqli_select_db($conn,'storia');
+       $query = mysqli_query($conn,$sql);
+       while($row = mysqli_fetch_array($query)){
+            $precio = $row['precio'];
+       }
+       
+       
+       echo '<div class="container">
+	      <div class="row">
+		<div class="col-sm-10">
+            
+            <div class="panel panel-success">
+	      <div class="panel-heading">
+            <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Terminar Venta Cafetería en Local</div>
+		  <div class="panel-body">
+	
+	    <form id="frcafeajax" method="POST">
+            
+             
+            <div class="form-group">
+                <label for="email">Producto:</label>
+                <input type="text" class="form-control" name="producto" value="'.$producto.'">
+            </div>
+            
+            <div class="form-group">
+                <label for="pwd">Empleado:</label>
+                <input type="text" class="form-control" name="empleado" value="'.$empleado.'">
+            </div>
+            
+            <div class="form-group">
+                <label for="pwd">Lugar de Venta:</label>
+                <input type="text" class="form-control" name="lugar_venta" value="'.$lugar_venta.'">
+            </div>
+            
+            <div class="form-group">
+                <label for="pwd">Modo Pago:</label>
+                <input type="text" class="form-control" name="modo_pago" value="'.$modo_pago.'">
+            </div>
+            
+            <div class="form-group">
+                <label for="pwd">Precio:</label>
+                <input type="text" class="form-control" name="precio" value="'.$precio.'">
+            </div>
+            
+            <div class="form-group">
+                <label for="pwd">Cliente:</label>
+                <input type="text" class="form-control" name="cliente" value="'.$cliente.'">
+            </div>
+                 
+            <button id="add_venta_cafeteria" class="btn btn-success btn-xs btn-block" name="add_venta_cafeteria">
+                <img src="../../icons/actions/dialog-ok.png"  class="img-reponsive img-rounded"> Terminar</button>
+            </form>
+            </div>
+            </div>
+            
+            </div>
+            </div>
+            </div>';
 }
 
 
@@ -901,6 +1232,33 @@ function addItems($id_mesa,$item,$conn){
 
 
 /*
+** agregar intem en tabla 
+*/
+function addProductos($producto,$empleado,$lugar_venta,$modo_pago,$importe,$cliente,$conn){
+    
+    $sql = "select cod_producto from st_productos where descripcion = '$producto'";
+    mysqli_select_db($conn,'storia');
+    $query = mysqli_query($conn,$sql);
+    while($row = mysqli_fetch_array($query)){
+        $cod_producto = $row['cod_producto'];
+    }
+    
+    $espacio = 'cafeteria';
+    $fecha_actual = date("Y-m-d");
+    $hora_actual =  date("H:i:s");
+    
+    $consulta = "INSERT INTO st_ventas".
+            "(cod_producto,descripcion,espacio,empleado,lugar_venta,tipo_pago,fecha_venta,hora_venta,cliente_nombre,importe)".
+            "VALUES ".
+        "('$cod_producto','$producto','$espacio','$empleado','$lugar_venta','$modo_pago','$fecha_actual','$hora_actual','$cliente','$importe')";
+        mysqli_select_db($conn,'storia');
+        echo mysqli_query($conn,$consulta);
+                        
+
+}
+
+
+/*
 ** persistencia de cierre de mesa
 */
 function closeMesa($id_mesa,$total,$conn){
@@ -929,10 +1287,7 @@ function closeMesa($id_mesa,$total,$conn){
 			    echo "</div>";
 			    echo "</div>";
 		    }
-    
-
-
-
+  
 }
 
 

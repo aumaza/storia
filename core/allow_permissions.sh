@@ -1,4 +1,6 @@
-#!/usr/local/bin/bash
+//#!/usr/local/bin/bash
+#!/bin/bash
+
 chmod -R 777 uploads/
 echo "Permisos en uploads cambiados Exitosamente"
 chmod -R 777 backups/
@@ -9,6 +11,6 @@ chmod -R 777 logs/
 echo "Permisos en logs cambiados Exitosamente"
 chmod -R 777 registro/gen_pass/
 echo "Permisos en gen_pass cambiados Exitosamente"
-chmod 777 main/
+chmod 777 manager/main/
 echo "Permisos en main cambiados Exitosamente"
 

@@ -159,6 +159,7 @@ function addPedidoCafeWeb($cliente,$producto,$lugar_venta,$modo_pago,$cod_produc
     $espacio = 'cafeteria';
     $hora_actual =  date("H:i:s");
     $fecha_actual = date("Y-m-d");
+    $estado_entrega = 'En Preparación';
     
           $consulta = "INSERT INTO st_ventas".
               "(cod_producto,
@@ -169,7 +170,8 @@ function addPedidoCafeWeb($cliente,$producto,$lugar_venta,$modo_pago,$cod_produc
                 fecha_venta,
                 hora_venta,
                 cliente_nombre,
-                importe)".
+                importe,
+                estado_entrega)".
             "VALUES ".
         "('$codigo_producto',
           '$producto',
@@ -179,7 +181,8 @@ function addPedidoCafeWeb($cliente,$producto,$lugar_venta,$modo_pago,$cod_produc
           '$fecha_actual',
           '$hora_actual',
           '$cliente',
-          '$importe')";
+          '$importe',
+          '$estado_entrega')";
         
         mysqli_select_db($conn,'storia');
         echo mysqli_query($conn,$consulta);

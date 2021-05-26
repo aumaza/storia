@@ -95,9 +95,14 @@ create table st_repartos (
 id int(11) auto_increment primary key,
 id_venta int(11) not null,
 descripcion varchar(40) not null,
+cliente varchar(90) not null,
+direccion varchar(90) not null,
+movil varchar(18) not null,
 forma_pago varchar(8) not null,
 repartidor varchar(70) not null,
-estado enum('Entregado','No Entregado','No Responde') not null,
+estado enum('Entregado','No Entregado','No Responde','En Camino') not null,
 fecha_entrega date not null,
-hora_entrega time not null
+hora_entrega time not null,
+valor_envio float(8,2),
+envio_pago enum('Si','No')
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -7,20 +7,21 @@
 */
 
 
-function ventasHeladeria($conn){
+function ventasHeladeriaLocal($conn){
 
 if($conn)
 {
-	$sql = "SELECT * FROM st_ventas where espacio = 'heladeria'";
+	$sql = "SELECT * FROM st_ventas where espacio = 'heladeria' and lugar_venta = 'Local'";
     	mysqli_select_db($conn,'storia');
     	$resultado = mysqli_query($conn,$sql);
 	//mostramos fila x fila
 	$count = 0;
 	echo '<div class="panel panel-success" >
-	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/fill-color.png"  class="img-reponsive img-rounded"> Administración de Ventas en Heladería';
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/fill-color.png"  class="img-reponsive img-rounded"> Administración de Ventas en Local Heladería';
 	echo '</div><br>';
 
-            echo "<table class='display compact' style='width:100%' id='myTable'>";
+            echo "<div class='table-responsive'>
+                    <table class='table table-condensed table-hover' style='width:100%' id='myTable'>";
               echo "<thead>
 		    <th class='text-nowrap text-center'>Producto</th>
             <th class='text-nowrap text-center'>Sabor I</th>
@@ -56,20 +57,113 @@ if($conn)
 			 echo "<td class='text-nowrap'>";
 			 echo '<form <action="#" method="POST">
                     <input type="hidden" name="id" value="'.$fila['id'].'">';
-                   echo '<button type="submit" class="btn btn-primary btn-sm" name="edit_venta"><img src="../../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
-                   echo '<button type="submit" class="btn btn-danger btn-sm" name="del_venta"><img src="../../icons/actions/trash-empty.png"  class="img-reponsive img-rounded"> Eliminar</button>';
-                   echo '<button type="submit" class="btn btn-success btn-sm" name="ticket_venta"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Ticket</button>';
+                   echo '<button type="submit" class="btn btn-primary btn-xs" name="edit_venta"><img src="../../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
+                   echo '<button type="submit" class="btn btn-danger btn-xs" name="del_venta"><img src="../../icons/actions/trash-empty.png"  class="img-reponsive img-rounded"> Eliminar</button>';
                    echo '</form>';
+                   echo '<a href="../../lib_heladeria/print.php?file=print_pedido_local_heladeria.php&id='.$fila['id'].'" target="_blank"><button type="button" class="btn btn-success btn-xs"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Pedido</button></a>';
+                   
 			 echo "</td>";
 			 $count++;
 		}
 
-		echo "</table>";
+		echo "</table></div>";
 		echo "<br>";
 		echo '<form <action="#" method="POST">
-			<button type="submit" class="btn btn-default btn-sm" name="add_venta">
+			<button type="submit" class="btn btn-default btn-xs" name="add_venta">
 			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Nueva Venta</button>
 		      </form><br>';
+		echo '<button type="button" class="btn btn-primary">Cantidad de Ventas:  '.$count.' </button>';
+		echo '</div>';
+		}else{
+		  echo 'Connection Failure...' .mysqli_error($conn);
+		}
+
+    mysqli_close($conn);
+
+}
+
+/*
+** funcion que carga la tabla de todas las ventas de heladeria
+*/
+
+
+function ventasHeladeriaWeb($conn){
+
+if($conn)
+{
+	$sql = "SELECT * FROM st_ventas where espacio = 'heladeria' and lugar_venta = 'Web'";
+    	mysqli_select_db($conn,'storia');
+    	$resultado = mysqli_query($conn,$sql);
+	//mostramos fila x fila
+	$count = 0;
+	echo '<div class="panel panel-success" >
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/fill-color.png"  class="img-reponsive img-rounded"> Administración de Ventas Web en Heladería';
+	echo '</div><br>';
+
+            echo "<div class='table-responsive'>
+                    <table class='table table-condensed table-hover' style='width:100%' id='myTable'>";
+              echo "<thead>
+		    <th class='text-nowrap text-center'>Producto</th>
+            <th class='text-nowrap text-center'>Sabor I</th>
+            <th class='text-nowrap text-center'>Sabor II</th>
+            <th class='text-nowrap text-center'>Sabor III</th>
+            <th class='text-nowrap text-center'>Sabor IV</th>
+            <th class='text-nowrap text-center'>Canal Venta</th>
+            <th class='text-nowrap text-center'>Modo Pago</th>
+            <th class='text-nowrap text-center'>Fecha Venta</th>
+            <th class='text-nowrap text-center'>Hora Venta</th>
+            <th class='text-nowrap text-center'>Cliente</th>
+            <th class='text-nowrap text-center'>Importe</th>
+            <th class='text-nowrap text-center'>Estado Entrega</th>
+            <th>&nbsp;</th>
+            </thead>";
+
+
+	while($fila = mysqli_fetch_array($resultado)){
+			  // Listado normal
+			 echo "<tr>";
+			 echo "<td align=center>".$fila['descripcion']."</a></td>";
+			 echo "<td align=center>".$fila['sabor_1']."</a></td>";
+			 echo "<td align=center>".$fila['sabor_2']."</a></td>";
+			 echo "<td align=center>".$fila['sabor_3']."</a></td>";
+			 echo "<td align=center>".$fila['sabor_4']."</a></td>";
+			 echo "<td align=center>".$fila['lugar_venta']."</a></td>";
+			 echo "<td align=center>".$fila['tipo_pago']."</a></td>";
+			 echo "<td align=center>".$fila['fecha_venta']."</a></td>";
+			 echo "<td align=center>".$fila['hora_venta']."</a></td>";
+			 echo "<td align=center>".$fila['cliente_nombre']."</a></td>";
+			 echo "<td align=center>$".$fila['importe']."</a></td>";
+			 if($fila['estado_entrega'] == 'Entregado'){
+			 echo "<td align=center style='background-color: #abebc6'>".$fila['estado_entrega']."</a></td>";
+			 }
+			 if($fila['estado_entrega'] == 'No Entregado'){
+			 echo "<td align=center style='background-color:red'>".$fila['estado_entrega']."</a></td>";
+			 }
+			 if($fila['estado_entrega'] == 'No Responde'){
+			 echo "<td align=center style='background-color: #bb8fce'>".$fila['estado_entrega']."</a></td>";
+			 }
+			 if($fila['estado_entrega'] == 'En Camino'){
+			 echo "<td align=center style='background-color: #aed6f1 '>".$fila['estado_entrega']."</a></td>";
+			 }
+			 if($fila['estado_entrega'] == 'En Preparación'){
+			 echo "<td align=center style='background-color: #edbb99'>".$fila['estado_entrega']."</a></td>";
+			 }
+			 echo "<td class='text-nowrap'>";
+			 echo '<form <action="#" method="POST">
+                    <input type="hidden" name="id" value="'.$fila['id'].'">';
+                   if(($fila['lugar_venta'] != 'Local') && ($fila['estado_entrega'] != 'Entregado')){
+                   echo '<button type="submit" class="btn btn-warning btn-xs" name="asignar_repartidor"><img src="../../icons/actions/im-aim.png"  class="img-reponsive img-rounded"> Asignar Repartidor</button>';
+                   }
+                   echo '</form>';
+                   if($fila['estado_entrega'] != 'Entregado'){
+                   echo '<a href="../../lib_heladeria/print.php?file=print_pedido_web_heladeria.php&id='.$fila['id'].'" target="_blank"><button type="button" class="btn btn-success btn-xs"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Pedido</button></a>';
+                   }
+			 echo "</td>";
+			 $count++;
+		}
+
+		echo "</table></div>";
+		echo "<br>";
 		echo '<button type="button" class="btn btn-primary">Cantidad de Ventas:  '.$count.' </button>';
 		echo '</div>';
 		}else{
@@ -83,7 +177,7 @@ if($conn)
 
 
 /*
-** formulario para agregar venta
+** formulario para agregar venta de heladeria en local
 */
 function formAddVenta($conn){
        
@@ -94,7 +188,7 @@ function formAddVenta($conn){
             
             <div class="panel panel-success">
 	      <div class="panel-heading">
-            <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta</div>
+            <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta Heladería</div>
 		  <div class="panel-body">
 	
 	    <form action="#" method="POST">
@@ -266,7 +360,7 @@ function formAddVenta($conn){
 		<hr>
             
                  
-            <button type="submit" class="btn btn-success btn-block" name="addVenta">
+            <button type="submit" class="btn btn-success btn-xs btn-block" name="addVenta">
                 <img src="../../icons/devices/media-floppy.png"  class="img-reponsive img-rounded"> Terminar</button>
             </form>
             </div>
@@ -480,7 +574,7 @@ function formEditVenta($id,$conn){
 		</div><hr>
             
                  
-            <button type="submit" class="btn btn-success btn-block" name="editVenta">
+            <button type="submit" class="btn btn-success btn-xs btn-block" name="editVenta">
                 <img src="../../icons/actions/document-save-as.png"  class="img-reponsive img-rounded"> Actualizar</button>
             </form>
             </div>
@@ -526,10 +620,10 @@ function formEliminarVenta($id,$conn){
 		    <p>Si está seguro, presione Aceptar, de lo contrario presione Cancelar.</p>
                 </div><hr>
             
-            <button type="submit" class="btn btn-success btn-block" name="delete_venta">Aceptar</button><br>
+            <button type="submit" class="btn btn-success btn-xs btn-block" name="delete_venta">Aceptar</button><br>
             
             </form>
-	      <a href="main.php"><button type="button" class="btn btn-danger btn-block">Cancelar</button></a>
+	      <a href="main.php"><button type="button" class="btn btn-danger btn-xs btn-block">Cancelar</button></a>
             </div>
             </div>
             

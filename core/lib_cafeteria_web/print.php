@@ -13,11 +13,10 @@ if($file){
 ob_start();
 require_once $file;
 $html = ob_get_clean();
-$file_name = explode('.',$file);
 
 $page = new Html2Pdf('P','A4','es');
 $page->writeHTML($html);
-$page->output(''.$file_name[0].'.pdf');
+$page->output('ticket.pdf');
 }
 }catch(Html2PdfException $e){
     $Html2Pdf->clean;

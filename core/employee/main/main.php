@@ -113,7 +113,7 @@
     }
   </style>
 </head>
-<body>
+<body onload="nobackbutton();">
 
 <div class="container-fluid">
   <div class="row content">

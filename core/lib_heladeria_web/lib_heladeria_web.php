@@ -256,6 +256,7 @@ function addPedidoHeladeriaWeb($cliente,$producto,$sabor_1,$sabor_2,$sabor_3,$sa
     $espacio = 'heladeria';
     $hora_actual =  date("H:i:s");
     $fecha_actual = date("Y-m-d");
+    $estado_entrega = 'En Preparación';
     
           $consulta = "INSERT INTO st_ventas".
               "(cod_producto,
@@ -270,7 +271,8 @@ function addPedidoHeladeriaWeb($cliente,$producto,$sabor_1,$sabor_2,$sabor_3,$sa
                 fecha_venta,
                 hora_venta,
                 cliente_nombre,
-                importe)".
+                importe,
+                estado_entrega)".
             "VALUES ".
         "('$codigo_producto',
           '$producto',
@@ -284,7 +286,8 @@ function addPedidoHeladeriaWeb($cliente,$producto,$sabor_1,$sabor_2,$sabor_3,$sa
           '$fecha_actual',
           '$hora_actual',
           '$cliente',
-          '$importe')";
+          '$importe',
+          '$estado_entrega')";
         
         mysqli_select_db($conn,'storia');
         echo mysqli_query($conn,$consulta);
@@ -320,6 +323,7 @@ function pedidosCliente($conn,$nombre){
             <th class='text-nowrap text-center'>Hora Venta</th>
             <th class='text-nowrap text-center'>Cliente</th>
             <th class='text-nowrap text-center'>Importe</th>
+            <th class='text-nowrap text-center'>Estado Pedido</th>
             <th>&nbsp;</th>
             </thead>";
 
@@ -338,12 +342,32 @@ function pedidosCliente($conn,$nombre){
 			 echo "<td align=center>".$fila['hora_venta']."</a></td>";
 			 echo "<td align=center>".$fila['cliente_nombre']."</a></td>";
 			 echo "<td align=center>$".$fila['importe']."</a></td>";
+			 if($fila['estado_entrega'] == 'Entregado'){
+			 echo "<td align=center style='background-color: #abebc6'>".$fila['estado_entrega']."</a></td>";
+			 }
+			 if($fila['estado_entrega'] == 'No Entregado'){
+			 echo "<td align=center style='background-color:red'>".$fila['estado_entrega']."</a></td>";
+			 }
+			 if($fila['estado_entrega'] == 'No Responde'){
+			 echo "<td align=center style='background-color: #bb8fce'>".$fila['estado_entrega']."</a></td>";
+			 }
+			 if($fila['estado_entrega'] == 'En Camino'){
+			 echo "<td align=center style='background-color: #aed6f1'>".$fila['estado_entrega']."</a></td>";
+			 }
+			 if($fila['estado_entrega'] == 'En Preparación'){
+			 echo "<td align=center style='background-color: #edbb99'>".$fila['estado_entrega']."</a></td>";
+			 }
 			 echo "<td class='text-nowrap'>";
-			 echo '<form <action="#" method="POST">
-                    <input type="hidden" name="id" value="'.$fila['id'].'">';
-                   echo '<button type="submit" class="btn btn-success btn-sm" name="ticket_venta"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Pedido</button>';
-                   echo '</form>';
-			 echo "</td>";
+			 
+			       echo '<a href="print_pedido.php?id='.$fila['id'].'" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-print"></span> Imprimir Pedido</a>';
+                   
+            if($fila['estado_entrega'] != 'En Preparación'){
+                   
+                   echo '<a data-toggle="modal" data-target="#quien-viene" href="#" data-id="'.$fila['id'].'" class="btn btn-info btn-sm openBtn"><span class="glyphicon glyphicon-question-sign"></span> Quién Viene?</a>';
+                  
+            }
+                   
+			 echo "</td></tr>";
 			 $count++;
 		}
 
@@ -362,6 +386,35 @@ function pedidosCliente($conn,$nombre){
 
 }
 
+
+/*
+** carga modal con datos del repartirdor
+*/
+function modalRepartidor(){
+    
+       
+   echo '<!-- Modal -->
+  <div class="modal fade" id="quien-viene" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tu Pedido lo lleva</h4>
+        </div>
+        <div class="modal-body">
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>';
+
+}
 
 
 ?>
