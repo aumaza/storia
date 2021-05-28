@@ -47,7 +47,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <title>Storia - Compra en Local Heladería</title>
+  <title>Storia - Pedido Web Cafetería</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="../../assets/img/storia-favicon.png" rel="icon">
@@ -66,8 +66,8 @@
     <br>
     <img src="../../assets/img/storia - logo - 1.png">
     <hr>
-    <h1 align="center">HELADERÍA</H1>
-    <h3 align="center">Compra en Local</h3>
+    <h1 align="center">CAFETERÍA</h1>
+    <h3 align="center">Pedido Web</h3>
     <p><strong>Fecha Emisión:</strong> <?php echo $fecha_actual; ?></p> 
     <hr>
    
@@ -85,7 +85,6 @@
     	$resultado = mysqli_query($conn,$sql);
     	while($rows = mysqli_fetch_array($resultado)){
             $producto = $rows['descripcion'];
-            $empleado = $rows['empleado'];
             $sabor_1 = $rows['sabor_1'];
             $sabor_2 = $rows['sabor_2'];
             $sabor_3 = $rows['sabor_3'];
@@ -98,22 +97,30 @@
     	
     	$fecha_pedido = strftime("%d-%m-%Y",strtotime($fecha_venta));
     	
-    	  
+    	$sql_cliente = "select direccion, movil from st_clientes where cliente_nombre = '$cliente'";
+    	mysqli_select_db($conn,'storia');
+    	$query = mysqli_query($conn,$sql_cliente);
+    	while($fila = mysqli_fetch_array($query)){
+            $direccion = $fila['direccion'];
+            $movil = $fila['movil'];
+    	}
+	   
        
     echo '<div class="row">
-            
+             
             <p><strong>Producto</strong>: '.$producto.'</p>
-            <p><strong>Fecha Compra</strong>: '.$fecha_pedido.'</p>
-            <p><strong>Despachó</strong>: '.$empleado.'</p><hr>
+            <p><strong>Fecha Pedido</strong>: '.$fecha_pedido.'</p><hr>
             <h3 align="center"><strong>Sabores Pedidos</strong></h3><hr>
             <p>'.$sabor_1.'</p>
             <p>'.$sabor_2.'</p>
             <p>'.$sabor_3.'</p>
             <p>'.$sabor_4.'</p><hr>
             <h3 align="center"><strong>Datos del Cliente</strong></h3><hr>
-            <p><strong>Nombre</strong>: '.$cliente.'</p><hr>
+            <p><strong>Nombre</strong>: '.$cliente.'</p>
+            <p><strong>Dirección</strong>: '.$direccion.'</p>
+            <p><strong>Móvil</strong>: '.$movil.'</p><hr>
             <p><strong>Forma de Pago</strong>: '.$tipo_pago.'</p>
-            <p><strong>Importe</strong>: $'.$importe.'</p><hr>
+            <p><strong>Importe</strong>: $'.$importe.'</p>
             <p><img class="img-24" src="../icons/emotes/face-smile.png"> Gracias por tu Compra!!!</p>
            
             </div>';

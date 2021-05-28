@@ -8,6 +8,7 @@
       include "../../lib_heladeria/lib_heladeria.php";
       include "../../lib_cafeteria/lib_cafeteria.php";
       include "../../lib_consultas/lib_consultas.php";
+      include "../../lib_delivery/lib_delivery.php";
               
         $usuario = $_SESSION['user'];
         $password = $_SESSION['pass'];
@@ -122,7 +123,7 @@
     <button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#exit" data-toggle="tooltip" data-placement="right" title="Desconectarse del Sistema">
         <img class="img-reponsive img-rounded" src="../../icons/actions/system-shutdown.png" /> Salir</button><br>
         <form action="#" method="POST">
-            <button type="submit" class="btn btn-default btn-sm" name="home" data-toggle="tooltip" data-placement="right" title="Limpiar Espacio de Trabajo">
+            <button type="submit" class="btn btn-default btn-sm btn-block" name="home" data-toggle="tooltip" data-placement="right" title="Limpiar Espacio de Trabajo">
             <img class="img-reponsive img-rounded" src="../../icons/actions/go-home.png" /> Home</button>
         </form>
         <hr>
@@ -145,14 +146,12 @@
       <form action="#" method="POST">
       
       <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Heladería">
-	  <button type="submit" class="btn btn-default btn-sm" name="ventas_heladeria">
+	 <button type="submit" class="btn btn-default btn-xs btn-block" name="ventas_heladeria" data-toggle="tooltip" data-placement="right" title="Ventas Heladería">
 	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Ventas en Local</button></a></li>
 	    
-	    <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Heladería - Pedidos">
-	  <button type="submit" class="btn btn-default btn-sm" name="pedidos_heladeria">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-pim-notes.png" /> Pedidos - Heladería</button></a></li>
+    <li class="list-group-item">
+        <button type="submit" class="btn btn-default btn-xs btn-block" name="ventas_heladeria_web" data-toggle="tooltip" data-placement="right" title="Ventas Heladería vía Web">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Ventas Web</button></li>
                   
       </form>
       </ul>
@@ -177,14 +176,20 @@
       <form action="#" method="POST">
       
       <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Cafetería">
-	  <button type="submit" class="btn btn-default btn-sm" name="ventas_cafeteria">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Total Ventas</button></a></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="ventas_cafeteria" data-toggle="tooltip" data-placement="right" title="Ventas Cafetería Mesas Cerradas">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Total Mesas</button></li>
+	    
+	<li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="mesas_cafeteria" data-toggle="tooltip" data-placement="right" title="Apertura y Cierre de Mesas">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/story-editor.png" /> Mesas</button></li>
+	    
+    <li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="ventas_cafeteria_web" data-toggle="tooltip" data-placement="right" title="Ventas de Cafetería vía Web">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Ventas Web</button></li>
 	    
 	    <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Apertura y Cierre de Mesas">
-	  <button type="submit" class="btn btn-default btn-sm" name="mesas_cafeteria">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/story-editor.png" /> Mesas</button></a></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="ventas_cafeteria_local" data-toggle="tooltip" data-placement="right" title="Ventas de Cafetería en Local">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Ventas Local</button></li>
 	   
 	       
       </form>
@@ -209,15 +214,13 @@
       <ul class="list-group">
       <form action="#" method="POST">
       
-      <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Ventas Cafetería">
-	  <button type="submit" class="btn btn-default btn-sm" name="ventas_cafeteria">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Total Ventas</button></a></li>
+    <li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="ventas_cafeteria" data-toggle="tooltip" data-placement="right" title="Ventas Cafetería">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Total Ventas</button></li>
 	    
-	    <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Vista rápida de Mesas">
-	  <button type="submit" class="btn btn-default btn-sm" name="estado_mesas">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/story-editor.png" /> Estado Mesas</button></a></li>
+	<li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="estado_mesas" data-toggle="tooltip" data-placement="right" title="Vista rápida de Mesas">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/story-editor.png" /> Estado Mesas</button></li>
 	   
 	       
       </form>
@@ -243,14 +246,12 @@
       <form action="#" method="POST">
       
       <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Cambiar mi Password">
-	  <button type="submit" class="btn btn-default btn-sm" name="cambiar_password">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-refresh.png" /> Cambiar Password</button></a></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="cambiar_password" data-toggle="tooltip" data-placement="right" title="Cambiar mi Password">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-refresh.png" /> Cambiar Password</button></li>
 	    
 	    <li class="list-group-item">
-	<a href="#" data-toggle="tooltip" data-placement="right" title="Editar Datos Personales">
-	  <button type="submit" class="btn btn-default btn-sm" name="bio_cliente">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/user-properties.png" /> Mis Datos</button></a></li>
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="bio_cliente" data-toggle="tooltip" data-placement="right" title="Editar Datos Personales">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/user-properties.png" /> Mis Datos</button></li>
 	   
 	       
       </form>
@@ -345,7 +346,10 @@
         //HELADERIA
         //listar ventas
         if(isset($_POST['ventas_heladeria'])){
-            ventasHeladeria($conn);
+            ventasHeladeriaLocal($conn);
+        }
+        if(isset($_POST['ventas_heladeria_web'])){
+            ventasHeladeriaWeb($conn);
         }
         //formulario de nueva ventas
         if(isset($_POST['add_venta'])){
@@ -405,6 +409,26 @@
         //vista de todas las mesas
         if(isset($_POST['mesas_cafeteria'])){
             mesas($conn);
+        }
+        // listar ventas cafeteria
+        if(isset($_POST['ventas_cafeteria_web'])){
+            ventasCafeteriaWeb($conn);
+        }
+        if(isset($_POST['ventas_cafeteria_local'])){
+            ventasCafeteriaLocal($conn);
+        }
+        //formulario de nueva venta en local cafe
+        if(isset($_POST['new_venta_cafeteria'])){
+            formAddVentaCafeteriaLocal($conn);
+        }
+        //formulario de final de venta de cafe en local
+        if(isset($_POST['addVentaCafeteria'])){
+            $producto = mysqli_real_escape_string($conn,$_POST['producto']);
+            $empleado = mysqli_real_escape_string($conn,$_POST['empleado']);
+            $lugar_venta = mysqli_real_escape_string($conn,$_POST['lugar_venta']);
+            $modo_pago = mysqli_real_escape_string($conn,$_POST['modo_pago']);
+            $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
+            formFinalVentaCafeteriaLocal($producto,$empleado,$lugar_venta,$modo_pago,$cliente,$conn);
         }
         //formulario de apertura de mesa
         if(isset($_POST['open_mesa'])){
@@ -524,6 +548,29 @@ $(document).ready(function(){
                     alert("Item Agregado Exitosamente");
                     }else{
                     alert("Hubo un problema al intentar Guardar el Item");
+                }
+            }
+        });
+
+        return false;
+    });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#add_venta_cafeteria').click(function(){
+        var datos=$('#frcafeajax').serialize();
+        $.ajax({
+            type:"POST",
+            url:"../../lib_cafeteria/insert_productos.php",
+            data:datos,
+            success:function(r){
+                if(r==1){
+                    alert("Producto Agregado Exitosamente");
+                    location.href = "main.php";
+                    }else{
+                    alert("Hubo un problema al intentar Guardar el Producto");
                 }
             }
         });

@@ -606,32 +606,32 @@ function formFinalVentaCafeteriaLocal($producto,$empleado,$lugar_venta,$modo_pag
              
             <div class="form-group">
                 <label for="email">Producto:</label>
-                <input type="text" class="form-control" name="producto" value="'.$producto.'">
+                <input type="text" class="form-control" name="producto" value="'.$producto.'" readonly>
             </div>
             
             <div class="form-group">
                 <label for="pwd">Empleado:</label>
-                <input type="text" class="form-control" name="empleado" value="'.$empleado.'">
+                <input type="text" class="form-control" name="empleado" value="'.$empleado.'" readonly>
             </div>
             
             <div class="form-group">
                 <label for="pwd">Lugar de Venta:</label>
-                <input type="text" class="form-control" name="lugar_venta" value="'.$lugar_venta.'">
+                <input type="text" class="form-control" name="lugar_venta" value="'.$lugar_venta.'" readonly>
             </div>
             
             <div class="form-group">
                 <label for="pwd">Modo Pago:</label>
-                <input type="text" class="form-control" name="modo_pago" value="'.$modo_pago.'">
+                <input type="text" class="form-control" name="modo_pago" value="'.$modo_pago.'" readonly>
             </div>
             
             <div class="form-group">
                 <label for="pwd">Precio:</label>
-                <input type="text" class="form-control" name="precio" value="'.$precio.'">
+                <input type="text" class="form-control" name="precio" value="'.$precio.'" readonly>
             </div>
             
             <div class="form-group">
                 <label for="pwd">Cliente:</label>
-                <input type="text" class="form-control" name="cliente" value="'.$cliente.'">
+                <input type="text" class="form-control" name="cliente" value="'.$cliente.'" readonly>
             </div>
                  
             <button id="add_venta_cafeteria" class="btn btn-success btn-xs btn-block" name="add_venta_cafeteria">

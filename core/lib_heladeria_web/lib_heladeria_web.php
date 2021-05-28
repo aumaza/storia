@@ -359,7 +359,7 @@ function pedidosCliente($conn,$nombre){
 			 }
 			 echo "<td class='text-nowrap'>";
 			 
-			       echo '<a href="print_pedido.php?id='.$fila['id'].'" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-print"></span> Imprimir Pedido</a>';
+            echo '<a href="../../lib_heladeria_web/print.php?file=print_pedido_web_heladeria.php&id='.$fila['id'].'" target="_blank"><button type="button" class="btn btn-success btn-xs"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Pedido</button></a>';
                    
             if($fila['estado_entrega'] != 'En Preparación'){
                    

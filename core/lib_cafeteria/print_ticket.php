@@ -33,7 +33,8 @@
             echo '</body></html>';
 	}
 	
-	
+	setlocale(LC_TIME, 'es_ES.UTF-8');
+   $fecha_actual = strftime("%A, %d de %B de %Y");
 	
 	
 ?>
@@ -46,41 +47,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="../../assets/img/storia-favicon.png" rel="icon">
-  
-  <style>
-#customers {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-  
-#customers td, #customers th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-#customers tr:nth-child(even){background-color: #f2f2f2;}
-
-#customers tr:hover {background-color: #ddd;}
-
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
-  color: white;
-}
-#customers td {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: right;
-  
-}
-
-</style>
-  
-  
-  
+  <link rel="stylesheet" href="css_ticket_mesa.css" type="text/css">
   
 </head>
 <body>
@@ -88,7 +55,17 @@
 
 <!-- primer bloque -->
 
-<div>
+<div class="col-left">
+   
+   <div class="col-left">
+    <br>
+    <p class="p-center"><img src="../../assets/img/storia - logo - 1.png"></p>
+    <hr>
+    <p class="p-center">Ticket</p>
+    <p class="p-center"><strong>Fecha Emisión:</strong> <?php echo $fecha_actual; ?></p> 
+    <hr>
+    </div>
+   
    
    <?php 
    
@@ -110,6 +87,8 @@
 	//mostramos fila x fila
 	$count = 0;
 	
+   
+    echo '<div class="col-left">';    
     echo '<table id="customers" style="width:100%">
             <tr>
                 <th>Item</th>
@@ -123,8 +102,12 @@
           </tr>';
             }
     echo '</table><hr>
+          </div>
           
-          <p><strong>Total a Pagar:</strong> $'.$total.'</p><hr>';
+          <div class="col-left">
+          <p class="p-center"><strong>Total a Pagar:</strong> $'.$total.'</p><hr>
+          <p class="p-center"><img class="img-24" src="../icons/emotes/face-wink.png"> Gracias por Visitarnos!!!</p>
+          </div>';
             
     	
 		}else{

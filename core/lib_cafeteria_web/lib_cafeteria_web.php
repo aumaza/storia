@@ -230,10 +230,12 @@ function pedidosClienteCafe($conn,$nombre){
 			 echo "<td align=center>".$fila['cliente_nombre']."</a></td>";
 			 echo "<td align=center>$".$fila['importe']."</a></td>";
 			 echo "<td class='text-nowrap'>";
-			 echo '<form <action="#" method="POST">
-                    <input type="hidden" name="id" value="'.$fila['id'].'">';
-                   echo '<button type="submit" class="btn btn-success btn-sm" name="ticket_venta"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Pedido</button>';
-                   echo '</form>';
+			 echo '<a href="../../lib_cafeteria/print.php?file=print_pedido_web_cafeteria.php&id='.$fila['id'].'" target="_blank"><button type="button" class="btn btn-success btn-xs"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Pedido</button></a>';
+			 if($fila['estado_entrega'] != 'En Preparación'){
+                   
+                   echo '<a data-toggle="modal" data-target="#quien-viene" href="#" data-id="'.$fila['id'].'" class="btn btn-info btn-sm openBtn"><span class="glyphicon glyphicon-question-sign"></span> Quién Viene?</a>';
+                  
+            }
 			 echo "</td>";
 			 $count++;
 		}

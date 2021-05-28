@@ -66,7 +66,8 @@
     <br>
     <img src="../../assets/img/storia - logo - 1.png">
     <hr>
-    <h1 align="center">Pedido Web Cafetería</h1>
+    <h1 align="center">CAFETERÍA</h1>
+    <h3 align="center">Pedido Web</h3>
     <p><strong>Fecha Emisión:</strong> <?php echo $fecha_actual; ?></p> 
     <hr>
    
@@ -102,8 +103,7 @@
 	   
        
     echo '<div class="row">
-            <div class="col-center">
-            
+           
             <p><strong>Producto</strong>: '.$producto.'</p>
             <p><strong>Fecha Pedido</strong>: '.$fecha_pedido.'</p><hr>
             <p><strong>Cliente</strong>: '.$cliente.'</p>
@@ -111,9 +111,8 @@
             <p><strong>Móvil</strong>: '.$movil.'</p><hr>
             <p><strong>Tipo de Pago</strong>: '.$tipo_pago.'</p>
             <p><strong>Importe</strong>: $'.$importe.'</p>
-            
-            
-            </div>
+            <p><img class="img-24" src="../icons/emotes/face-smile.png"> Gracias por tu Compra!!!</p>
+           
             </div>';
          
          }else{

@@ -49,7 +49,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <title>Storia - Informe Total Cafetería/title>
+  <title>Storia - Informe Total Mesas Cafetería</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="../../assets/img/storia-favicon.png" rel="icon">
@@ -68,7 +68,8 @@
     <br>
     <img src="../../assets/img/storia - logo - 1.png">
     <hr>
-    <h1 align="center">Informe Total Ventas Cafetería</h1>
+    <h1 align="center">CAFETERÍA</h1>
+    <h3 align="center">Informe Total Ventas Mesas</h3>
     <p><strong>Fecha Emisión:</strong> <?php echo $fecha_actual; ?></p> 
     <hr>
    

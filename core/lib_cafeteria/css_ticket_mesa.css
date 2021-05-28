@@ -1,12 +1,12 @@
 #customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 50%;
+  width: 0%;
 }
   
 #customers td, #customers th {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 30px;
 }
 
 #customers tr:nth-child(even){background-color: #f2f2f2;}
@@ -28,20 +28,25 @@
 }
 .row{
 
-  padding-left: 25px;
-  padding-right: 25px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 .col-center{
   margin: auto;
   width: 60%;
   padding-left: 90px;
 }
+.col-left{
+  margin: auto;
+  width: 60%;
+  padding-left: 0px;    
+}
 img {
 
 background-image: url(../../assets/img/storia - logo - 1.png);
 background-repeat: no-repeat;
-width: 700px;
-height: 100px;
+width: 100px;
+height: 50px;
 
 }
 .img-24{
@@ -50,6 +55,12 @@ width: 24px;
 height: 24px; 
 }
 
-p{
+.p-left{
+    text-align: left;
+}
+.p-right{
+    text-align: right;
+}
+.p-center{
     text-align: center;
 }
