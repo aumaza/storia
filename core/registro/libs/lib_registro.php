@@ -12,6 +12,11 @@ function formRegistroWeb(){
              <label for="email">Nombre y Apellido:</label>
              <input type="text" class="form-control" name="nombre" placeholder="Ingrese su Nombre y Apellido" required>
              </div>
+             
+             <div class="form-group">
+             <label for="email">DNI:</label>
+             <input type="text" class="form-control" name="dni" maxlenght="8" placeholder="Ingrese su DNI sin puntos" required>
+             </div>
             
             <div class="form-group">
              <label for="email">Email:</label>
@@ -106,7 +111,7 @@ function userVerify($usuario,$conn){
 /*
 ** persistencia en la base de datos para el registro de usuario via web
 */
-function upUsuarioWeb($nombre,$email,$direccion,$localidad,$telefono,$movil,$password1,$password2,$conn){
+function upUsuarioWeb($nombre,$dni,$email,$direccion,$localidad,$telefono,$movil,$password1,$password2,$conn){
 
     $espacio = 'cli';
     $role = 1;
@@ -116,7 +121,7 @@ function upUsuarioWeb($nombre,$email,$direccion,$localidad,$telefono,$movil,$pas
     $query = mysqli_query($conn,$sql);
     $rows = mysqli_num_rows($query);
     
-    
+    if((is_numeric($dni)) && (is_numeric($telefono)) && (is_numeric($movil))){
           
     if($rows == 0){
             
@@ -126,9 +131,9 @@ function upUsuarioWeb($nombre,$email,$direccion,$localidad,$telefono,$movil,$pas
             
                             
            $consulta_1 = "INSERT INTO st_clientes".
-            "(cliente_nombre,email,direccion,localidad,telefono,movil,espacio)".
+            "(cliente_nombre,dni,email,direccion,localidad,telefono,movil,espacio)".
             "VALUES ".
-        "('$nombre','$email','$direccion','$localidad','$telefono','$movil','$espacio')";
+        "('$nombre','$dni','$email','$direccion','$localidad','$telefono','$movil','$espacio')";
         mysqli_select_db($conn,'storia');
         $resp_1 = mysqli_query($conn,$consulta_1);
         
@@ -154,7 +159,7 @@ function upUsuarioWeb($nombre,$email,$direccion,$localidad,$telefono,$movil,$pas
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema al Agregar el Cliente. '  .mysqli_error($conn);
+			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema al Agregar el Cliente. Contáctese con el Administrador'  .mysqli_error($conn);
 			    echo "</div>";
 			    echo "</div>";
 		    }
@@ -167,8 +172,7 @@ function upUsuarioWeb($nombre,$email,$direccion,$localidad,$telefono,$movil,$pas
 			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Las Contraseñas no Coinciden.';
 			    echo "</div>";
 			    echo "</div>";
-			    exit;
-              
+			               
 		    }
 		    }else{
                 
@@ -179,8 +183,7 @@ function upUsuarioWeb($nombre,$email,$direccion,$localidad,$telefono,$movil,$pas
 			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Las Contraseñas exceden la cantidad de caracteres permitidos. Como máximo son 15 caracteres.';
 			    echo "</div>";
 			    echo "</div>";
-			    exit;
-                
+			                 
 		    }
 		    }else{
 		    
@@ -188,11 +191,22 @@ function upUsuarioWeb($nombre,$email,$direccion,$localidad,$telefono,$movil,$pas
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Ya existe registro de ese Cliente.';
+			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Ya existe registro como Cliente. Lo redireccionaremos a la página de ingreso. Recuerde que el usuario es su email '.$email.' . Si no recuerda su contraseña puede blanquerla en: <a href="password.php"> Blanquear Contraseña</a>.';
 			    echo "</div>";
 			    echo "</div>";
-			    exit;
+			    echo '<meta http-equiv="refresh" content="20;URL=../../clientes/index.php "/>';
 		    
+		    }
+		    }else{
+		    
+                echo "<br>";
+                echo '<div class="container">';
+                echo '<div class="alert alert-warning" alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+                echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> En algunos de los campos DNI, Teléfono o Móvil a ingresado caracteres no válidos, estos campos sólo soportan valores numéricos, por Favor Revíselo.';
+                echo "</div>";
+                echo "</div>";
+                   
 		    }
 
 }

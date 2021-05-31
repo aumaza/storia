@@ -22,6 +22,7 @@ if($conn)
               echo "<thead>
 		    <th class='text-nowrap text-center'>ID</th>
 		    <th class='text-nowrap text-center'>Cliente</th>
+		    <th class='text-nowrap text-center'>DNI</th>
             <th class='text-nowrap text-center'>Email</th>
             <th class='text-nowrap text-center'>Dirección</th>
             <th class='text-nowrap text-center'>Localidad</th>
@@ -37,6 +38,7 @@ if($conn)
 			 echo "<tr>";
 			 echo "<td align=center>".$fila['id']."</td>";
 			 echo "<td align=center>".$fila['cliente_nombre']."</td>";
+			 echo "<td align=center>".$fila['dni']."</td>";
 			 echo "<td align=center>"."<a href='mailto:".$fila['email']."'>".$fila['email']."</a></td>";
 			 echo "<td align=center>".$fila['direccion']."</td>";
 			 echo "<td align=center>".$fila['localidad']."</td>";
@@ -90,6 +92,7 @@ if($conn)
             echo "<table class='display compact' style='width:100%' id='myTable'>";
               echo "<thead>
 		    <th class='text-nowrap text-center'>Nombre</th>
+		    <th class='text-nowrap text-center'>DNI</th>
             <th class='text-nowrap text-center'>Email</th>
             <th class='text-nowrap text-center'>Dirección</th>
             <th class='text-nowrap text-center'>Localidad</th>
@@ -104,6 +107,7 @@ if($conn)
 			  // Listado normal
 			 echo "<tr>";
 			 echo "<td align=center>".$fila['cliente_nombre']."</td>";
+			 echo "<td align=center>".$fila['dni']."</td>";
 			 echo "<td align=center>"."<a href='mailto:".$fila['email']."'>".$fila['email']."</a></td>";
 			 echo "<td align=center>".$fila['direccion']."</td>";
 			 echo "<td align=center>".$fila['localidad']."</td>";
@@ -154,6 +158,11 @@ function formAddCliente(){
             <div class="form-group">
               <label>Nombre del Cliente:</label>
 		<input type="text" class="form-control" name="cliente" placeholder="Ingrese el Nombre del Cliente " required>
+            </div><hr>
+            
+            <div class="form-group">
+              <label>DNI:</label>
+		<input type="text" class="form-control" name="dni" placeholder="Ingrese DNI sin puntos" maxlength="8" required>
             </div><hr>
             
             <div class="form-group">
@@ -214,6 +223,7 @@ function formEditCliente($id,$nombre,$conn){
          $query = mysqli_query($conn,$sql);
          while($fila = mysqli_fetch_array($query)){
             $cliente = $fila['cliente_nombre'];
+            $dni = $fila['dni'];
             $email = $fila['email'];
             $direccion = $fila['direccion'];
             $localidad = $fila['localidad'];
@@ -237,6 +247,11 @@ function formEditCliente($id,$nombre,$conn){
             <div class="form-group">
               <label>Nombre del Cliente / Empleado / Repartidor:</label>
 		<input type="text" class="form-control" name="cliente" value="'.$cliente.'" required>
+            </div><hr>
+            
+             <div class="form-group">
+              <label>DNI:</label>
+		<input type="text" class="form-control" name="dni" maxlength="8" value="'.$dni.'" required>
             </div><hr>
             
             <div class="form-group">
@@ -297,21 +312,21 @@ function formEditCliente($id,$nombre,$conn){
 /*
 ** funcion que agrega Producto
 */
-function addCliente($cliente,$email,$direccion,$localidad,$telefono,$movil,$espacio,$conn){
+function addCliente($cliente,$dni,$email,$direccion,$localidad,$telefono,$movil,$espacio,$conn){
 
     $sql = "select cliente_nombre, email from st_clientes where cliente_nombre = '$cliente' or email = '$email'";
     mysqli_select_db($conn,'storia');
     $query = mysqli_query($conn,$sql);
     $rows = mysqli_num_rows($query);
     
-    
+    if((is_numeric($dni)) && (is_numeric($telefono)) && (is_numeric($movil))){
           
     if($rows == 0){
             
            $consulta = "INSERT INTO st_clientes".
-            "(cliente_nombre,email,direccion,localidad,telefono,movil,espacio)".
+            "(cliente_nombre,dni,email,direccion,localidad,telefono,movil,espacio)".
             "VALUES ".
-        "('$cliente','$email','$direccion','$localidad','$telefono','$movil','$espacio')";
+        "('$cliente','$dni','$email','$direccion','$localidad','$telefono','$movil','$espacio')";
         mysqli_select_db($conn,'storia');
         $resp = mysqli_query($conn,$consulta);
             
@@ -332,19 +347,31 @@ function addCliente($cliente,$email,$direccion,$localidad,$telefono,$movil,$espa
 			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al Agregar el Cliente. '  .mysqli_error($conn);
 			    echo "</div>";
 			    echo "</div>";
-		    }
-		    }else{
+    }
+	}else{
 		    
-			    echo "<br>";
-			    echo '<div class="container">';
-			    echo '<div class="alert alert-warning" alert-dismissible">
-				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Ya existe registro de ese Cliente.';
-			    echo "</div>";
-			    echo "</div>";
-			    exit;
+	   echo "<br>";
+	   echo '<div class="container">';
+	   echo '<div class="alert alert-warning" alert-dismissible">
+	        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+	   echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Ya existe registro de ese Cliente.';
+	   echo "</div>";
+	   echo "</div>";
+	   exit;
 		    
-		    }
+	}
+	}else{
+                
+      echo "<br>";
+	  echo '<div class="container">';
+	  echo '<div class="alert alert-warning" alert-dismissible">
+	    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+	  echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> En algunos de los campos DNI, Teléfono o Móvil a ingresado caracteres no válidos, estos campos sólo soportan valores numéricos, por Favor Revíselo.';
+	  echo "</div>";
+	  echo "</div>";
+	  exit;
+		    
+	}
 
 }
 
@@ -352,10 +379,14 @@ function addCliente($cliente,$email,$direccion,$localidad,$telefono,$movil,$espa
 /*
 ** funcion actualizar registro de clientes
 */
-function updateCliente($id,$cliente,$email,$direccion,$localidad,$telefono,$movil,$espacio,$conn){
+function updateCliente($id,$cliente,$dni,$email,$direccion,$localidad,$telefono,$movil,$espacio,$conn){
 
-        $sql = "update st_clientes set cliente_nombre = '$cliente', email = '$email', direccion = '$direccion', telefono = '$telefono', movil = '$movil', espacio = '$espacio' where id = '$id'";
+        $sql = "update st_clientes set cliente_nombre = '$cliente', dni = '$dni', email = '$email', direccion = '$direccion', telefono = '$telefono', movil = '$movil', espacio = '$espacio' where id = '$id'";
         mysqli_select_db($conn,'storia');
+        
+        
+        if((is_numeric($dni)) && (is_numeric($telefono)) && (is_numeric($movil))){
+        
         $query = mysqli_query($conn,$sql);
         
         if($query){
@@ -374,7 +405,20 @@ function updateCliente($id,$cliente,$email,$direccion,$localidad,$telefono,$movi
                     echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al Actualizar el Registro. '  .mysqli_error($conn);
                     echo "</div>";
                     echo "</div>";
-                }
+        }
+        }else{
+            
+            echo "<br>";
+            echo '<div class="container">';
+            echo '<div class="alert alert-warning" alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+            echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> En algunos de los campos DNI, Teléfono o Móvil a ingresado caracteres no válidos, estos campos sólo soportan valores numéricos, por Favor Revíselo.';
+            echo "</div>";
+            echo "</div>";
+            exit;
+            
+        }
+                
 
 
 }

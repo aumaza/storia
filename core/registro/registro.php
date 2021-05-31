@@ -44,6 +44,7 @@
         
             if(isset($_POST['registro_web'])){
             $nombre = mysqli_real_escape_string($conn,$_POST['nombre']);
+            $dni = mysqli_real_escape_string($conn,$_POST['dni']);
             $email = mysqli_real_escape_string($conn,$_POST['email']);
             $direccion = mysqli_real_escape_string($conn,$_POST['direccion']);
             $localidad = mysqli_real_escape_string($conn,$_POST['localidad']);
@@ -51,7 +52,7 @@
             $movil = mysqli_real_escape_string($conn,$_POST['movil']);
             $password1 = mysqli_real_escape_string($conn,$_POST['password1']);
             $password2 = mysqli_real_escape_string($conn,$_POST['password2']);
-            upUsuarioWeb($nombre,$email,$direccion,$localidad,$telefono,$movil,$password1,$password2,$conn);  
+            upUsuarioWeb($nombre,$dni,$email,$direccion,$localidad,$telefono,$movil,$password1,$password2,$conn);  
             }
         
         }else{

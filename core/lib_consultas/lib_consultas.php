@@ -540,7 +540,7 @@ function tabletsInfoCliente($conn,$nombre){
 function analytics($conn){
 
     // total ventas en el día de la fecha
-    $sql_1 = "select sum(importe) as total from st_ventas where fecha_venta = curdate()";
+    $sql_1 = "select ((select sum(importe) from st_ventas where fecha_venta = curdate()) + (select sum(total) from st_mesas where estado = 'Cerrada' and fecha = curdate())) as total";
     mysqli_select_db($conn,'storia');
     $query_1 = mysqli_query($conn,$sql_1);
     while($rows_1 = mysqli_fetch_array($query_1)){
@@ -548,7 +548,7 @@ function analytics($conn){
     }
     
     // total ventas acumulado
-    $sql_2 = "select sum(importe) as total from st_ventas";
+    $sql_2 = "select ((select sum(importe) from st_ventas) + (select sum(total) from st_mesas where estado = 'Cerrada')) as total";
     mysqli_select_db($conn,'storia');
     $query_2 = mysqli_query($conn,$sql_2);
     while($rows_2 = mysqli_fetch_array($query_2)){

@@ -294,13 +294,14 @@
         //clientes - persistencia         
         if(isset($_POST['addCliente'])){
             $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
+            $dni = mysqli_real_escape_string($conn,$_POST['dni']);
             $email = mysqli_real_escape_string($conn,$_POST['email']);
             $direccion = mysqli_real_escape_string($conn,$_POST['direccion']);
             $localidad = mysqli_real_escape_string($conn,$_POST['localidad']);
             $telefono = mysqli_real_escape_string($conn,$_POST['telefono']);
             $movil = mysqli_real_escape_string($conn,$_POST['movil']);
             $espacio = mysqli_real_escape_string($conn,$_POST['espacio']);
-            addCliente($cliente,$email,$direccion,$localidad,$telefono,$movil,$espacio,$conn);
+            addCliente($cliente,$dni,$email,$direccion,$localidad,$telefono,$movil,$espacio,$conn);
         }
                 
         //USUARIOS
@@ -331,13 +332,14 @@
         if(isset($_POST['update_cliente'])){
             $id = mysqli_real_escape_string($conn,$_POST['id']);
             $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
+            $dni = mysqli_real_escape_string($conn,$_POST['dni']);
             $email = mysqli_real_escape_string($conn,$_POST['email']);
             $direccion = mysqli_real_escape_string($conn,$_POST['direccion']);
             $localidad = mysqli_real_escape_string($conn,$_POST['localidad']);
             $telefono = mysqli_real_escape_string($conn,$_POST['telefono']);
             $movil = mysqli_real_escape_string($conn,$_POST['movil']);
             $espacio = mysqli_real_escape_string($conn,$_POST['espacio']);
-            updateCliente($id,$cliente,$email,$direccion,$localidad,$telefono,$movil,$espacio,$conn);
+            updateCliente($id,$cliente,$dni,$email,$direccion,$localidad,$telefono,$movil,$espacio,$conn);
         }
         //FIN ESPACIO ADMINSTRACION GENERAL
         
