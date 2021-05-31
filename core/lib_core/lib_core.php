@@ -197,6 +197,7 @@ function dumpMysql($conn){
     //$dump = "mysqldump --user=storia --password=storia storia > $file";
     $dump = "mysqldump --user=root --password=slack142 storia > $file";
     $command = system($dump);
+    shell_exec($command);
     chmod($file, 0777);
 
     copy($file, "../../sqls/$file");
