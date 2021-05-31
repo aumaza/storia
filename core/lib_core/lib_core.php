@@ -194,7 +194,7 @@ function dumpMysql($conn){
     
     $dbname = "storia";
     $file = $dbname.'-' . date("d-m-Y") . '.sql';
-    //$dump = "mysqldump --user=storia --password=sstoria storia > $file";
+    //$dump = "mysqldump --user=storia --password=storia storia > $file";
     $dump = "mysqldump --user=root --password=slack142 storia > $file";
     $command = system($dump);
     chmod($file, 0777);
