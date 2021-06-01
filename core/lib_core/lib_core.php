@@ -230,8 +230,8 @@ function dumpMysql($conn){
     $path = "../../sqls/backup/";
     $dbname = "storia";
     $file = $dbname.'-' . date("d-m-Y") . '.sql';
-    //$dump = "mysqldump --user=storia --password=storia storia > $file";
-    $dump = "mysqldump --user=root --password=slack142 storia > $file";
+    $dump = "mysqldump --user=storia --password=storia storia > $file";
+    //$dump = "mysqldump --user=root --password=slack142 storia > $file";
       
     shell_exec($dump);
     
