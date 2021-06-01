@@ -240,10 +240,7 @@
 	<button type="submit" class="btn btn-default btn-xs btn-block" name="sabores" data-toggle="tooltip" data-placement="right" title="Listado de Sabores">
 	    <img class="img-reponsive img-rounded" src="../../icons/actions/fill-color.png" /> Sabores</button></li>
 	   
-      <li class="list-group-item">
-	<button type="submit" class="btn btn-default btn-xs btn-block" name="back_up" data-toggle="tooltip" data-placement="right" title="Back up Base de Datos">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/svn-update.png" /> BackUp Base</button></li>
-	    
+     	    
       </form>
        <li class="list-group-item">
       <a href="explorer/index.php" data-toggle="tooltip" data-placement="right" title="Ir al Exlorardor de Archivos" target="_blank"><button type="button" class="btn btn-default btn-xs btn-block"><img class="img-reponsive img-rounded" src="../../icons/places/user-home.png" /> Explorer</button></a></li>
@@ -619,13 +616,7 @@
         
         
         // =============================================================================================
-        
-        //back-Up base de datos
-        if(isset($_POST['back_up'])){
-            dumpMysql($conn);
-        }
-    
-    
+          
     
     
     
