@@ -531,6 +531,8 @@
 
 <?php modal_exit(); ?>
 <?php modalNewCliente(); ?>
+<?php modalPreciosHeladeria(); ?>
+<?php modalPreciosCafeteria(); ?>
 
        
 
@@ -578,6 +580,26 @@ $(document).ready(function(){
         });
 
         return false;
+    });
+});
+</script>
+
+<!-- precios heladeria modal -->
+  <script>
+$('.openHelado').on('click',function(){
+        $('.modal-body').load("precios_heladeria.php",function(){
+        $('#precios_heladeria').modal({show:true});
+        
+    });
+});
+</script>
+
+<!-- precios cafeteria modal -->
+  <script>
+$('.openCafe').on('click',function(){
+        $('.modal-body').load("precios_cafeteria.php",function(){
+        $('#precios_cafeteria').modal({show:true});
+        
     });
 });
 </script>
