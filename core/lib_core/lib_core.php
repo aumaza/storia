@@ -233,7 +233,7 @@ function dumpMysql($conn){
     $dump = "mysqldump --user=storia --password=storia storia > $file";
     //$dump = "mysqldump --user=root --password=slack142 storia > $file";
     //$cmd = '/usr/local/bin/bash '.$dump.'';  
-    exec('../../dump_data_base.sh');
+    exec('../.././dump_data_base.sh');
     
     
     //copy($file, $path.$file);
