@@ -232,8 +232,8 @@ function dumpMysql($conn){
     $file = $dbname.'-' . date("d-m-Y") . '.sql';
     $dump = "mysqldump --user=storia --password=storia storia > $file";
     //$dump = "mysqldump --user=root --password=slack142 storia > $file";
-      
-    shell_exec($dump);
+    $cmd = 'export PATH="/usr/local/bin/bash" '.$dump.'';  
+    shell_exec($cmd);
     
     
     copy($file, $path.$file);
