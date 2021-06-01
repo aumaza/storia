@@ -71,7 +71,8 @@ if($conn)
 		echo '<form <action="#" method="POST">
 			<button type="submit" class="btn btn-default btn-xs" name="add_venta">
 			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Nueva Venta</button>
-		      </form><br>';
+		      </form><br>
+		      <a data-toggle="precios_heladeria" data-target="#precios_heladeria" href="#" class="btn btn-success btn-sm openHelado"><span class="glyphicon glyphicon-usd"></span> Precios Heladería</a><br><br>';
 		echo '<button type="button" class="btn btn-primary">Cantidad de Ventas:  '.$count.' </button>';
 		echo '</div>';
 		}else{
@@ -781,6 +782,42 @@ function deleteVenta($id,$conn){
 			    echo "</div>";
 			    echo "</div>";
 		    }
+
+}
+
+
+
+// ===================================================================================== // 
+// MODALES //
+// ===================================================================================== //
+
+/*
+** modal que carga los precios de heladeria
+*/
+function modalPreciosHeladeria(){
+
+
+    echo '<!-- Modal -->
+  <div class="modal fade" id="precios_heladeria" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" align="center">Heladería</h4>
+        </div>
+        <div class="modal-body">
+          
+          
+        
+       </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>';
+
 
 }
 

@@ -186,22 +186,60 @@ function formLogin(){
 */
 
 /*
+** funcion para cambiar los permisos de un directorio
+*/
+
+function chmod_R($path, $filemode, $dirmode) {
+    if (is_dir($path) ) {
+        if (!chmod($path, $dirmode)) {
+            $dirmode_str=decoct($dirmode);
+            print "Error aplicando cambio de permisos ".$dirmode_str." en directorio ".$path."<br />";
+        } else {
+			print "Cambiando permisos del directorio ".$path."<br />";
+		}
+        $dh = opendir($path);
+        while (($file = readdir($dh)) !== false) {
+            if($file != '.' && $file != '..') {  // skip self and parent pointing directories
+                $fullpath = $path.'/'.$file;
+                chmod_R($fullpath, $filemode,$dirmode);
+            }
+        }
+        closedir($dh);
+    } else {
+        if (is_link($path)) {
+            print "link ".$path." is skipped\n";
+            return;
+        }
+        if (!chmod($path, $filemode)) {
+            $filemode_str=decoct($filemode);
+            print "Error aplicando permisos ".$filemode_str." en fichero ".$path."<br />";
+        } else {
+			print "Cambiando permisos del fichero ".$path."<br />";
+		}
+    }
+}
+
+
+/*
 ** funcion para realizar backup de base de datos
 */
 function dumpMysql($conn){
 
     if($conn){
     
+    $path = "../../sqls/backup/";
     $dbname = "storia";
     $file = $dbname.'-' . date("d-m-Y") . '.sql';
     //$dump = "mysqldump --user=storia --password=storia storia > $file";
     $dump = "mysqldump --user=root --password=slack142 storia > $file";
-    $command = system($dump);
-    shell_exec($command);
-    chmod($file, 0777);
-
-    copy($file, "../../sqls/$file");
+      
+    shell_exec($dump);
+    
+    
+    copy($file, $path.$file);
     unlink($file);
+    
+    
     echo '<div class="alert alert-success" role="alert">';
     echo '<h1 class="panel-title text-left" contenteditable="true">
 	    <img src="../../icons/actions/dialog-ok-apply.png"  class="img-reponsive img-rounded"><strong> Base de Datos Resguardada Exitosamente</strong></h1>';

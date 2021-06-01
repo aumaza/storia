@@ -86,6 +86,8 @@
   </script>
   <!-- END Data Table Script -->
   
+  
+  
  
  <style>
     /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
@@ -241,8 +243,11 @@
       <li class="list-group-item">
 	<button type="submit" class="btn btn-default btn-xs btn-block" name="back_up" data-toggle="tooltip" data-placement="right" title="Back up Base de Datos">
 	    <img class="img-reponsive img-rounded" src="../../icons/actions/svn-update.png" /> BackUp Base</button></li>
-      
+	    
       </form>
+       <li class="list-group-item">
+      <a href="explorer/index.php" data-toggle="tooltip" data-placement="right" title="Ir al Exlorardor de Archivos" target="_blank"><button type="button" class="btn btn-default btn-xs btn-block"><img class="img-reponsive img-rounded" src="../../icons/places/user-home.png" /> Explorer</button></a></li>
+      
       </ul>
       
       </div>
@@ -297,7 +302,8 @@
         if(isset($_POST['home'])){
             echo '<a href="#"></a>';
         }
-    
+               
+        
         //ESPACIO ADMINISTRACIÓN GENERAL
         
         //USUARIOS
@@ -657,6 +663,8 @@
 
 <?php modal_exit(); ?>
 <?php modalNewCliente(); ?>
+<?php modalPreciosHeladeria(); ?>
+<?php modalPreciosCafeteria(); ?>
 
        
 
@@ -704,6 +712,26 @@ $(document).ready(function(){
         });
 
         return false;
+    });
+});
+</script>
+
+<!-- precios heladeria modal -->
+  <script>
+$('.openHelado').on('click',function(){
+        $('.modal-body').load("precios_heladeria.php",function(){
+        $('#precios_heladeria').modal({show:true});
+        
+    });
+});
+</script>
+
+<!-- precios cafeteria modal -->
+  <script>
+$('.openCafe').on('click',function(){
+        $('.modal-body').load("precios_cafeteria.php",function(){
+        $('#precios_cafeteria').modal({show:true});
+        
     });
 });
 </script>
