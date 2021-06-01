@@ -227,17 +227,17 @@ function dumpMysql($conn){
 
     if($conn){
     
-    $path = "../../sqls/backup/";
-    $dbname = "storia";
-    $file = $dbname.'-' . date("d-m-Y") . '.sql';
+    //$path = "../../sqls/backup/";
+    //$dbname = "storia";
+    //$file = $dbname.'-' . date("d-m-Y") . '.sql';
     $dump = "mysqldump --user=storia --password=storia storia > $file";
     //$dump = "mysqldump --user=root --password=slack142 storia > $file";
-    $cmd = '/usr/local/bin/bash '.$dump.'';  
-    exec($cmd);
+    //$cmd = '/usr/local/bin/bash '.$dump.'';  
+    exec('../../dump_data_base.sh');
     
     
-    copy($file, $path.$file);
-    unlink($file);
+    //copy($file, $path.$file);
+    //unlink($file);
     
     
     echo '<div class="alert alert-success" role="alert">';

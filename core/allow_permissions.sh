@@ -1,6 +1,4 @@
-//#!/usr/local/bin/bash
-#!/bin/bash
-
+#!/usr/local/bin/bash
 
 chmod -R 777 sqls/
 echo "Permisos en sqls cambiados Exitosamente"
