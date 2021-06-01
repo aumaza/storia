@@ -227,23 +227,10 @@ function dumpMysql($conn){
 
     if($conn){
     
-    //$path = "../../sqls/backup/";
-    //$dbname = "storia";
-    //$file = $dbname.'-' . date("d-m-Y") . '.sql';
-    $dump = "mysqldump --user=storia --password=storia storia > $file";
-    //$dump = "mysqldump --user=root --password=slack142 storia > $file";
-    //$cmd = '/usr/local/bin/bash '.$dump.'';  
-    exec('../.././dump_data_base.sh');
-    
-    
-    //copy($file, $path.$file);
-    //unlink($file);
-    
-    
-    echo '<div class="alert alert-success" role="alert">';
-    echo '<h1 class="panel-title text-left" contenteditable="true">
-	    <img src="../../icons/actions/dialog-ok-apply.png"  class="img-reponsive img-rounded"><strong> Base de Datos Resguardada Exitosamente</strong></h1>';
-    echo "</div>";
+    $message = shell_exec("../../dump_data_base.sh");
+         echo '<div class="alert alert-success" role="alert">';
+	 echo '<h1 class="panel-title text-left" contenteditable="true"><img src="../../icons/actions/dialog-ok-apply.png"  class="img-reponsive img-rounded"><strong> '.print_r($message).'</strong></h1>';
+         echo "</div>";
         
     }else{
        
