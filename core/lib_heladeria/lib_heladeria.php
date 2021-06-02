@@ -192,11 +192,11 @@ function formAddVenta($conn){
             <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta Heladería</div>
 		  <div class="panel-body">
 	
-	    <form action="#" method="POST">
+	    <form id="fr_heladeria_ajax" method="POST">
             
             <div class="form-group">
 		  <label for="sel1">Producto:</label>
-		  <select class="form-control" name="producto" required>
+		  <select class="form-control" name="producto" id="producto" required>
 		  <option value="" disabled selected>Seleccionar</option>';
 		    
 		    if($conn){
@@ -217,7 +217,7 @@ function formAddVenta($conn){
             
             <div class="form-group">
 		  <label for="sel1">Sabor 1:</label>
-		  <select class="form-control" name="sabor_1" required>
+		  <select class="form-control" name="sabor_1" id="sabor_1" required>
 		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
@@ -236,7 +236,7 @@ function formAddVenta($conn){
             
              <div class="form-group">
 		  <label for="sel1">Sabor 2:</label>
-		  <select class="form-control" name="sabor_2" required>
+		  <select class="form-control" name="sabor_2" id="sabor_2" required>
 		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
@@ -256,7 +256,7 @@ function formAddVenta($conn){
 		
 		 <div class="form-group">
 		  <label for="sel1">Sabor 3:</label>
-		  <select class="form-control" name="sabor_3" required>
+		  <select class="form-control" name="sabor_3" id="sabor_3" required>
 		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
@@ -276,7 +276,7 @@ function formAddVenta($conn){
 		
 		 <div class="form-group">
 		  <label for="sel1">Sabor 4:</label>
-		  <select class="form-control" name="sabor_4" required>
+		  <select class="form-control" name="sabor_4" id="sabor_4" required>
 		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
@@ -296,7 +296,7 @@ function formAddVenta($conn){
 		
 		 <div class="form-group">
 		  <label for="sel1">Empleado:</label>
-		  <select class="form-control" name="empleado" required>
+		  <select class="form-control" name="empleado" id="empleado" required>
 		  <option value="" disabled selected>Seleccionar</option>';
 		    
 		    if($conn){
@@ -316,7 +316,7 @@ function formAddVenta($conn){
             
             <div class="form-group">
             <label for="sel1">Lugar / Modo de Venta:</label>
-            <select class="form-control" name="lugar_venta">
+            <select class="form-control" name="lugar_venta" id="lugar_venta" required>
                 <option value="" disabled selected>Seleccionar</option>
                 <option value="Web">Web</option>
                 <option value="Local">Local</option>
@@ -327,16 +327,17 @@ function formAddVenta($conn){
             
             <div class="form-group">
             <label for="sel1">Tipo de Pago:</label>
-            <select class="form-control" name="modo_pago">
+            <select class="form-control" name="modo_pago" id="modo_pago" required>
                 <option value="" disabled selected>Seleccionar</option>
-                <option value="MP">Mercado Pago</option>
+                <option value="Tarjeta Credito">Tarjeta Crédito</option>
+                <option value="Tarjeta Debito">Tarjeta Débito</option>
                 <option value="Efectivo">Efectivo</option>
                 </select>
             </div><hr>
             
             <div class="form-group">
 		  <label for="sel1">Cliente:</label>
-		  <select class="form-control" name="cliente" required>
+		  <select class="form-control" name="cliente" id="cliente" required>
 		  <option value="" disabled selected>Seleccionar</option>';
 		    
 		    if($conn){
@@ -355,13 +356,13 @@ function formAddVenta($conn){
 		  
 		 echo '</select>
 		</div>
-		<p>Si el Cliente no se encuentra en la base presione el botón "Nuevo Cliente" para darlo de alta</p>
+		<p>Si el Cliente no se encuentra en la lista desplegable presione el botón "Nuevo Cliente" para darlo de alta</p>
 		<!-- Trigger the modal with a button -->
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newCliente">Nuevo Cliente</button>
 		<hr>
             
                  
-            <button type="submit" class="btn btn-success btn-xs btn-block" name="addVenta">
+            <button type="button" class="btn btn-success btn-xs btn-block" name="addVenta" id="add_venta_heladeria_local">
                 <img src="../../icons/devices/media-floppy.png"  class="img-reponsive img-rounded"> Terminar</button>
             </form>
             </div>
@@ -423,7 +424,8 @@ function formEditVenta($id,$conn){
             <div class="form-group">
 		  <label for="sel1">Sabor 1:</label>
 		  <select class="form-control" name="sabor_1" required>
-		  <option value="" disabled selected>Seleccionar</option>';
+		  <option value="" disabled selected>Seleccionar</option>
+		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
 		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
@@ -445,7 +447,8 @@ function formEditVenta($id,$conn){
              <div class="form-group">
 		  <label for="sel1">Sabor 2:</label>
 		  <select class="form-control" name="sabor_2" required>
-		  <option value="" disabled selected>Seleccionar</option>';
+		  <option value="" disabled selected>Seleccionar</option>
+		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
 		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
@@ -467,7 +470,8 @@ function formEditVenta($id,$conn){
 		 <div class="form-group">
 		  <label for="sel1">Sabor 3:</label>
 		  <select class="form-control" name="sabor_3" required>
-		  <option value="" disabled selected>Seleccionar</option>';
+		  <option value="" disabled selected>Seleccionar</option>
+		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
 		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
@@ -489,7 +493,8 @@ function formEditVenta($id,$conn){
 		 <div class="form-group">
 		  <label for="sel1">Sabor 4:</label>
 		  <select class="form-control" name="sabor_4" required>
-		  <option value="" disabled selected>Seleccionar</option>';
+		  <option value="" disabled selected>Seleccionar</option>
+		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
 		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
@@ -547,7 +552,8 @@ function formEditVenta($id,$conn){
             <label for="sel1">Tipo de Pago:</label>
             <select class="form-control" name="modo_pago">
                 <option value="" disabled selected>Seleccionar</option>
-                <option value="MP" '.($fila['tipo_pago'] == "MP" ? "selected" : ""). '>Mercado Pago</option>
+                <option value="Tarjeta Credito" '.($fila['tipo_pago'] == "Tarjeta Credito" ? "selected" : ""). '>Tarjeta Crédito</option>
+                <option value="Tarjeta Debito" '.($fila['tipo_pago'] == "Tarjeta Debito" ? "selected" : ""). '>Tarjeta Débito</option>
                 <option value="Efectivo" '.($fila['tipo_pago'] == "Efectivo" ? "selected" : ""). '>Efectivo</option>
                 </select>
             </div><hr>
@@ -708,6 +714,61 @@ function addVentaHeladeria($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$emplea
 			    echo "</div>";
 		    }
 		   
+}
+
+/*
+** funcion que agrega nueva venta
+*/
+function addVentaHeladeriaLocal($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$empleado,$lugar_venta,$modo_pago,$cliente,$conn){
+
+   
+    $sql = "select cod_producto, precio from st_productos where descripcion = '$producto'";
+    mysqli_select_db($conn,'storia');
+    $query = mysqli_query($conn,$sql);
+    while($rows = mysqli_fetch_array($query)){
+        $codigo_producto = $rows['cod_producto'];
+        $importe = $rows['precio'];
+    }
+    
+    $espacio = 'heladeria';
+    $hora_actual =  date("H:i:s");
+    $fecha_actual = date("Y-m-d");
+    
+          $consulta = "INSERT INTO st_ventas".
+              "(cod_producto,
+                descripcion,
+                espacio,
+                sabor_1,
+                sabor_2,
+                sabor_3,
+                sabor_4,
+                empleado,
+                lugar_venta,
+                tipo_pago,
+                fecha_venta,
+                hora_venta,
+                cliente_nombre,
+                importe)".
+            "VALUES ".
+        "('$codigo_producto',
+          '$producto',
+          '$espacio',
+          '$sabor_1',
+          '$sabor_2',
+          '$sabor_3',
+          '$sabor_4',
+          '$empleado',
+          '$lugar_venta',
+          '$modo_pago',
+          '$fecha_actual',
+          '$hora_actual',
+          '$cliente',
+          '$importe')";
+        
+        mysqli_select_db($conn,'storia');
+        echo mysqli_query($conn,$consulta);
+       
+      
 }
 
 

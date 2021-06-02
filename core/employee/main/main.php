@@ -539,6 +539,7 @@
 </body>
 </html>
 
+<!-- insertar Items en mesas -->
 <script type="text/javascript">
 $(document).ready(function(){
     $('#insertar_item').click(function(){
@@ -561,6 +562,7 @@ $(document).ready(function(){
 });
 </script>
 
+<!-- Insertar productos de cafe -->
 <script type="text/javascript">
 $(document).ready(function(){
     $('#add_venta_cafeteria').click(function(){
@@ -574,6 +576,39 @@ $(document).ready(function(){
                     alert("Producto Agregado Exitosamente");
                     location.href = "main.php";
                     }else{
+                    alert("Hubo un problema al intentar Guardar el Producto");
+                }
+            }
+        });
+
+        return false;
+    });
+});
+</script>
+
+<!-- Insertar ventas de heladeria en local -->
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#add_venta_heladeria_local').click(function(){
+        var datos=$('#fr_heladeria_ajax').serialize();
+        $.ajax({
+            type:"POST",
+            url:"../../lib_heladeria/insert_pedido_heladeria_local.php",
+            data:datos,
+            success:function(r){
+                if(r==1){
+                    alert("Producto Agregado Exitosamente");
+                    $('#producto').val('');
+                    $('#sabor_1').val('Ninguno');
+                    $('#sabor_2').val('Ninguno');
+                    $('#sabor_3').val('Ninguno');
+                    $('#sabor_4').val('Ninguno');
+                    $('#empleado').val('');
+                    $('#lugar_venta').val('');
+                    $('#modo_pago').val('');
+                    $('#cliente').val('');
+                    $('#producto').focus();
+                }else{
                     alert("Hubo un problema al intentar Guardar el Producto");
                 }
             }
