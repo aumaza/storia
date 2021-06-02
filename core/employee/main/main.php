@@ -550,7 +550,7 @@ $(document).ready(function(){
             data:datos,
             success:function(r){
                 if(r==1){
-                    alert("Item Agregado Exitosamente");
+                    alert("Item Agregado Exitosamente!!");
                     }else{
                     alert("Hubo un problema al intentar Guardar el Item");
                 }
@@ -573,7 +573,7 @@ $(document).ready(function(){
             data:datos,
             success:function(r){
                 if(r==1){
-                    alert("Producto Agregado Exitosamente");
+                    alert("Producto Agregado Exitosamente!!");
                     location.href = "main.php";
                     }else{
                     alert("Hubo un problema al intentar Guardar el Producto");
@@ -597,12 +597,41 @@ $(document).ready(function(){
             data:datos,
             success:function(r){
                 if(r==1){
-                    alert("Producto Agregado Exitosamente");
+                    alert("Producto Agregado Exitosamente!!");
                     $('#producto').val('');
                     $('#sabor_1').val('Ninguno');
                     $('#sabor_2').val('Ninguno');
                     $('#sabor_3').val('Ninguno');
                     $('#sabor_4').val('Ninguno');
+                    $('#empleado').val('');
+                    $('#lugar_venta').val('');
+                    $('#modo_pago').val('');
+                    $('#cliente').val('');
+                    $('#producto').focus();
+                }else{
+                    alert("Hubo un problema al intentar Guardar el Producto");
+                }
+            }
+        });
+
+        return false;
+    });
+});
+</script>
+
+<!-- Insertar ventas de cafeteria en local -->
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#add_venta_cafeteria_local').click(function(){
+        var datos=$('#fr_cafeteria_local_ajax').serialize();
+        $.ajax({
+            type:"POST",
+            url:"../../lib_cafeteria/insert_pedido_cafeteria_local.php",
+            data:datos,
+            success:function(r){
+                if(r==1){
+                    alert("Producto Agregado Exitosamente!!");
+                    $('#producto').val('');
                     $('#empleado').val('');
                     $('#lugar_venta').val('');
                     $('#modo_pago').val('');

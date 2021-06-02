@@ -168,7 +168,7 @@ function ventasCafeteriaLocal($conn){
 
 if($conn)
 {
-	$sql = "SELECT * FROM st_ventas where espacio = 'cafeteria' and lugar_venta = 'Local'";
+	$sql = "SELECT * FROM st_ventas where espacio = 'cafeteria' and lugar_venta <> 'Web'";
     	mysqli_select_db($conn,'storia');
     	$resultado = mysqli_query($conn,$sql);
 	//mostramos fila x fila
@@ -479,11 +479,11 @@ function formAddVentaCafeteriaLocal($conn){
             <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta Cafetería en Local</div>
 		  <div class="panel-body">
 	
-	    <form action="#" method="POST">
+	    <form id="fr_cafeteria_local_ajax" method="POST">
             
             <div class="form-group">
 		  <label for="sel1">Producto:</label>
-		  <select class="form-control" name="producto" required>
+		  <select class="form-control" name="producto" id="producto" required>
 		  <option value="" disabled selected>Seleccionar</option>';
 		    
 		    if($conn){
@@ -504,7 +504,7 @@ function formAddVentaCafeteriaLocal($conn){
             
 		 <div class="form-group">
 		  <label for="sel1">Empleado:</label>
-		  <select class="form-control" name="empleado" required>
+		  <select class="form-control" name="empleado" id="empleado" required>
 		  <option value="" disabled selected>Seleccionar</option>';
 		    
 		    if($conn){
@@ -524,7 +524,7 @@ function formAddVentaCafeteriaLocal($conn){
             
             <div class="form-group">
             <label for="sel1">Lugar / Modo de Venta:</label>
-            <select class="form-control" name="lugar_venta">
+            <select class="form-control" name="lugar_venta" id="lugar_venta" required>
                 <option value="" disabled selected>Seleccionar</option>
                 <option value="Local">Local</option>
                 <option value="WhatsApp">WhatsApp</option>
@@ -534,16 +534,17 @@ function formAddVentaCafeteriaLocal($conn){
             
             <div class="form-group">
             <label for="sel1">Tipo de Pago:</label>
-            <select class="form-control" name="modo_pago">
+            <select class="form-control" name="modo_pago" id="modo_pago" required>
                 <option value="" disabled selected>Seleccionar</option>
-                <option value="MP">Mercado Pago</option>
+                <option value="Tarjeta Credito">Tarjeta Crédito</option>
+                <option value="Tarjeta Debito">Tarjeta Débito</option>
                 <option value="Efectivo">Efectivo</option>
                 </select>
             </div><hr>
             
             <div class="form-group">
 		  <label for="sel1">Cliente:</label>
-		  <select class="form-control" name="cliente" required>
+		  <select class="form-control" name="cliente" required id="cliente" required>
 		  <option value="" disabled selected>Seleccionar</option>';
 		    
 		    if($conn){
@@ -568,8 +569,8 @@ function formAddVentaCafeteriaLocal($conn){
 		<hr>
             
                  
-            <button type="submit" class="btn btn-success btn-xs btn-block" name="addVentaCafeteria">
-                <img src="../../icons/actions/go-next.png"  class="img-reponsive img-rounded"> Continuar</button>
+            <button type="button" class="btn btn-success btn-xs btn-block" name="addVentaCafeteria" id="add_venta_cafeteria_local">
+                <img src="../../icons/actions/dialog-ok.png"  class="img-reponsive img-rounded"> Aceptar</button>
             </form>
             </div>
             </div>
@@ -1242,6 +1243,31 @@ function addProductos($producto,$empleado,$lugar_venta,$modo_pago,$importe,$clie
     $query = mysqli_query($conn,$sql);
     while($row = mysqli_fetch_array($query)){
         $cod_producto = $row['cod_producto'];
+    }
+    
+    $espacio = 'cafeteria';
+    $fecha_actual = date("Y-m-d");
+    $hora_actual =  date("H:i:s");
+    
+    $consulta = "INSERT INTO st_ventas".
+            "(cod_producto,descripcion,espacio,empleado,lugar_venta,tipo_pago,fecha_venta,hora_venta,cliente_nombre,importe)".
+            "VALUES ".
+        "('$cod_producto','$producto','$espacio','$empleado','$lugar_venta','$modo_pago','$fecha_actual','$hora_actual','$cliente','$importe')";
+        mysqli_select_db($conn,'storia');
+        echo mysqli_query($conn,$consulta);
+                        
+
+}
+
+
+function addProductosCafeLocal($producto,$empleado,$lugar_venta,$modo_pago,$cliente,$conn){
+    
+    $sql = "select cod_producto, precio from st_productos where descripcion = '$producto'";
+    mysqli_select_db($conn,'storia');
+    $query = mysqli_query($conn,$sql);
+    while($row = mysqli_fetch_array($query)){
+        $cod_producto = $row['cod_producto'];
+        $importe = $row['precio'];
     }
     
     $espacio = 'cafeteria';

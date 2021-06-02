@@ -267,6 +267,10 @@
       <li class="list-group-item">
 	<button type="submit" class="btn btn-default btn-xs btn-block" name="estadisticas" data-toggle="tooltip" data-placement="right" title="Estadísticas Generales">
 	    <img class="img-reponsive img-rounded" src="../../icons/actions/office-chart-pie.png" /> Estadísticas</button></li>
+	    
+     <li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="ventas" data-toggle="tooltip" data-placement="right" title="Total Ventas en el Día y Acumuladas">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-investment.png" /> Estadísticas Ventas</button></li>
       
       </form>
       </ul>
@@ -333,9 +337,7 @@
            $role = mysqli_real_escape_string($conn,$_POST['role']);
            cambiarPermisos($id,$role,$conn);
         }
-        if(isset($_POST['estadisticas'])){
-            analytics($conn);
-        }
+        
         
         // =============================================================================================
         
@@ -616,9 +618,16 @@
         
         
         // =============================================================================================
-          
-    
-    
+        // Estadisticas  
+        
+        // estadisticas generales
+        if(isset($_POST['estadisticas'])){
+            analytics($conn);
+        }
+        if(isset($_POST['ventas'])){
+            ventas($conn);
+        }
+        
     
     
     
@@ -673,7 +682,7 @@ $(document).ready(function(){
             data:datos,
             success:function(r){
                 if(r==1){
-                    alert("Item Agregado Exitosamente");
+                    alert("Item Agregado Exitosamente!!");
                     }else{
                     alert("Hubo un problema al intentar Guardar el Item");
                 }
@@ -697,7 +706,7 @@ $(document).ready(function(){
             data:datos,
             success:function(r){
                 if(r==1){
-                    alert("Producto Agregado Exitosamente");
+                    alert("Producto Agregado Exitosamente!!");
                     location.href = "main.php";
                     }else{
                     alert("Hubo un problema al intentar Guardar el Producto");
@@ -721,12 +730,41 @@ $(document).ready(function(){
             data:datos,
             success:function(r){
                 if(r==1){
-                    alert("Producto Agregado Exitosamente");
+                    alert("Producto Agregado Exitosamente!!");
                     $('#producto').val('');
                     $('#sabor_1').val('Ninguno');
                     $('#sabor_2').val('Ninguno');
                     $('#sabor_3').val('Ninguno');
                     $('#sabor_4').val('Ninguno');
+                    $('#empleado').val('');
+                    $('#lugar_venta').val('');
+                    $('#modo_pago').val('');
+                    $('#cliente').val('');
+                    $('#producto').focus();
+                }else{
+                    alert("Hubo un problema al intentar Guardar el Producto");
+                }
+            }
+        });
+
+        return false;
+    });
+});
+</script>
+
+<!-- Insertar ventas de cafeteria en local -->
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#add_venta_cafeteria_local').click(function(){
+        var datos=$('#fr_cafeteria_local_ajax').serialize();
+        $.ajax({
+            type:"POST",
+            url:"../../lib_cafeteria/insert_pedido_cafeteria_local.php",
+            data:datos,
+            success:function(r){
+                if(r==1){
+                    alert("Producto Agregado Exitosamente!!");
+                    $('#producto').val('');
                     $('#empleado').val('');
                     $('#lugar_venta').val('');
                     $('#modo_pago').val('');

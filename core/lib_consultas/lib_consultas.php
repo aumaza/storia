@@ -539,13 +539,23 @@ function tabletsInfoCliente($conn,$nombre){
 */
 function analytics($conn){
 
+   
     // total ventas en el día de la fecha
-    $sql_1 = "select ((select sum(importe) from st_ventas where fecha_venta = curdate()) + (select sum(total) from st_mesas where estado = 'Cerrada' and fecha = curdate())) as total";
+    $sql_mesas_hoy = "select sum(total) as total from st_mesas where estado = 'Cerrada' and fecha = curdate()";
     mysqli_select_db($conn,'storia');
-    $query_1 = mysqli_query($conn,$sql_1);
+    $query_1 = mysqli_query($conn,$sql_mesas_hoy);
     while($rows_1 = mysqli_fetch_array($query_1)){
-        $total_ventas_hoy = $rows_1['total'];
+        $mesas_hoy = $rows_1['total'];
     }
+    
+    $sql_ventas_hoy = "select sum(importe) as total from st_ventas where fecha_venta = curdate()";
+    mysqli_select_db($conn,'storia');
+    $query_ventas_hoy = mysqli_query($conn,$sql_ventas_hoy);
+    while($rows_ventas_hoy = mysqli_fetch_array($query_ventas_hoy)){
+        $ventas_hoy = $rows_ventas_hoy['total'];
+    }
+    
+    $total_ventas_hoy = $mesas_hoy + $ventas_hoy;
     
     // total ventas acumulado
     $sql_2 = "select ((select sum(importe) from st_ventas) + (select sum(total) from st_mesas where estado = 'Cerrada')) as total";
@@ -1007,7 +1017,74 @@ function analytics($conn){
 }
 
 
+/*
+** carga de tablas con total ventas del día y acumuladas
+*/
+function ventas($conn){
 
+    // total ventas en el día de la fecha
+    $sql_mesas_hoy = "select sum(total) as total from st_mesas where estado = 'Cerrada' and fecha = curdate()";
+    mysqli_select_db($conn,'storia');
+    $query_1 = mysqli_query($conn,$sql_mesas_hoy);
+    while($rows_1 = mysqli_fetch_array($query_1)){
+        $mesas_hoy = $rows_1['total'];
+    }
+    
+    $sql_ventas_hoy = "select sum(importe) as total from st_ventas where fecha_venta = curdate()";
+    mysqli_select_db($conn,'storia');
+    $query_ventas_hoy = mysqli_query($conn,$sql_ventas_hoy);
+    while($rows_ventas_hoy = mysqli_fetch_array($query_ventas_hoy)){
+        $ventas_hoy = $rows_ventas_hoy['total'];
+    }
+    
+    $total_ventas_hoy = $mesas_hoy + $ventas_hoy;
+    
+    // total ventas acumulado
+    $sql_2 = "select ((select sum(importe) from st_ventas) + (select sum(total) from st_mesas where estado = 'Cerrada')) as total";
+    mysqli_select_db($conn,'storia');
+    $query_2 = mysqli_query($conn,$sql_2);
+    while($rows_2 = mysqli_fetch_array($query_2)){
+        $total_ventas_acumulado = $rows_2['total'];
+    }
+
+
+    echo '<div class="container">
+    
+            <div class="col-sm-9">
+            <div class="well">
+                
+               
+                    <h2><img class="img-reponsive img-rounded" src="../../icons/actions/view-investment.png" /> Total Ventas</h2>
+                    <p>Discrimimación de Ventas sobre el día de la Fecha y el acumulado</p>            
+                
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Total Diario</th>
+                            <th>Total Acumulado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="text-nowrap text-center">$'.$total_ventas_hoy.'</td>
+                            <td class="text-nowrap text-center">$'.$total_ventas_acumulado.'</td>
+                        </tr>
+                        </tbody>
+                    </table>
+             
+                
+            </div>
+               
+    
+        </div>
+        </div>';
+
+
+
+
+
+
+}
 
 
 
