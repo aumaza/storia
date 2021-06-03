@@ -9,6 +9,7 @@
       include "../../lib_cafeteria/lib_cafeteria.php";
       include "../../lib_consultas/lib_consultas.php";
       include "../../lib_delivery/lib_delivery.php";
+       include "../../lib_password/lib_password.php";
               
         $usuario = $_SESSION['user'];
         $password = $_SESSION['pass'];
@@ -648,6 +649,30 @@ $(document).ready(function(){
 });
 </script>
 
+<!-- Alta de Cliente Rápida -->
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#alta_rapida_cliente').click(function(){
+        var datos=$('#alta_rapida_cliente_ajax').serialize();
+        $.ajax({
+            type:"POST",
+            url:"../../lib_clientes/insertar_cliente_nuevo.php",
+            data:datos,
+            success:function(r){
+                if(r==1){
+                    alert("Alta de Cliente Exitosa!!");
+                }else{
+                    alert("Hubo un problema al intentar dar de alta al Cliente");
+                }
+            }
+        });
+
+        return false;
+    });
+});
+</script>
+
+<!-- Consultas de Precios -->
 <!-- precios heladeria modal -->
   <script>
 $('.openHelado').on('click',function(){

@@ -214,6 +214,72 @@ function formAddCliente(){
 
 
 /*
+** formulario para agregar Clientes
+*/
+function formAltaRapidaCliente(){
+
+         
+       echo '<div class="container">
+	      <div class="row">
+		<div class="col-sm-8">
+            
+            <div class="panel panel-success">
+	      <div class="panel-heading">
+		<img class="img-reponsive img-rounded" src="../../icons/actions/list-add-user.png" /> Agregar Nuevo Cliente</div>
+		  <div class="panel-body">
+	
+	    <form id="alta_rapida_cliente_ajax" method="POST">
+            <input type="hidden" class="form-control" name="espacio" id="espacio" value="cli" required>
+            
+            <div class="form-group">
+              <label>Nombre del Cliente:</label>
+		<input type="text" class="form-control" name="cliente" placeholder="Ingrese el Nombre del Cliente " required>
+            </div><hr>
+            
+            <div class="form-group">
+              <label>DNI:</label>
+		<input type="text" class="form-control" name="dni" placeholder="Ingrese DNI sin puntos" maxlength="8" required>
+            </div><hr>
+            
+            <div class="form-group">
+	      <label>Email:</label>
+		<input type="email" class="form-control" name="email" placeholder="Ingrese el email del Cliente" required>
+            </div><hr>
+            
+            <div class="form-group">
+	      <label>Dirección:</label>
+		<input type="text" class="form-control" name="direccion" placeholder="Ingrese la dirección del Cliente" required>
+            </div><hr>
+            
+            <div class="form-group">
+	      <label">Localidad:</label>
+		<input type="text" class="form-control" name="localidad" placeholder="Ingrese la Localidad del Cliente" required>
+            </div><hr>
+            
+            <div class="form-group">
+	      <label">Teléfono Fijo:</label>
+		<input type="text" class="form-control" name="telefono" placeholder="Ingrese número de teléfono" required>
+            </div><hr>
+            
+            <div class="form-group">
+	      <label">Teléfono Móvil:</label>
+		<input type="text" class="form-control" name="movil" placeholder="Ingrese número de Móvil" required>
+            </div><hr>
+            
+                 
+            <button type="button" class="btn btn-success btn-block" name="addCliente" id="alta_rapida_cliente">
+                <img src="../../icons/actions/dialog-ok.png"  class="img-reponsive img-rounded"> Aceptar</button>
+            </form>
+            </div>
+            </div>
+            
+            </div>
+            </div>
+            </div>';
+}
+
+
+/*
 ** formulario para editar Clientes
 */
 function formEditCliente($id,$nombre,$conn){
@@ -310,7 +376,7 @@ function formEditCliente($id,$nombre,$conn){
 
 
 /*
-** funcion que agrega Producto
+** funcion que agrega un Cliente
 */
 function addCliente($cliente,$dni,$email,$direccion,$localidad,$telefono,$movil,$espacio,$conn){
 

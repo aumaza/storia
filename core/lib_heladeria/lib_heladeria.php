@@ -193,6 +193,32 @@ function formAddVenta($conn){
 		  <div class="panel-body">
 	
 	    <form id="fr_heladeria_ajax" method="POST">
+	    
+	     <div class="form-group">
+		  <label for="sel1">Cliente:</label>
+		  <select class="form-control" name="cliente" id="cliente" required>
+		  <option value="" disabled selected>Seleccionar</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_clientes where espacio = 'cli' order by cliente_nombre ASC ";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[cliente_nombre].'" >'.$valores[cliente_nombre].'</option>';
+				}
+                }
+			}
+
+			//mysqli_close($conn);
+		  
+		 echo '</select>
+		</div>
+		<p>Si el Cliente no se encuentra en la lista desplegable presione el botón "Nuevo Cliente" para darlo de alta</p>
+		<!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newCliente">Nuevo Cliente</button>
+		<hr>
             
             <div class="form-group">
 		  <label for="sel1">Producto:</label>
@@ -318,7 +344,6 @@ function formAddVenta($conn){
             <label for="sel1">Lugar / Modo de Venta:</label>
             <select class="form-control" name="lugar_venta" id="lugar_venta" required>
                 <option value="" disabled selected>Seleccionar</option>
-                <option value="Web">Web</option>
                 <option value="Local">Local</option>
                 <option value="WhatsApp">WhatsApp</option>
                 <option value="Telefonica">Telefónica</option>
@@ -334,34 +359,7 @@ function formAddVenta($conn){
                 <option value="Efectivo">Efectivo</option>
                 </select>
             </div><hr>
-            
-            <div class="form-group">
-		  <label for="sel1">Cliente:</label>
-		  <select class="form-control" name="cliente" id="cliente" required>
-		  <option value="" disabled selected>Seleccionar</option>';
-		    
-		    if($conn){
-		      $query = "SELECT * FROM st_clientes where espacio = 'cli' order by cliente_nombre ASC ";
-		      mysqli_select_db($conn,'storia');
-		      $res = mysqli_query($conn,$query);
-
-		      if($res){
-				  while($valores = mysqli_fetch_array($res)){
-               echo '<option value="'.$valores[cliente_nombre].'" >'.$valores[cliente_nombre].'</option>';
-				}
-                }
-			}
-
-			mysqli_close($conn);
-		  
-		 echo '</select>
-		</div>
-		<p>Si el Cliente no se encuentra en la lista desplegable presione el botón "Nuevo Cliente" para darlo de alta</p>
-		<!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newCliente">Nuevo Cliente</button>
-		<hr>
-            
-                 
+                
             <button type="button" class="btn btn-success btn-xs btn-block" name="addVenta" id="add_venta_heladeria_local">
                 <img src="../../icons/devices/media-floppy.png"  class="img-reponsive img-rounded"> Terminar</button>
             </form>

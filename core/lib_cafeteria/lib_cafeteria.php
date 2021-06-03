@@ -480,6 +480,32 @@ function formAddVentaCafeteriaLocal($conn){
 		  <div class="panel-body">
 	
 	    <form id="fr_cafeteria_local_ajax" method="POST">
+	    
+	    <div class="form-group">
+		  <label for="sel1">Cliente:</label>
+		  <select class="form-control" name="cliente" required id="cliente" required>
+		  <option value="" disabled selected>Seleccionar</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_clientes where espacio = 'cli' order by cliente_nombre ASC ";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[cliente_nombre].'" >'.$valores[cliente_nombre].'</option>';
+				}
+                }
+			}
+
+			//mysqli_close($conn);
+		  
+		 echo '</select>
+		</div>
+		<p>Si el Cliente no se encuentra en la base presione el botón "Nuevo Cliente" para darlo de alta</p>
+		<!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newCliente">Nuevo Cliente</button>
+		<hr>
             
             <div class="form-group">
 		  <label for="sel1">Producto:</label>
@@ -541,32 +567,6 @@ function formAddVentaCafeteriaLocal($conn){
                 <option value="Efectivo">Efectivo</option>
                 </select>
             </div><hr>
-            
-            <div class="form-group">
-		  <label for="sel1">Cliente:</label>
-		  <select class="form-control" name="cliente" required id="cliente" required>
-		  <option value="" disabled selected>Seleccionar</option>';
-		    
-		    if($conn){
-		      $query = "SELECT * FROM st_clientes where espacio = 'cli' order by cliente_nombre ASC ";
-		      mysqli_select_db($conn,'storia');
-		      $res = mysqli_query($conn,$query);
-
-		      if($res){
-				  while($valores = mysqli_fetch_array($res)){
-               echo '<option value="'.$valores[cliente_nombre].'" >'.$valores[cliente_nombre].'</option>';
-				}
-                }
-			}
-
-			mysqli_close($conn);
-		  
-		 echo '</select>
-		</div>
-		<p>Si el Cliente no se encuentra en la base presione el botón "Nuevo Cliente" para darlo de alta</p>
-		<!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newCliente">Nuevo Cliente</button>
-		<hr>
             
                  
             <button type="button" class="btn btn-success btn-xs btn-block" name="addVentaCafeteria" id="add_venta_cafeteria_local">

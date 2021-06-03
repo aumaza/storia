@@ -234,7 +234,7 @@ function modalNewCliente(){
                     <h4 class="modal-title" align="center">Alta de Cliente</h4>
                 </div>
                 <div class="modal-body">';
-                    formAddCliente();
+                    formAltaRapidaCliente();
                 echo '</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
