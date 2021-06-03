@@ -633,6 +633,7 @@ $(document).ready(function(){
                 if(r==1){
                     alert("Producto Agregado Exitosamente!!");
                     $('#producto').val('');
+                    $('#cantidad').val('1');
                     $('#empleado').val('');
                     $('#lugar_venta').val('');
                     $('#modo_pago').val('');

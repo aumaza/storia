@@ -182,6 +182,7 @@ if($conn)
               echo "<thead>
 		    <th class='text-nowrap text-center' hidden>ID</th>
 		    <th class='text-nowrap text-center'>Producto</th>
+		    <th class='text-nowrap text-center'>Cantidad</th>
             <th class='text-nowrap text-center'>Modo de Pago</th>
             <th class='text-nowrap text-center'>Fecha Pedido</th>
             <th class='text-nowrap text-center'>Hora Pedido</th>
@@ -196,6 +197,7 @@ if($conn)
 			 echo "<tr>";
 			 echo "<td align=center hidden>".$fila['id']."</td>";
 			 echo "<td align=center>".$fila['descripcion']."</td>";
+			 echo "<td align=center>".$fila['cantidad']."</td>";
 			 echo "<td align=center>".$fila['tipo_pago']."</td>";
 			 echo "<td align=center>".$fila['fecha_venta']."</a></td>";
 			 echo "<td align=center>".$fila['hora_venta']."</a></td>";
@@ -526,6 +528,11 @@ function formAddVentaCafeteriaLocal($conn){
 			  
 		 echo '</select>
 		</div><hr>
+		
+		<div class="form-group">
+        <label for="usr">Cantidad:</label>
+        <input type="number" class="form-control" name="cantidad" id="cantidad" value="1" required>
+        </div><hr>
             
             
 		 <div class="form-group">
@@ -1260,7 +1267,7 @@ function addProductos($producto,$empleado,$lugar_venta,$modo_pago,$importe,$clie
 }
 
 
-function addProductosCafeLocal($producto,$empleado,$lugar_venta,$modo_pago,$cliente,$conn){
+function addProductosCafeLocal($producto,$empleado,$lugar_venta,$modo_pago,$cliente,$cantidad,$conn){
     
     $sql = "select cod_producto, precio from st_productos where descripcion = '$producto'";
     mysqli_select_db($conn,'storia');
@@ -1273,11 +1280,12 @@ function addProductosCafeLocal($producto,$empleado,$lugar_venta,$modo_pago,$clie
     $espacio = 'cafeteria';
     $fecha_actual = date("Y-m-d");
     $hora_actual =  date("H:i:s");
+    $total = $importe * $cantidad;
     
     $consulta = "INSERT INTO st_ventas".
-            "(cod_producto,descripcion,espacio,empleado,lugar_venta,tipo_pago,fecha_venta,hora_venta,cliente_nombre,importe)".
+            "(cod_producto,descripcion,cantidad,espacio,empleado,lugar_venta,tipo_pago,fecha_venta,hora_venta,cliente_nombre,importe)".
             "VALUES ".
-        "('$cod_producto','$producto','$espacio','$empleado','$lugar_venta','$modo_pago','$fecha_actual','$hora_actual','$cliente','$importe')";
+        "('$cod_producto','$producto','$cantidad','$espacio','$empleado','$lugar_venta','$modo_pago','$fecha_actual','$hora_actual','$cliente','$total')";
         mysqli_select_db($conn,'storia');
         echo mysqli_query($conn,$consulta);
                         

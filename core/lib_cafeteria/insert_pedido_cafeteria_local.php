@@ -9,6 +9,7 @@
         $lugar_venta = mysqli_real_escape_string($conn,$_POST['lugar_venta']);
         $modo_pago = mysqli_real_escape_string($conn,$_POST['modo_pago']);
         $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
-        addProductosCafeLocal($producto,$empleado,$lugar_venta,$modo_pago,$cliente,$conn);
+        $cantidad = mysqli_real_escape_string($conn,$_POST['cantidad']);
+        addProductosCafeLocal($producto,$empleado,$lugar_venta,$modo_pago,$cliente,$cantidad,$conn);
   
 ?>
