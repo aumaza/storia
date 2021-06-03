@@ -792,7 +792,9 @@ $(document).ready(function(){
             data:datos,
             success:function(r){
                 if(r==1){
-                    alert("Alta de Cliente Exitosa!!");
+                    alert("Alta de Cliente Exitosa!!. Presione F5 para recargar el Fomulario de venta");
+                    $('#newCliente').modal('hide');
+                    window.location.reload(true);
                 }else{
                     alert("Hubo un problema al intentar dar de alta al Cliente");
                 }

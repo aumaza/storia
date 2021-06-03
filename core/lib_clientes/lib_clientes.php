@@ -233,37 +233,37 @@ function formAltaRapidaCliente(){
             
             <div class="form-group">
               <label>Nombre del Cliente:</label>
-		<input type="text" class="form-control" name="cliente" placeholder="Ingrese el Nombre del Cliente " required>
+		<input type="text" class="form-control" name="cliente" placeholder="Ingrese el Nombre del Cliente " id="cliente" required>
             </div><hr>
             
             <div class="form-group">
               <label>DNI:</label>
-		<input type="text" class="form-control" name="dni" placeholder="Ingrese DNI sin puntos" maxlength="8" required>
+		<input type="text" class="form-control" name="dni" placeholder="Ingrese DNI sin puntos" maxlength="8" id="dni" required>
             </div><hr>
             
             <div class="form-group">
 	      <label>Email:</label>
-		<input type="email" class="form-control" name="email" placeholder="Ingrese el email del Cliente" required>
+		<input type="email" class="form-control" name="email" placeholder="Ingrese el email del Cliente" id="email" required>
             </div><hr>
             
             <div class="form-group">
 	      <label>Dirección:</label>
-		<input type="text" class="form-control" name="direccion" placeholder="Ingrese la dirección del Cliente" required>
+		<input type="text" class="form-control" name="direccion" placeholder="Ingrese la dirección del Cliente" id="direccion" required>
             </div><hr>
             
             <div class="form-group">
 	      <label">Localidad:</label>
-		<input type="text" class="form-control" name="localidad" placeholder="Ingrese la Localidad del Cliente" required>
+		<input type="text" class="form-control" name="localidad" placeholder="Ingrese la Localidad del Cliente" id="localidad" required>
             </div><hr>
             
             <div class="form-group">
 	      <label">Teléfono Fijo:</label>
-		<input type="text" class="form-control" name="telefono" placeholder="Ingrese número de teléfono" required>
+		<input type="text" class="form-control" name="telefono" placeholder="Ingrese número de teléfono" id="telefono" required>
             </div><hr>
             
             <div class="form-group">
 	      <label">Teléfono Móvil:</label>
-		<input type="text" class="form-control" name="movil" placeholder="Ingrese número de Móvil" required>
+		<input type="text" class="form-control" name="movil" placeholder="Ingrese número de Móvil" id="movil" required>
             </div><hr>
             
                  
