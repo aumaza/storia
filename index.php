@@ -192,7 +192,13 @@
 				}
 				}
 				}else{
-				  mysqli_error($conn);
+                    echo "<br>";
+                    echo '<div class="container">';
+                    echo '<div class="alert alert-warning" alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+                    echo '<img class="img-reponsive img-rounded" src="core/icons/status/task-attempt.png" /> Hubo un problema al Conectarse a la Base de Datos. '  .mysqli_error($conn);
+                    echo "</div>";
+                    echo "</div>";
 				}
 	
 			
@@ -595,7 +601,7 @@
 
         <div class="section-title" data-aos="fade-up">
           <h2>Contactate</h2>
-          <p>Envianos tus ideas</p>
+            <p>Envianos tus Inquietudes e Ideas</p>
         </div>
 
         <div class="row">
@@ -606,12 +612,6 @@
                 <i class="icofont-google-map"></i>
                 <h4>Ubicación:</h4>
                 <p>Av. Directorio 4867 - Capital Federal - Buenos Aires</p>
-              </div>
-
-              <div class="email">
-                <i class="icofont-envelope"></i>
-                <h4>Email:</h4>
-                <p>info@example.com</p>
               </div>
 
               <div class="phone">
@@ -626,40 +626,41 @@
           </div>
 
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="name">Tu Nombre</label>
-                  <input type="text" name="name" class="form-control" id="name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                  <div class="validate"></div>
+            
+            <div class="container">
+            <div class="card">
+            <div class="card-header bg-secondary text-white" align="center">Escribinos</div>
+            
+            <div class="card-body">
+            <form action="core/registro/mensajes.php" method="POST">
+                
+                <div class="form-group">
+                <label for="email">Nombre:</label>
+                <input type="text" class="form-control" placeholder="Ingrese su Nombre" name="nombre" required>
                 </div>
-                <div class="form-group col-md-6">
-                  <label for="name">Tu Email</label>
-                  <input type="email" class="form-control" name="email" id="email" data-rule="email" data-msg="Please enter a valid email" />
-                  <div class="validate"></div>
+                
+                <div class="form-group">
+                <label for="pwd">Email:</label>
+                <input type="email" class="form-control" placeholder="Ingrese su email" name="email" required>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="name">Título</label>
-                <input type="text" class="form-control" name="subject" id="subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                <div class="validate"></div>
-              </div>
-              <div class="form-group">
-                <label for="name">Mensaje</label>
-                <textarea class="form-control" name="message" rows="10" data-rule="required" data-msg="Please write something for us"></textarea>
-                <div class="validate"></div>
-              </div>
-              <div class="mb-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Enviar</button></div>
+                
+                <div class="form-group">
+                <label for="pwd">Mensaje:</label>
+                <textarea class="form-control" rows="5" name="mensaje" maxlength="240" required></textarea>
+                </div>
+                </div>
+                
+                <div class="card-footer">
+                <button type="submit" class="btn btn-secondary btn-block" name="enviar_mensaje">Enviar</button>
+                </div>
             </form>
+            
+            </div>
+          
           </div>
-
+          
         </div>
-
+        
       </div>
     </section><!-- End Contact Us Section -->
 
@@ -694,12 +695,17 @@
   <script src="assets/vendor/venobox/venobox.min.js"></script>
   <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
+  
+  
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   
   
   <?php modal_1(); ?>
+  
+  
+  
 
 </body>
 

@@ -22,7 +22,6 @@ if($conn)
 		    <th class='text-nowrap text-center'>ID</th>
 		    <th class='text-nowrap text-center'>Nombre</th>
             <th class='text-nowrap text-center'>Usuario</th>
-            <th class='text-nowrap text-center'>Avatar</th>
             <th class='text-nowrap text-center'>Role</th>
             <th>&nbsp;</th>
             </thead>";
@@ -34,7 +33,6 @@ if($conn)
 			 echo "<td align=center>".$fila['id']."</td>";
 			 echo "<td align=center>".$fila['nombre']."</td>";
 			 echo "<td align=center>".$fila['user']."</td>";
-			 echo "<td align=center>".$fila['avatar']."</td>";
 			 echo "<td align=center>".$fila['role']."</td>";
 			 echo "<td class='text-nowrap'>";
 			 echo '<form <action="#" method="POST">

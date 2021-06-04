@@ -35,6 +35,41 @@ function skeleton(){
 }
 
 
+/*
+** funcion que recibe y periste los mensajes enviados por personas
+*/
+function mensajes($nombre,$email,$mensaje,$conn){
+
+    $fecha = date("Y-m-d");
+    $estado = 'No Leido';
+    
+    $sql = "INSERT INTO st_mensajes".
+            "(nombre,email,mensaje,fecha,estado)".
+            "VALUES ".
+        "('$nombre','$email','$mensaje','$fecha','$estado')";
+        mysqli_select_db($conn,'storia');
+        $resp = mysqli_query($conn,$sql);
+        
+     if($resp){   
+            echo "<br>";
+		    echo '<div class="container">';
+		    echo '<div class="alert alert-success" alert-dismissible">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+		    echo '<img class="img-reponsive img-rounded" src="../icons/actions/dialog-ok-apply.png" /> '.$nombre.' hemos recibido tu mensaje correctamente. Nos estaremos poniendo en contacto con vos. Que tengas un buen día!!';
+		    echo "</div>";
+		    echo "</div>";
+    }else{
+			    echo "<br>";
+			    echo '<div class="container">';
+			    echo '<div class="alert alert-warning" alert-dismissible">
+				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+			    echo '<img class="img-reponsive img-rounded" src="../icons/status/task-attempt.png" /> Hubo un problema al intentar enviar el mensaje. '  .mysqli_error($conn);
+			    echo "</div>";
+			    echo "</div>";
+    }
+
+}
+
 
 function modal_1(){
 

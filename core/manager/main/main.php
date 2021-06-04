@@ -42,6 +42,13 @@
 	}
 
 	
+	$sql_mensajes = "select count(id) as cantidad from st_mensajes where estado = 'No Leido'";
+	mysqli_select_db($conn,'storia');
+	$res_mensajes = mysqli_query($conn,$sql_mensajes);
+	while($row_mensajes = mysqli_fetch_array($res_mensajes)){
+        $cantidad_mensajes = $row_mensajes['cantidad'];
+	}
+	
 	
 ?>
 
@@ -238,10 +245,23 @@
 	    
 	    <li class="list-group-item">
 	<button type="submit" class="btn btn-default btn-xs btn-block" name="sabores" data-toggle="tooltip" data-placement="right" title="Listado de Sabores">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/fill-color.png" /> Sabores</button></li>
-	   
-     	    
-      </form>
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/fill-color.png" /> Sabores</button></li>';
+	    
+	    if($cantidad_mensajes == 0){
+	    
+        echo '<li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="mensajes" data-toggle="tooltip" data-placement="right" title="No hay mensajes nuevos">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/mail-mark-unread.png" /> Mensajes</button></li>';
+	    
+	    }else if($cantidad_mensajes > 0){
+	    
+            echo '<li class="list-group-item">
+            <button type="submit" class="btn btn-default btn-xs btn-block" name="mensajes" data-toggle="tooltip" data-placement="right" title="Tiene '.$cantidad_mensajes.' mensajes nuevos">
+                <img class="img-reponsive img-rounded" src="../../icons/actions/mail-mark-unread-new.png" /> Mensajes</button></li>';
+	    
+	    }
+	
+    echo '</form>
        <li class="list-group-item">
       <a href="explorer/index.php" data-toggle="tooltip" data-placement="right" title="Ir al Exlorardor de Archivos" target="_blank"><button type="button" class="btn btn-default btn-xs btn-block"><img class="img-reponsive img-rounded" src="../../icons/places/user-home.png" /> Explorer</button></a></li>
       
@@ -336,6 +356,13 @@
            $id = mysqli_real_escape_string($conn,$_POST['id']);
            $role = mysqli_real_escape_string($conn,$_POST['role']);
            cambiarPermisos($id,$role,$conn);
+        }
+        if(isset($_POST['mensajes'])){
+            mensajesClientes($conn);
+        }
+        if(isset($_POST['mensaje_leido'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            lecturaMensaje($id,$conn);
         }
         
         
@@ -806,6 +833,8 @@ $(document).ready(function(){
     });
 });
 </script>
+
+
 
 <!-- Consultas de Precios -->
 <!-- precios heladeria modal -->

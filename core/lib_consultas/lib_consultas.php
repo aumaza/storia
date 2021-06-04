@@ -1,6 +1,104 @@
 <?php
 
 /*
+** funcion que carga la tabla de todos los mensajes de consultas de clientes
+*/
+
+
+function mensajesClientes($conn){
+
+if($conn)
+{
+	$sql = "SELECT * FROM st_mensajes";
+    	mysqli_select_db($conn,'storia');
+    	$resultado = mysqli_query($conn,$sql);
+	//mostramos fila x fila
+	$count = 0;
+	echo '<div class="panel panel-success" >
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/mail-flag.png"  class="img-reponsive img-rounded"> Mensajes de Clientes';
+	echo '</div><br>';
+
+            echo "<table class='display compact' style='width:100%' id='myTable'>";
+              echo "<thead>
+		    <th class='text-nowrap text-center'>Cliente</th>
+            <th class='text-nowrap text-center'>Email</th>
+            <th class='text-nowrap text-center'>Mensaje</th>
+            <th class='text-nowrap text-center'>Fecha Envio</th>
+            <th>&nbsp;</th>
+            </thead>";
+
+
+	while($fila = mysqli_fetch_array($resultado)){
+			  // Listado normal
+			 echo "<tr>";
+			 echo "<td align=center>".$fila['nombre']."</td>";
+			 echo "<td align=center>"."<a href='mailto:".$fila['email']."'>".$fila['email']."</a></td>";
+			 echo "<td align=center>".$fila['mensaje']."</td>";
+			 echo "<td align=center>".$fila['fecha']."</td>";
+			 echo "<td class='text-nowrap'>";
+			 echo '<form action="#" method="POST">';
+                echo '<input type="hidden" name="id"  value="'.$fila['id'].'">';
+                    
+                    if($fila['estado'] == 'No Leido'){
+                    
+                   echo '<button type="submit" class="btn btn-success btn-sm" name="mensaje_leido"><img src="../../icons/actions/mail-replied.png"  class="img-reponsive img-rounded"> Marcar Respondido</button>';
+                                     
+                   }
+                   else if($fila['estado'] == 'Leido'){
+                        echo '<img src="../../icons/actions/games-endturn.png"  class="img-reponsive img-rounded" data-toggle="tooltip" data-placement="right" title="Mensaje Respondido">';
+                   }
+                echo '</form>';   
+                   
+			 echo "</td>";
+			 $count++;
+		}
+
+		echo "</table>";
+		echo "<br>";
+		echo '<button type="button" class="btn btn-primary">Cantidad de Mensajes:  '.$count.' </button>';
+		echo '</div>';
+		}else{
+		  echo 'Connection Failure...' .mysqli_error($conn);
+		}
+
+    mysqli_close($conn);
+
+}
+
+/*
+** actualizacion de estado de lectura y respuesta en los mensajes de los usuarios
+*/
+function lecturaMensaje($id,$conn){
+
+    $sql = "update st_mensajes set estado = 'Leido' where id = '$id'";
+    mysqli_select_db($conn,'storia');
+    $resp = mysqli_query($conn,$sql);
+    
+    if($resp){
+            echo "<br>";
+		    echo '<div class="container">';
+		    echo '<div class="alert alert-success" alert-dismissible">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Estado de Mensaje Actualizado Correctamente.';
+		    echo "</div>";
+		    echo "</div>";
+		    
+    }else{
+			    echo "<br>";
+			    echo '<div class="container">';
+			    echo '<div class="alert alert-warning" alert-dismissible">
+				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al actualizar el estado del mensaje. '  .mysqli_error($conn);
+			    echo "</div>";
+			    echo "</div>";
+		    }
+
+}
+
+
+
+
+/*
 ** vista rápida de todas las mesas
 */
 function vistaMesas($conn){
@@ -1078,9 +1176,6 @@ function ventas($conn){
     
         </div>
         </div>';
-
-
-
 
 
 

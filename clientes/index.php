@@ -682,12 +682,6 @@ if($conn){
             </div>
 
             <div class="col-lg-3 col-md-6 info mt-4 mt-lg-0">
-              <i class="icofont-envelope"></i>
-              <h4>Email:</h4>
-              <p>info@example.com<br>contact@example.com</p>
-            </div>
-
-            <div class="col-lg-3 col-md-6 info mt-4 mt-lg-0">
               <i class="icofont-phone"></i>
               <h4>WhatsApp:</h4>
               <p>+1 5589 55488 51<br>+1 5589 22475 14</p>
@@ -695,32 +689,37 @@ if($conn){
           </div>
         </div>
 
-        <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-          <div class="form-row">
-            <div class="col-md-6 form-group">
-              <input type="text" name="nombre" class="form-control" id="name" placeholder="Tu Nombre" data-rule="maxlen:40" data-msg="Por Favor no te excedas de los 40 Caracteres" />
-              <div class="validate"></div>
+        <div class="container">
+            <div class="card">
+            <div class="card-header bg-secondary text-white" align="center">Escribinos</div>
+            
+            <div class="card-body">
+            <form action="../core/registro/mensajes.php" method="POST">
+                
+                <div class="form-group">
+                <label for="email">Nombre:</label>
+                <input type="text" class="form-control" placeholder="Ingrese su Nombre" name="nombre" required>
+                </div>
+                
+                <div class="form-group">
+                <label for="pwd">Email:</label>
+                <input type="email" class="form-control" placeholder="Ingrese su email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                <label for="pwd">Mensaje:</label>
+                <textarea class="form-control" rows="5" name="mensaje" maxlength="240" required></textarea>
+                </div>
+                </div>
+                
+                <div class="card-footer">
+                <button type="submit" class="btn btn-secondary btn-block" name="enviar_mensaje">Enviar</button>
+                </div>
+            </form>
+            
             </div>
-            <div class="col-md-6 form-group">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Tu Email" data-rule="email" data-msg="por favor ingrese el arroba en email" />
-              <div class="validate"></div>
-            </div>
+          
           </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="titulo" id="subject" placeholder="Título" data-rule="minlen:4" data-msg="Por Favor al menos ingrese un título de 8 Caracteres" />
-            <div class="validate"></div>
-          </div>
-          <div class="form-group">
-            <textarea class="form-control" name="mensaje" rows="5" data-rule="required" data-msg="Por favor escriba aquí el mensaje que nos quiere hacer llegar" placeholder="Mensaje"></textarea>
-            <div class="validate"></div>
-          </div>
-          <div class="mb-3">
-            <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Tu Mensaje ha sido enviado! Gracias!</div>
-          </div>
-          <div class="text-center"><button type="submit">Enviar</button></div>
-        </form>
 
       </div>
     </section><!-- End Contact Section -->
@@ -731,7 +730,7 @@ if($conn){
   <footer id="footer">
     <div class="container">
       <h3>Storia - Gelato and Coffee</h3>
-      <p>Un lugar muchos sabores.</p>
+      <p>Un lugar, muchos sabores.</p>
       <div class="social-links">
         <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
         <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
