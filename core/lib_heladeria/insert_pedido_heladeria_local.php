@@ -1,7 +1,7 @@
 <?php session_start();
         
         include "../connection/connection.php";
-        include "../lib_heladeria/lib_heladeria.php";
+        include "lib_heladeria.php";
                         
                                 
         $producto = mysqli_real_escape_string($conn,$_POST['producto']);
@@ -13,7 +13,6 @@
         $lugar_venta = mysqli_real_escape_string($conn,$_POST['lugar_venta']);
         $modo_pago = mysqli_real_escape_string($conn,$_POST['modo_pago']);
         $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
-                       
-       addVentaHeladeriaLocal($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$empleado,$lugar_venta,$modo_pago,$cliente,$conn);
+        addVentaHeladeriaLocal($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$empleado,$lugar_venta,$modo_pago,$cliente,$conn);
   
 ?>

@@ -563,6 +563,10 @@
             $repartidor = mysqli_real_escape_string($conn,$_POST['repartidor']);
             addPedidoRepartidor($id_venta,$producto,$cliente,$direccion,$movil,$tipo_pago,$importe,$fecha,$hora,$repartidor,$conn);
         }
+        if(isset($_POST['estado_entrega'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            updateEntregaHelado($id,$conn);
+        }
         
         
         // =============================================================================================
@@ -692,6 +696,7 @@
 <?php modalNewCliente(); ?>
 <?php modalPreciosHeladeria(); ?>
 <?php modalPreciosCafeteria(); ?>
+<?php modalEntregaHelado(); ?>
 
        
 
@@ -856,3 +861,5 @@ $('.openCafe').on('click',function(){
     });
 });
 </script>
+
+

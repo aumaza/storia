@@ -2,6 +2,7 @@
 
 /*
 ** Funcion que carga esqueleto del sistema
+//<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 */
 
 function skeleton(){
@@ -18,7 +19,8 @@ function skeleton(){
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script src="/storia/skeleton/js/jquery-3.5.1.min.js"></script>
     <script src="/storia/skeleton/js/jquery-3.4.1.min.js"></script>
 	<script src="/storia/skeleton/js/bootstrap.min.js"></script>
 	<script src="/storia/core/lib_core/lib_scripts.js"></script>
@@ -281,5 +283,44 @@ function modalNewCliente(){
 
 }
 
+
+/*
+** modal que pregunta sobre entrega de helado en local
+*/
+function modalEntregaHelado(){
+
+
+    echo '<!-- Modal -->
+		<div class="modal fade" id="confirm-entrega" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Entrega de Producto</h4>
+					</div>
+
+					<div class="modal-body">
+                        
+                        ¿Desea marcar como producto entregado?
+                        
+                         <form action="#" method="POST" class="modalForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="id" name="id" value="id">
+                        </div>
+                        <div class="modal-footer">
+                        <button type="submit" class="btn btn-default">Aceptar</button>
+                        </div>
+                        </form> 
+					
+						
+					</div>
+					
+				</div>
+			</div>
+		</div>';
+
+
+}
 
 ?>

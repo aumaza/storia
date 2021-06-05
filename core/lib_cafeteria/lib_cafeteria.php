@@ -495,7 +495,7 @@ function formAddVentaCafeteriaLocal($conn){
 
 		      if($res){
 				  while($valores = mysqli_fetch_array($res)){
-               echo '<option value="'.$valores[cliente_nombre].'" >'.$valores[cliente_nombre].'</option>';
+               echo '<option value="'.$valores[cliente_nombre].'" >'.$valores[dni].' - '.$valores[cliente_nombre].'</option>';
 				}
                 }
 			}

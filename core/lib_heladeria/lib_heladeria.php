@@ -55,12 +55,26 @@ if($conn)
 			 echo "<td align=center>".$fila['cliente_nombre']."</a></td>";
 			 echo "<td align=center>$".$fila['importe']."</a></td>";
 			 echo "<td class='text-nowrap'>";
-			 echo '<form <action="#" method="POST">
-                    <input type="hidden" name="id" value="'.$fila['id'].'">';
+			 echo '<form  action="#" method="POST">
+                    <input type="hidden" class="form-control" name="id" value="'.$fila['id'].'">';
+                   
+                   if($fila['estado_entrega'] == 'En Preparación'){ 
+                   
                    echo '<button type="submit" class="btn btn-primary btn-xs" name="edit_venta"><img src="../../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
+                   
                    echo '<button type="submit" class="btn btn-danger btn-xs" name="del_venta"><img src="../../icons/actions/trash-empty.png"  class="img-reponsive img-rounded"> Eliminar</button>';
+                   
+                   echo '<button type="submit" class="btn btn-warning btn-xs" name="estado_entrega" data-toggle="tooltip" data-placement="right" title="Marcar como entregado"><img src="../../icons/status/task-complete.png"  class="img-reponsive img-rounded"> Marcar Entrega</button>';
+                   
                    echo '</form>';
-                   echo '<a href="../../lib_heladeria/print.php?file=print_pedido_local_heladeria.php&id='.$fila['id'].'" target="_blank"><button type="button" class="btn btn-success btn-xs"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Pedido</button></a>';
+                   
+                   echo '<a href="../../lib_heladeria/print.php?file=print_pedido_local_heladeria.php&id='.$fila['id'].'" target="_blank"><button type="button" class="btn btn-success btn-xs btn-block"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Pedido</button></a>';
+                   
+                   }else if($fila['estado_entrega'] == 'Entregado'){
+                    
+                    echo '<img src="../../icons/actions/games-endturn.png"  class="img-reponsive img-rounded" data-toggle="tooltip" data-placement="right" title="Producto Entregado">';
+                   
+                   }
                    
 			 echo "</td>";
 			 $count++;
@@ -206,7 +220,7 @@ function formAddVenta($conn){
 
 		      if($res){
 				  while($valores = mysqli_fetch_array($res)){
-               echo '<option value="'.$valores[cliente_nombre].'" >'.$valores[cliente_nombre].'</option>';
+               echo '<option value="'.$valores[cliente_nombre].'" >'.$valores[dni].' - '.$valores[cliente_nombre].'</option>';
 				}
                 }
 			}
@@ -728,40 +742,16 @@ function addVentaHeladeriaLocal($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$e
         $importe = $rows['precio'];
     }
     
+    $estado_entrega = 'En Preparación';
     $espacio = 'heladeria';
     $hora_actual =  date("H:i:s");
     $fecha_actual = date("Y-m-d");
     
           $consulta = "INSERT INTO st_ventas".
-              "(cod_producto,
-                descripcion,
-                espacio,
-                sabor_1,
-                sabor_2,
-                sabor_3,
-                sabor_4,
-                empleado,
-                lugar_venta,
-                tipo_pago,
-                fecha_venta,
-                hora_venta,
-                cliente_nombre,
-                importe)".
+              "(cod_producto,descripcion,espacio,sabor_1,sabor_2,sabor_3,sabor_4,empleado,lugar_venta,tipo_pago,fecha_venta,hora_venta,cliente_nombre,importe,estado_entrega)".
             "VALUES ".
-        "('$codigo_producto',
-          '$producto',
-          '$espacio',
-          '$sabor_1',
-          '$sabor_2',
-          '$sabor_3',
-          '$sabor_4',
-          '$empleado',
-          '$lugar_venta',
-          '$modo_pago',
-          '$fecha_actual',
-          '$hora_actual',
-          '$cliente',
-          '$importe')";
+        "('$codigo_producto','$producto','$espacio','$sabor_1','$sabor_2','$sabor_3','$sabor_4','$empleado','$lugar_venta','$modo_pago',
+          '$fecha_actual','$hora_actual','$cliente','$importe','$estado_entrega')";
         
         mysqli_select_db($conn,'storia');
         echo mysqli_query($conn,$consulta);
@@ -812,6 +802,36 @@ function updateVentaHeladeria($id,$producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,
 			    echo "</div>";
 		    }
 		   
+}
+
+/*
+** actualizacion de estado en la entrega de producto de heladeria en local
+*/
+function updateEntregaHelado($id,$conn){
+
+    $sql = "update st_ventas set estado_entrega = 'Entregado' where id = '$id'";
+    mysqli_select_db($conn,'storia');
+    $resp = mysqli_query($conn,$sql);
+    
+    if($resp){
+            echo "<br>";
+		    echo '<div class="container">';
+		    echo '<div class="alert alert-success" alert-dismissible">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Estado de Entrega modificado Correctamente.';
+		    echo "</div>";
+		    echo "</div>";
+    }else{
+			    echo "<br>";
+			    echo '<div class="container">';
+			    echo '<div class="alert alert-warning" alert-dismissible">
+				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al Modificar el estado de la entrega. '  .mysqli_error($conn);
+			    echo "</div>";
+			    echo "</div>";
+		    }
+
+
 }
 
 
