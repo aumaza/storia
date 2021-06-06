@@ -730,11 +730,10 @@ function addVentaHeladeria($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$emplea
 function addVentaHeladeriaLocal($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$empleado,$lugar_venta,$modo_pago,$cliente,$conn){
 
    
-    $sql = "select cod_producto, precio from st_productos where descripcion = '$producto'";
+    $sql = "select precio from st_productos where descripcion = '$producto'";
     mysqli_select_db($conn,'storia');
     $query = mysqli_query($conn,$sql);
     while($rows = mysqli_fetch_array($query)){
-        $codigo_producto = $rows['cod_producto'];
         $importe = $rows['precio'];
     }
     
@@ -744,9 +743,9 @@ function addVentaHeladeriaLocal($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$e
     $fecha_actual = date("Y-m-d");
     
           $consulta = "INSERT INTO st_ventas".
-              "(cod_producto,descripcion,espacio,sabor_1,sabor_2,sabor_3,sabor_4,empleado,lugar_venta,tipo_pago,fecha_venta,hora_venta,cliente_nombre,importe,estado_entrega)".
+              "(descripcion,espacio,sabor_1,sabor_2,sabor_3,sabor_4,empleado,lugar_venta,tipo_pago,fecha_venta,hora_venta,cliente_nombre,importe,estado_entrega)".
             "VALUES ".
-        "('$codigo_producto','$producto','$espacio','$sabor_1','$sabor_2','$sabor_3','$sabor_4','$empleado','$lugar_venta','$modo_pago',
+        "('$producto','$espacio','$sabor_1','$sabor_2','$sabor_3','$sabor_4','$empleado','$lugar_venta','$modo_pago',
           '$fecha_actual','$hora_actual','$cliente','$importe','$estado_entrega')";
         
         mysqli_select_db($conn,'storia');
