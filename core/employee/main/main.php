@@ -147,6 +147,10 @@
       <form action="#" method="POST">
       
       <li class="list-group-item">
+	  <button type="submit" class="btn btn-default btn-xs btn-block" name="add_venta" data-toggle="tooltip" data-placement="right" title="Nueva Venta en Local">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta</button></li>
+      
+      <li class="list-group-item">
 	 <button type="submit" class="btn btn-default btn-xs btn-block" name="ventas_heladeria" data-toggle="tooltip" data-placement="right" title="Ventas Heladería">
 	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Ventas en Local</button></a></li>
 	    
