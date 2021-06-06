@@ -384,7 +384,199 @@ function formAddVenta($conn){
             </div>';
 }
 
+/*
+** formulario para agregar venta de heladeria en local
+*/
+function formAddVentaLocal($conn){
+       
+       
+       echo '<div class="container">
+	      <div class="row">
+		<div class="col-sm-10">
+            
+            <div class="panel panel-success">
+	      <div class="panel-heading">
+            <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta Heladería</div>
+		  <div class="panel-body">
+	
+	    <form action="#" method="POST">
+	    
+	     <div class="form-group">
+		  <label for="sel1">Cliente:</label>
+		  <select class="form-control" name="cliente" id="cliente" required>
+		  <option value="" disabled selected>Seleccionar</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_clientes where espacio = 'cli' order by cliente_nombre ASC ";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
 
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[cliente_nombre].'" >'.$valores[dni].' - '.$valores[cliente_nombre].'</option>';
+				}
+                }
+			}
+
+			//mysqli_close($conn);
+		  
+		 echo '</select>
+		</div>
+		<p>Si el Cliente no se encuentra en la lista desplegable presione el botón "Nuevo Cliente" para darlo de alta</p>
+		<!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newCliente">Nuevo Cliente</button>
+		<hr>
+            
+            <div class="form-group">
+		  <label for="sel1">Producto:</label>
+		  <select class="form-control" name="producto" id="producto" required>
+		  <option value="" disabled selected>Seleccionar</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_productos where cod_producto like 'hd%' order by descripcion ASC";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[descripcion].'" >'.$valores[descripcion].'</option>';
+				}
+                }
+			}
+			  
+		 echo '</select>
+		</div><hr>
+            
+            
+            <div class="form-group">
+		  <label for="sel1">Sabor 1:</label>
+		  <select class="form-control" name="sabor_1" id="sabor_1" required>
+		  <option value="Ninguno" selected>Ninguno</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[descripcion].'" >'.$valores[descripcion].'</option>';
+				}
+                }
+			}
+          echo '</select>
+		        </div><hr>
+            
+             <div class="form-group">
+		  <label for="sel1">Sabor 2:</label>
+		  <select class="form-control" name="sabor_2" id="sabor_2" required>
+		  <option value="Ninguno" selected>Ninguno</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[descripcion].'" >'.$valores[descripcion].'</option>';
+				}
+                }
+			}
+
+			echo '</select>
+                    </div><hr>
+		
+		 <div class="form-group">
+		  <label for="sel1">Sabor 3:</label>
+		  <select class="form-control" name="sabor_3" id="sabor_3" required>
+		  <option value="Ninguno" selected>Ninguno</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[descripcion].'" >'.$valores[descripcion].'</option>';
+				}
+                }
+			}
+
+			echo '</select>
+                    </div><hr>
+		
+		 <div class="form-group">
+		  <label for="sel1">Sabor 4:</label>
+		  <select class="form-control" name="sabor_4" id="sabor_4" required>
+		  <option value="Ninguno" selected>Ninguno</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[descripcion].'" >'.$valores[descripcion].'</option>';
+				}
+                }
+			}
+
+			echo '</select>
+                    </div><hr>
+		
+		 <div class="form-group">
+		  <label for="sel1">Empleado:</label>
+		  <select class="form-control" name="empleado" id="empleado" required>
+		  <option value="" disabled selected>Seleccionar</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_clientes where espacio = 'emp' order by cliente_nombre ASC";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[cliente_nombre].'" >'.$valores[cliente_nombre].'</option>';
+				}
+                }
+			}
+            
+            echo '</select>
+                    </div><hr>
+            
+            <div class="form-group">
+            <label for="sel1">Lugar / Modo de Venta:</label>
+            <select class="form-control" name="lugar_venta" id="lugar_venta" required>
+                <option value="" disabled selected>Seleccionar</option>
+                <option value="Local">Local</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Telefonica">Telefónica</option>
+                </select>
+            </div><hr>
+            
+            <div class="form-group">
+            <label for="sel1">Tipo de Pago:</label>
+            <select class="form-control" name="modo_pago" id="modo_pago" required>
+                <option value="" disabled selected>Seleccionar</option>
+                <option value="Tarjeta Credito">Tarjeta Crédito</option>
+                <option value="Tarjeta Debito">Tarjeta Débito</option>
+                <option value="Efectivo">Efectivo</option>
+                </select>
+            </div><hr>
+                
+            <button type="submit" class="btn btn-success btn-xs btn-block" name="addVenta">
+                <img src="../../icons/devices/media-floppy.png"  class="img-reponsive img-rounded"> Terminar</button>
+            </form>
+            </div>
+            </div>
+            
+            </div>
+            </div>
+            </div>';
+}
 
 /*
 ** formulario para editar venta
@@ -668,6 +860,7 @@ function addVentaHeladeria($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$emplea
         $importe = $rows['precio'];
     }
     
+    $estado_entrega = 'En Preparación';
     $espacio = 'heladeria';
     $hora_actual =  date("H:i:s");
     $fecha_actual = date("Y-m-d");
@@ -686,7 +879,8 @@ function addVentaHeladeria($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$emplea
                 fecha_venta,
                 hora_venta,
                 cliente_nombre,
-                importe)".
+                importe,
+                estado_entrega)".
             "VALUES ".
         "('$codigo_producto',
           '$producto',
@@ -701,7 +895,8 @@ function addVentaHeladeria($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$emplea
           '$fecha_actual',
           '$hora_actual',
           '$cliente',
-          '$importe')";
+          '$importe',
+          '$estado_entrega')";
         
         mysqli_select_db($conn,'storia');
         $resp = mysqli_query($conn,$consulta);

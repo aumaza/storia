@@ -539,7 +539,7 @@ $(document).ready(function(){
         }
         //formulario de nueva ventas
         if(isset($_POST['add_venta'])){
-            formAddVenta($conn);
+            formAddVentaLocal($conn);
         }
         //persistencia nueva ventas
         if(isset($_POST['addVenta'])){
