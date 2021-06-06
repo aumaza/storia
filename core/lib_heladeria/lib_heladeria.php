@@ -860,7 +860,7 @@ function addVentaHeladeria($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$emplea
         $importe = $rows['precio'];
     }
     
-    $estado_entrega = 'En Preparación';
+    $estado_entrega = '5';
     $espacio = 'heladeria';
     $hora_actual =  date("H:i:s");
     $fecha_actual = date("Y-m-d");
