@@ -58,7 +58,7 @@ if($conn)
 			 echo '<form  action="#" method="POST">
                     <input type="hidden" name="id" value="'.$fila['id'].'">';
                    
-                   if(($fila['estado_entrega'] == 'En Preparación') || ($fila['estado_entrega'] == 5)){ 
+                   if(($fila['estado_entrega'] == "En Preparación") || ($fila['estado_entrega'] == 5)){ 
                    
                    echo '<button type="submit" class="btn btn-primary btn-xs" name="edit_venta"><img src="../../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
                    
@@ -68,7 +68,7 @@ if($conn)
                    
                    
                    }
-                   else if(($fila['estado_entrega'] == 'Entregado') || ($fila['estado_entrega'] == 1)){
+                   else if(($fila['estado_entrega'] == "Entregado") || ($fila['estado_entrega'] == 1)){
                     
                     echo '<img src="../../icons/actions/games-endturn.png"  class="img-reponsive img-rounded" data-toggle="tooltip" data-placement="right" title="Producto Entregado">';
                    
