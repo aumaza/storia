@@ -1,7 +1,7 @@
 <?php session_start();
         
         include "../connection/connection.php";
-        include "lib_heladeria.php";
+        include "../lib_heladeria/lib_heladeria.php";
                         
                                 
         $producto = mysqli_real_escape_string($conn,$_POST['producto']);

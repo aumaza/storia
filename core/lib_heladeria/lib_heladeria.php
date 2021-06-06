@@ -82,11 +82,7 @@ if($conn)
 
 		echo "</table></div>";
 		echo "<br>";
-		echo '<form action="#" method="POST">
-			<button type="submit" class="btn btn-default btn-xs" name="add_venta">
-			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Nueva Venta</button>
-		      </form><br>
-		      <a data-toggle="precios_heladeria" data-target="#precios_heladeria" href="#" class="btn btn-success btn-sm openHelado"><span class="glyphicon glyphicon-usd"></span> Precios Heladería</a><br><br>';
+		echo '<a data-toggle="precios_heladeria" data-target="#precios_heladeria" href="#" class="btn btn-success btn-sm openHelado"><span class="glyphicon glyphicon-usd"></span> Precios Heladería</a><br><br>';
 		echo '<button type="button" class="btn btn-primary">Cantidad de Ventas:  '.$count.' </button>';
 		echo '</div>';
 		}else{
