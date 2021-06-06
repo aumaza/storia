@@ -360,6 +360,7 @@
         }
         //formulario de nueva ventas
         if(isset($_POST['add_venta'])){
+            //formAddVentaLocal($conn);
             formAddVenta($conn);
         }
         //persistencia nueva ventas

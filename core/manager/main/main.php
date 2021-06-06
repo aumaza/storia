@@ -539,7 +539,8 @@ $(document).ready(function(){
         }
         //formulario de nueva ventas
         if(isset($_POST['add_venta'])){
-            formAddVentaLocal($conn);
+            //formAddVentaLocal($conn);
+            formAddVenta($conn);
         }
         //persistencia nueva ventas
         if(isset($_POST['addVenta'])){
