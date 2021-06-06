@@ -82,7 +82,7 @@ if($conn)
 
 		echo "</table></div>";
 		echo "<br>";
-		echo '<form <action="#" method="POST">
+		echo '<form action="#" method="POST">
 			<button type="submit" class="btn btn-default btn-xs" name="add_venta">
 			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Nueva Venta</button>
 		      </form><br>
