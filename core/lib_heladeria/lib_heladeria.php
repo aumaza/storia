@@ -202,7 +202,7 @@ function formAddVenta($conn){
             <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta Heladería</div>
 		  <div class="panel-body">
 	
-	    <form id="fr_heladeria_ajax" method="POST">
+	    <form id="fr_heladeria_local_ajax" method="POST">
 	    
 	     <div class="form-group">
 		  <label for="sel1">Cliente:</label>

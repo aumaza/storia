@@ -699,7 +699,6 @@
 <?php modalNewCliente(); ?>
 <?php modalPreciosHeladeria(); ?>
 <?php modalPreciosCafeteria(); ?>
-<?php modalEntregaHelado(); ?>
 
        
 
@@ -758,7 +757,7 @@ $(document).ready(function(){
 <script type="text/javascript">
 $(document).ready(function(){
     $('#add_venta_heladeria_local').click(function(){
-        var datos=$('#fr_heladeria_ajax').serialize();
+        var datos=$('#fr_heladeria_local_ajax').serialize();
         $.ajax({
             type:"POST",
             url:"../../lib_heladeria/insert_pedido_heladeria_local.php",
