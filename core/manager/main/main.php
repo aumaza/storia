@@ -60,6 +60,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="../../../assets/img/storia-favicon.png" rel="icon">
   <?php skeleton(); ?>
+  
+
+  <!-- Insertar ventas de heladeria en local -->
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#add_venta_heladeria_local').click(function(){
+        var datos=$('#fr_heladeria_local_ajax').serialize();
+        $.ajax({
+            type:"POST",
+            url:"../../lib_heladeria/insert_pedido_heladeria_local.php",
+            data:datos,
+            success:function(r){
+                if(r==1){
+                    alert("Producto Agregado Exitosamente!!");
+                    $('#producto').val('');
+                    $('#sabor_1').val('Ninguno');
+                    $('#sabor_2').val('Ninguno');
+                    $('#sabor_3').val('Ninguno');
+                    $('#sabor_4').val('Ninguno');
+                    $('#empleado').val('');
+                    $('#lugar_venta').val('');
+                    $('#modo_pago').val('');
+                    $('#cliente').val('');
+                    $('#producto').focus();
+                }else{
+                    alert("Hubo un problema al intentar Guardar el Producto");
+                }
+            }
+        });
+
+        return false;
+    });
+});
+</script>
  
  
  <!-- Data Table Script -->
@@ -753,38 +787,6 @@ $(document).ready(function(){
 });
 </script>
 
-<!-- Insertar ventas de heladeria en local -->
-<script type="text/javascript">
-$(document).ready(function(){
-    $('#add_venta_heladeria_local').click(function(){
-        var datos=$('#fr_heladeria_local_ajax').serialize();
-        $.ajax({
-            type:"POST",
-            url:"../../lib_heladeria/insert_pedido_heladeria_local.php",
-            data:datos,
-            success:function(r){
-                if(r==1){
-                    alert("Producto Agregado Exitosamente!!");
-                    $('#producto').val('');
-                    $('#sabor_1').val('Ninguno');
-                    $('#sabor_2').val('Ninguno');
-                    $('#sabor_3').val('Ninguno');
-                    $('#sabor_4').val('Ninguno');
-                    $('#empleado').val('');
-                    $('#lugar_venta').val('');
-                    $('#modo_pago').val('');
-                    $('#cliente').val('');
-                    $('#producto').focus();
-                }else{
-                    alert("Hubo un problema al intentar Guardar el Producto");
-                }
-            }
-        });
-
-        return false;
-    });
-});
-</script>
 
 <!-- Insertar ventas de cafeteria en local -->
 <script type="text/javascript">
