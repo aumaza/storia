@@ -56,7 +56,7 @@ if($conn)
 			 echo "<td align=center>$".$fila['importe']."</a></td>";
 			 echo "<td class='text-nowrap'>";
 			 echo '<form  action="#" method="POST">
-                    <input type="hidden" class="form-control" name="id" value="'.$fila['id'].'">';
+                    <input type="hidden" name="id" value="'.$fila['id'].'">';
                    
                    if($fila['estado_entrega'] == 'En Preparación'){ 
                    
@@ -66,15 +66,18 @@ if($conn)
                    
                    echo '<button type="submit" class="btn btn-warning btn-xs" name="estado_entrega" data-toggle="tooltip" data-placement="right" title="Marcar como entregado"><img src="../../icons/status/task-complete.png"  class="img-reponsive img-rounded"> Marcar Entrega</button>';
                    
-                   echo '</form>';
                    
-                   echo '<a href="../../lib_heladeria/print.php?file=print_pedido_local_heladeria.php&id='.$fila['id'].'" target="_blank"><button type="button" class="btn btn-success btn-xs btn-block"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Pedido</button></a>';
-                   
-                   }else if($fila['estado_entrega'] == 'Entregado'){
+                   }
+                   else if($fila['estado_entrega'] == 'Entregado'){
                     
                     echo '<img src="../../icons/actions/games-endturn.png"  class="img-reponsive img-rounded" data-toggle="tooltip" data-placement="right" title="Producto Entregado">';
                    
                    }
+                   echo '</form>';
+                   
+                   echo '<a href="../../lib_heladeria/print.php?file=print_pedido_local_heladeria.php&id='.$fila['id'].'" target="_blank"><button type="button" class="btn btn-success btn-xs btn-block"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Pedido</button></a>';
+                   
+                   
                    
 			 echo "</td>";
 			 $count++;
