@@ -2,8 +2,8 @@
 
 $dbhost = 'localhost';
 $dbuser = 'root';
-//$dbuser = 'storia';
 $dbpass = 'slack142';
+//$dbuser = 'storia';
 //$dbpass = 'storia';
 $dbase = 'storia';
 $conn = mysqli_connect($dbhost,$dbuser,$dbpass,$dbase);

@@ -3,6 +3,7 @@
 /*
 ** Funcion que carga esqueleto del sistema
 //<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+//<script src="/storia/skeleton/js/jquery-3.4.1.min.js"></script>
 */
 
 function skeleton(){
@@ -21,8 +22,7 @@ function skeleton(){
 
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/storia/skeleton/js/jquery-3.4.1.min.js"></script>
-	<script src="/storia/skeleton/js/bootstrap.min.js"></script>
+    <script src="/storia/skeleton/js/bootstrap.min.js"></script>
 	<script src="/storia/core/lib_core/lib_scripts.js"></script>
 	
 	<script src="/storia/skeleton/js/jquery.dataTables.min.js"></script>

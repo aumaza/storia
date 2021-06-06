@@ -11,7 +11,7 @@ function ventasHeladeriaLocal($conn){
 
 if($conn)
 {
-	$sql = "SELECT * FROM st_ventas where espacio = 'heladeria' and lugar_venta = 'Local'";
+	$sql = "SELECT * FROM st_ventas where espacio = 'heladeria' and lugar_venta <> 'Web'";
     	mysqli_select_db($conn,'storia');
     	$resultado = mysqli_query($conn,$sql);
 	//mostramos fila x fila
