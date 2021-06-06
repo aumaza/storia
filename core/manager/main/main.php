@@ -69,7 +69,7 @@ $(document).ready(function(){
         var datos=$('#fr_heladeria_local_ajax').serialize();
         $.ajax({
             type:"POST",
-            url:"../../lib_heladeria/insert_pedido_heladeria_local.php",
+            url:"insert_pedido_heladeria_local.php",
             data:datos,
             success:function(r){
                 if(r==1){
