@@ -58,7 +58,7 @@ if($conn)
 			 echo '<form  action="#" method="POST">
                     <input type="hidden" name="id" value="'.$fila['id'].'">';
                    
-                   if(($fila['estado_entrega'] == "En Preparación") || ($fila['estado_entrega'] == 5)){ 
+                   if(($fila['estado_entrega'] == "En Preparacion") || ($fila['estado_entrega'] == 5)){ 
                    
                    echo '<button type="submit" class="btn btn-primary btn-xs" name="edit_venta"><img src="../../icons/actions/document-edit.png"  class="img-reponsive img-rounded"> Editar</button>';
                    
