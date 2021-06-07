@@ -205,7 +205,7 @@ function formAddVenta($conn){
             <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta Heladería</div>
 		  <div class="panel-body">
 	
-	    <form id="fr_heladeria_local_ajax" method="POST">
+	    <form id="fr_heladeria_local_ajax" action="#" method="POST">
 	    
 	     <div class="form-group">
 		  <label for="sel1">Cliente:</label>
@@ -235,7 +235,7 @@ function formAddVenta($conn){
             
             <div class="form-group">
 		  <label for="sel1">Producto:</label>
-		  <select class="form-control" name="producto" id="producto" required>
+		  <select class="form-control" name="producto" id="producto">
 		  <option value="" disabled selected>Seleccionar</option>';
 		    
 		    if($conn){
@@ -256,7 +256,7 @@ function formAddVenta($conn){
             
             <div class="form-group">
 		  <label for="sel1">Sabor 1:</label>
-		  <select class="form-control" name="sabor_1" id="sabor_1" required>
+		  <select class="form-control" name="sabor_1" id="sabor_1" >
 		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
@@ -275,7 +275,7 @@ function formAddVenta($conn){
             
              <div class="form-group">
 		  <label for="sel1">Sabor 2:</label>
-		  <select class="form-control" name="sabor_2" id="sabor_2" required>
+		  <select class="form-control" name="sabor_2" id="sabor_2" >
 		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
@@ -295,7 +295,7 @@ function formAddVenta($conn){
 		
 		 <div class="form-group">
 		  <label for="sel1">Sabor 3:</label>
-		  <select class="form-control" name="sabor_3" id="sabor_3" required>
+		  <select class="form-control" name="sabor_3" id="sabor_3" >
 		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
@@ -315,7 +315,7 @@ function formAddVenta($conn){
 		
 		 <div class="form-group">
 		  <label for="sel1">Sabor 4:</label>
-		  <select class="form-control" name="sabor_4" id="sabor_4" required>
+		  <select class="form-control" name="sabor_4" id="sabor_4" >
 		  <option value="Ninguno" selected>Ninguno</option>';
 		    
 		    if($conn){
@@ -335,7 +335,7 @@ function formAddVenta($conn){
 		
 		 <div class="form-group">
 		  <label for="sel1">Empleado:</label>
-		  <select class="form-control" name="empleado" id="empleado" required>
+		  <select class="form-control" name="empleado" id="empleado">
 		  <option value="" disabled selected>Seleccionar</option>';
 		    
 		    if($conn){
@@ -365,16 +365,23 @@ function formAddVenta($conn){
             
             <div class="form-group">
             <label for="sel1">Tipo de Pago:</label>
-            <select class="form-control" name="modo_pago" id="modo_pago" required>
+            <select class="form-control" name="modo_pago" id="modo_pago">
                 <option value="" disabled selected>Seleccionar</option>
                 <option value="Tarjeta Credito">Tarjeta Crédito</option>
                 <option value="Tarjeta Debito">Tarjeta Débito</option>
                 <option value="Efectivo">Efectivo</option>
                 </select>
             </div><hr>
+            
+            <div class="alert alert-info">
+            <p align="center">Si ya no va a ingresar más productos para este cliente, para imprimir el ticket presione "Imprimir Ticket"</p>
+            </div><hr>
+            
+            <button type="submit" class="btn btn-default btn-xs btn-block" name="ticket_heladeria_local" onclick="ActivarTiempo()">
+                <img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Ticket</button><hr>
                 
             <button type="button" class="btn btn-success btn-xs btn-block" name="addVenta" id="add_venta_heladeria_local">
-                <img src="../../icons/devices/media-floppy.png"  class="img-reponsive img-rounded"> Terminar</button>
+                <img src="../../icons/actions/dialog-ok.png"  class="img-reponsive img-rounded"> Terminar</button>
             </form>
             </div>
             </div>
@@ -1058,6 +1065,23 @@ function deleteVenta($id,$conn){
 
 }
 
+
+/*
+** genera ticket de venta heladeria en local
+*/
+function ticketHeladeriaLocal($cliente,$lugar_venta){
+
+            echo '<div class="container">';
+		    echo '<div class="alert alert-success" alert-dismissible">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/status/user-away-extended.png" /> Aguarde...estamos generando el Ticket....Cuando se abra el ticket puede cerrar este aviso';
+		    echo "</div>";
+		    echo "</div>";
+
+echo '<meta http-equiv="refresh" content="3;URL=../../lib_heladeria/print.php?file=print_ticket_heladeria_local.php&cliente='.$cliente.'&lugar_venta='.$lugar_venta.'" target="_blank" />';
+
+
+}
 
 
 // ===================================================================================== // 

@@ -405,6 +405,15 @@
             $id = mysqli_real_escape_string($conn,$_POST['id']);
             deleteVenta($id,$conn);
         }
+        if(isset($_POST['estado_entrega'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            updateEntregaHelado($id,$conn);
+        }
+        if(isset($_POST['ticket_heladeria_local'])){
+            $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
+            $lugar_venta = mysqli_real_escape_string($conn,$_POST['lugar_venta']);
+            ticketHeladeriaLocal($cliente,$lugar_venta);
+        }
         
         
         
@@ -611,8 +620,6 @@ $(document).ready(function(){
                     $('#sabor_4').val('Ninguno');
                     $('#empleado').val('');
                     $('#lugar_venta').val('');
-                    $('#modo_pago').val('');
-                    $('#cliente').val('');
                     $('#producto').focus();
                 }else{
                     alert("Hubo un problema al intentar Guardar el Producto");
