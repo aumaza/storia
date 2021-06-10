@@ -66,8 +66,10 @@
 $(document).ready(function(){
     $("#producto").change(function() {
       
-      let producto = $("#producto").val().slice(7,13);
+      let producto = $("#producto").val().slice(7,11);
       let cod = $("#producto").val().slice(0,2);
+      console.log('Prefijo: ' +cod);
+      console.log("Producto: " +producto);
       
       if(cod == "hd"){
         
@@ -78,14 +80,14 @@ $(document).ready(function(){
         $('#sabor_4').prop('enabled', true);
         $('#cantidad').prop('disabled', true);
         }
-        else if(producto == "1/2 Kg"){
+        else if(producto == "1/2 "){
         $('#sabor_1').prop('enabled', true);
         $('#sabor_2').prop('enabled', true);
         $('#sabor_3').prop('enabled', true);
         $('#sabor_4').prop('disabled', true);
         $('#cantidad').prop('disabled', true);
         }
-        else if((producto == "1/4 Kg") || (producto == "1/8 Kg")){
+        else if((producto == "1/4 ") || (producto == "1/8 ")){
         $('#sabor_1').prop('enabled', true);
         $('#sabor_2').prop('enabled', true);
         $('#sabor_3').prop('disabled', true);
