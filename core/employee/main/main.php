@@ -55,6 +55,35 @@
   <link href="../../../assets/img/storia-favicon.png" rel="icon">
   <?php skeleton(); ?>
  
+ <!-- Consultar el importe parcial -->
+<script>
+      $(document).ready(function(){   
+         $(document).on('submit', '#consultar_importe_parcial_ajax', function() { 
+
+              //Obtenemos datos formulario.
+              var data = $('#consultar_importe_parcial_ajax').serialize(); 
+              console.log(data);
+
+              //AJAX.
+              $.ajax({  
+                 type:"POST",
+                 url:"../../lib_heladeria/consultar_importe_parcial.php",
+                 data:data, 
+                 success:function(r){  
+                     if(r){
+                     $('#importe_parcial').val(r);
+                 }else{
+                    alert("No se pudo realizar la consulta");
+                 }
+                 }
+              
+            });
+        return false;
+        });
+      });//Fin document.
+</script> 
+ 
+ 
  <!-- habilita /dehabilita select  -->
 <script type="text/javascript">
 $(document).ready(function(){

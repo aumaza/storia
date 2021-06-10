@@ -213,7 +213,7 @@ function formAddVentaGeneral($conn){
             $nro_ticket = $ultimo_ticket;
        
        }
-       
+           
        
        echo '<div class="container">
 	      <div class="row">
@@ -223,6 +223,21 @@ function formAddVentaGeneral($conn){
 	      <div class="panel-heading">
             <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta Heladería</div>
 		  <div class="panel-body">
+		  
+		  
+		  <form id="consultar_importe_parcial_ajax" method="POST">
+		  
+		   <input type="hidden" class="form-control" name="nro_ticket" value="'.$nro_ticket.'">
+		   
+		   <div class="form-group">
+            <label for="usr">Importe Parcial:</label>
+            <input type="text" class="form-control" id="importe_parcial" readonly>
+            </div>
+               
+        <button type="submit" class="btn btn-default btn-sm" id="consultar_importe">Consultar Importe Parcial</button>
+        
+        </form>
+        <hr>
 	
 	    <form id="fr_venta_general_ajax"  method="POST">
 	        
@@ -257,7 +272,8 @@ function formAddVentaGeneral($conn){
 		<!-- Trigger the modal with a button -->
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newCliente">Nuevo Cliente</button>
 		<hr>
-            
+		
+		            
             <div class="form-group">
 		  <label for="sel1">Producto:</label>
 		  <select class="form-control" name="producto" id="producto">
@@ -405,11 +421,11 @@ function formAddVentaGeneral($conn){
             </div><hr>
             
             <div class="alert alert-info">
-            <p align="center">Si ya no va a ingresar más productos para este cliente, para imprimir el ticket presione "Imprimir Ticket"</p>
+            <p align="center"><img src="../../icons/actions/help-about.png"  class="img-reponsive img-rounded"> Si ya no va a ingresar más productos para este cliente, para imprimir el ticket presione "Cerrar Ticket e Imprimir", recuerde que una vez que presione este botón el ticket correspondiente será cerrado.</p>
             </div><hr>
             
-            <button type="submit" class="btn btn-default btn-xs btn-block" name="ticket_local" onclick="ActivarTiempo()">
-                <img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Ticket</button><hr>
+            <button type="submit" class="btn btn-default btn-xs btn-block" name="ticket_local" >
+                <img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Cerrar Ticket e Imprimir</button><hr>
                 
             <button type="button" class="btn btn-success btn-xs btn-block" name="addVenta" id="add_venta_general">
                 <img src="../../icons/actions/dialog-ok.png"  class="img-reponsive img-rounded"> Terminar</button>

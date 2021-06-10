@@ -35,6 +35,9 @@
 	
 	setlocale(LC_TIME, 'es_ES.UTF-8');
    $fecha_actual = strftime("%A, %d de %B de %Y");
+   $cliente = $_GET['cliente'];
+   $lugar_venta = $_GET['lugar_venta'];
+   $nro_ticket = $_GET['nro_ticket'];
 	
 	
 ?>
@@ -61,7 +64,8 @@
     <br>
     <p class="p-center"><img src="../../assets/img/storia - logo - 1.png"></p>
     <hr>
-    <p class="p-center">Ticket</p>
+    <p class="p-center">Ticket Nro: <?php echo $nro_ticket; ?></p>
+    <p class="p-center">CUIL/CUIT: 20328917948</p>
     <p class="p-center"><strong>Fecha Emisión:</strong> <?php echo $fecha_actual; ?></p> 
     <hr>
     </div>
@@ -69,12 +73,7 @@
    
    <?php 
    
-   $cliente = $_GET['cliente'];
-   $lugar_venta = $_GET['lugar_venta'];
-   $nro_ticket = $_GET['nro_ticket'];
-   
-     
-       if($conn){
+    if($conn){
         
              
         $consulta_1 = "select cliente_nombre, descripcion, importe, fecha_venta from st_ventas where nro_ticket = '$nro_ticket' and lugar_venta = '$lugar_venta' and fecha_venta = curdate() and cliente_nombre = '$cliente'";
@@ -92,7 +91,7 @@
 	$count = 0;
 	
    
-    echo '<div class="col-left">';    
+    echo '<div class="col-left">'; 
     echo '<table id="customers" style="width:100%">
             <tr>
                 <th>Cliente</th>

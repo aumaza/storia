@@ -11,14 +11,14 @@
 
 #customers tr:nth-child(even){background-color: #f2f2f2;}
 
-#customers tr:hover {background-color: #ddd;}
+#customers tr:hover {background-color:  #d7dbdd;}
 
 #customers th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #4CAF50;
-  color: white;
+  background-color:  #d7dbdd;
+  color: black;
 }
 #customers td {
   padding-top: 12px;
