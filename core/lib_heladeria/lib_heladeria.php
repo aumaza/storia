@@ -20,8 +20,7 @@ if($conn)
 	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/fill-color.png"  class="img-reponsive img-rounded"> Administración de Ventas en Local Heladería';
 	echo '</div><br>';
 
-            echo "<div class='table-responsive'>
-                    <table class='table table-condensed table-hover' style='width:100%' id='myTable'>";
+            echo "<table class='table table-condensed table-hover' style='width:100%' id='myTable'>";
               echo "<thead>
 		    <th class='text-nowrap text-center'>Producto</th>
             <th class='text-nowrap text-center'>Sabor I</th>
@@ -83,7 +82,7 @@ if($conn)
 			 $count++;
 		}
 
-		echo "</table></div>";
+		echo "</table>";
 		echo "<br>";
 		echo '<a data-toggle="precios_heladeria" data-target="#precios_heladeria" href="#" class="btn btn-success btn-sm openHelado"><span class="glyphicon glyphicon-usd"></span> Precios Heladería</a><br><br>';
 		echo '<button type="button" class="btn btn-primary">Cantidad de Ventas:  '.$count.' </button>';
@@ -114,8 +113,7 @@ if($conn)
 	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/fill-color.png"  class="img-reponsive img-rounded"> Administración de Ventas Web en Heladería';
 	echo '</div><br>';
 
-            echo "<div class='table-responsive'>
-                    <table class='table table-condensed table-hover' style='width:100%' id='myTable'>";
+            echo "<table class='table table-condensed table-hover' style='width:100%' id='myTable'>";
               echo "<thead>
 		    <th class='text-nowrap text-center'>Producto</th>
             <th class='text-nowrap text-center'>Sabor I</th>
@@ -159,16 +157,18 @@ if($conn)
 			 if($fila['estado_entrega'] == 'En Camino'){
 			 echo "<td align=center style='background-color: #aed6f1 '>".$fila['estado_entrega']."</a></td>";
 			 }
-			 if($fila['estado_entrega'] == 'En Preparación'){
+			 if($fila['estado_entrega'] == 'En Preparacion'){
 			 echo "<td align=center style='background-color: #edbb99'>".$fila['estado_entrega']."</a></td>";
 			 }
 			 echo "<td class='text-nowrap'>";
 			 echo '<form <action="#" method="POST">
                     <input type="hidden" name="id" value="'.$fila['id'].'">';
-                   if(($fila['lugar_venta'] != 'Local') && ($fila['estado_entrega'] != 'Entregado')){
+                   if($fila['estado_entrega'] != 'Entregado'){
                    echo '<button type="submit" class="btn btn-warning btn-xs" name="asignar_repartidor"><img src="../../icons/actions/im-aim.png"  class="img-reponsive img-rounded"> Asignar Repartidor</button>';
+                   
                    }
                    echo '</form>';
+                   
                    if($fila['estado_entrega'] != 'Entregado'){
                    echo '<a href="../../lib_heladeria/print.php?file=print_pedido_web_heladeria.php&id='.$fila['id'].'" target="_blank"><button type="button" class="btn btn-success btn-xs"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Pedido</button></a>';
                    }
@@ -176,7 +176,7 @@ if($conn)
 			 $count++;
 		}
 
-		echo "</table></div>";
+		echo "</table>";
 		echo "<br>";
 		echo '<button type="button" class="btn btn-primary">Cantidad de Ventas:  '.$count.' </button>';
 		echo '</div>';
@@ -187,6 +187,241 @@ if($conn)
     mysqli_close($conn);
 
 }
+
+
+/*
+** formulario para agregar venta de heladeria en local
+*/
+function formAddVentaGeneral($conn){
+       
+       
+       $sql = "select estado_ticket, max(nro_ticket) as ultimo_ticket from st_ventas where estado_ticket = 'Cerrado'";
+       mysqli_select_db($conn,'storia');
+       $qry = mysqli_query($conn,$sql);
+       while($row = mysqli_fetch_array($qry)){
+            $ultimo_ticket = $row['ultimo_ticket'];
+            $estado_ticket = $row['estado_ticket'];
+       }
+       
+       if(($estado_ticket == 'Cerrado') || ($estado_ticket == '') || ($estado_ticket == 'NULL')){
+       
+            $nro_ticket = $ultimo_ticket + 1;
+        
+       }
+       if($estado_ticket == 'Abierto'){
+       
+            $nro_ticket = $ultimo_ticket;
+       
+       }
+       
+       
+       echo '<div class="container">
+	      <div class="row">
+		<div class="col-sm-10">
+            
+            <div class="panel panel-success">
+	      <div class="panel-heading">
+            <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta Heladería</div>
+		  <div class="panel-body">
+	
+	    <form id="fr_venta_general_ajax"  method="POST">
+	        
+	    <div class="form-group">
+        <label for="usr">Nro. Ticket:</label>
+        <input type="text" class="form-control" name="nro_ticket" value="'.$nro_ticket.'" id="nro_ticket" readonly>
+        </div><hr>
+	    
+	    
+	     <div class="form-group">
+		  <label for="sel1">Cliente:</label>
+		  <select class="form-control" name="cliente" id="cliente" required>
+		  <option value="" disabled selected>Seleccionar</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_clientes where espacio = 'cli' order by cliente_nombre ASC ";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[cliente_nombre].'" >'.$valores[dni].' - '.$valores[cliente_nombre].'</option>';
+				}
+                }
+			}
+
+			//mysqli_close($conn);
+		  
+		 echo '</select>
+		</div>
+		<p>Si el Cliente no se encuentra en la lista desplegable presione el botón "Nuevo Cliente" para darlo de alta</p>
+		<!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newCliente">Nuevo Cliente</button>
+		<hr>
+            
+            <div class="form-group">
+		  <label for="sel1">Producto:</label>
+		  <select class="form-control" name="producto" id="producto">
+		  <option value="" disabled selected>Seleccionar</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_productos order by descripcion ASC";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[cod_producto].'-'.$valores[descripcion].'" >'.$valores[descripcion].'</option>';
+				}
+                }
+			}
+			  
+		 echo '</select>
+		</div><hr>
+            
+            
+            <div class="form-group">
+		  <label for="sel1">Sabor 1:</label>
+		  <select class="form-control" name="sabor_1" id="sabor_1" >
+		  <option value="Ninguno" selected>Ninguno</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[descripcion].'" >'.$valores[descripcion].'</option>';
+				}
+                }
+			}
+          echo '</select>
+		        </div><hr>
+            
+             <div class="form-group">
+		  <label for="sel1">Sabor 2:</label>
+		  <select class="form-control" name="sabor_2" id="sabor_2" >
+		  <option value="Ninguno" selected>Ninguno</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[descripcion].'" >'.$valores[descripcion].'</option>';
+				}
+                }
+			}
+
+			echo '</select>
+                    </div><hr>
+		
+		 <div class="form-group">
+		  <label for="sel1">Sabor 3:</label>
+		  <select class="form-control" name="sabor_3" id="sabor_3" >
+		  <option value="Ninguno" selected>Ninguno</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[descripcion].'" >'.$valores[descripcion].'</option>';
+				}
+                }
+			}
+
+			echo '</select>
+                    </div><hr>
+		
+		 <div class="form-group">
+		  <label for="sel1">Sabor 4:</label>
+		  <select class="form-control" name="sabor_4" id="sabor_4" >
+		  <option value="Ninguno" selected>Ninguno</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_sabores order by descripcion ASC";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[descripcion].'" >'.$valores[descripcion].'</option>';
+				}
+                }
+			}
+
+			echo '</select>
+                    </div><hr>
+                    
+                    
+        <div class="form-group">
+        <label for="usr">Cantidad:</label>
+        <input type="number" class="form-control" name="cantidad" value="1" id="cantidad">
+        </div><hr>
+		
+		 <div class="form-group">
+		  <label for="sel1">Empleado:</label>
+		  <select class="form-control" name="empleado" id="empleado">
+		  <option value="" disabled selected>Seleccionar</option>';
+		    
+		    if($conn){
+		      $query = "SELECT * FROM st_clientes where espacio = 'emp' order by cliente_nombre ASC";
+		      mysqli_select_db($conn,'storia');
+		      $res = mysqli_query($conn,$query);
+
+		      if($res){
+				  while($valores = mysqli_fetch_array($res)){
+               echo '<option value="'.$valores[cliente_nombre].'" >'.$valores[cliente_nombre].'</option>';
+				}
+                }
+			}
+            
+            echo '</select>
+                    </div><hr>
+            
+            <div class="form-group">
+            <label for="sel1">Lugar / Modo de Venta:</label>
+            <select class="form-control" name="lugar_venta" id="lugar_venta" required>
+                <option value="" disabled selected>Seleccionar</option>
+                <option value="Local">Local</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Telefonica">Telefónica</option>
+                </select>
+            </div><hr>
+            
+            <div class="form-group">
+            <label for="sel1">Tipo de Pago:</label>
+            <select class="form-control" name="modo_pago" id="modo_pago">
+                <option value="" disabled selected>Seleccionar</option>
+                <option value="Tarjeta Credito">Tarjeta Crédito</option>
+                <option value="Tarjeta Debito">Tarjeta Débito</option>
+                <option value="Efectivo">Efectivo</option>
+                </select>
+            </div><hr>
+            
+            <div class="alert alert-info">
+            <p align="center">Si ya no va a ingresar más productos para este cliente, para imprimir el ticket presione "Imprimir Ticket"</p>
+            </div><hr>
+            
+            <button type="submit" class="btn btn-default btn-xs btn-block" name="ticket_local" onclick="ActivarTiempo()">
+                <img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Ticket</button><hr>
+                
+            <button type="button" class="btn btn-success btn-xs btn-block" name="addVenta" id="add_venta_general">
+                <img src="../../icons/actions/dialog-ok.png"  class="img-reponsive img-rounded"> Terminar</button>
+            </form>
+            </div>
+            </div>
+            
+            </div>
+            </div>
+            </div>';
+}
+
 
 
 
@@ -962,6 +1197,98 @@ function addVentaHeladeriaLocal($producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$e
 
 
 /*
+** funcion que agrega nueva venta
+*/
+function addVentaHeladeriaGeneral($descripcion_producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$empleado,$lugar_venta,$modo_pago,$cliente,$nro_ticket,$conn){
+
+   
+    $sql = "select cod_producto, precio from st_productos where descripcion = '$descripcion_producto'";
+    mysqli_select_db($conn,'storia');
+    $query = mysqli_query($conn,$sql);
+    while($rows = mysqli_fetch_array($query)){
+        $importe = $rows['precio'];
+        $cod_producto = $rows['cod_producto'];
+    }
+    
+    $estado_entrega = '5';
+    $estado_ticket = 'Abierto';
+    $espacio = 'heladeria';
+    $hora_actual =  date("H:i:s");
+    $fecha_actual = date("Y-m-d");
+    
+          $consulta = "INSERT INTO st_ventas".
+              "(cod_producto,descripcion,espacio,sabor_1,sabor_2,sabor_3,sabor_4,empleado,lugar_venta,tipo_pago,fecha_venta,hora_venta,cliente_nombre,importe,nro_ticket,estado_ticket,estado_entrega)".
+            "VALUES ".
+        "('$cod_producto','$descripcion_producto','$espacio','$sabor_1','$sabor_2','$sabor_3','$sabor_4','$empleado','$lugar_venta','$modo_pago','$fecha_actual','$hora_actual','$cliente','$importe','$nro_ticket','$estado_ticket','$estado_entrega')";
+        
+        mysqli_select_db($conn,'storia');
+        echo mysqli_query($conn,$consulta);
+       
+      
+}
+
+
+/*
+** funcion que agrega nueva venta
+*/
+function addVentaCafeGeneral($descripcion_producto,$empleado,$cantidad,$lugar_venta,$modo_pago,$cliente,$nro_ticket,$conn){
+
+   
+    $sql = "select cod_producto, precio from st_productos where descripcion = '$descripcion_producto'";
+    mysqli_select_db($conn,'storia');
+    $query = mysqli_query($conn,$sql);
+    while($rows = mysqli_fetch_array($query)){
+        $importe = $rows['precio'];
+        $cod_producto = $rows['cod_producto'];
+    }
+    
+    $estado_entrega = '5';
+    $estado_ticket = 'Abierto';
+    $espacio = 'cafeteria';
+    $hora_actual =  date("H:i:s");
+    $fecha_actual = date("Y-m-d");
+    
+    $importe = $importe * $cantidad;
+    
+$consulta = "INSERT INTO st_ventas".
+ "(cod_producto,
+   descripcion,
+   espacio,
+   empleado,
+   cantidad,
+   lugar_venta,
+   tipo_pago,
+   fecha_venta,
+   hora_venta,
+   cliente_nombre,
+   importe,
+   nro_ticket,
+   estado_ticket,
+   estado_entrega)".
+ "VALUES ".
+ "('$cod_producto',
+   '$descripcion_producto',
+   '$espacio',
+   '$empleado',
+   '$cantidad',
+   '$lugar_venta',
+   '$modo_pago',
+   '$fecha_actual',
+   '$hora_actual',
+   '$cliente',
+   '$importe',
+   '$nro_ticket',
+   '$estado_ticket',
+   '$estado_entrega')";
+        
+        mysqli_select_db($conn,'storia');
+        echo mysqli_query($conn,$consulta);
+       
+      
+}
+
+
+/*
 ** funcion que actualiza una venta
 */
 function updateVentaHeladeria($id,$producto,$sabor_1,$sabor_2,$sabor_3,$sabor_4,$empleado,$lugar_venta,$modo_pago,$cliente,$conn){
@@ -1069,17 +1396,22 @@ function deleteVenta($id,$conn){
 /*
 ** genera ticket de venta heladeria en local
 */
-function ticketHeladeriaLocal($cliente,$lugar_venta){
-
+function ticketHeladeriaLocal($cliente,$lugar_venta,$nro_ticket,$conn){
+            
+            $sql = "update st_ventas set estado_ticket = 'Cerrado' where nro_ticket = '$nro_ticket'";
+            mysqli_select_db($conn,'storia');
+            $query = mysqli_query($conn,$sql);
+            
+            
+            
             echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
 		    echo '<img class="img-reponsive img-rounded" src="../../icons/status/user-away-extended.png" /> Aguarde...estamos generando el Ticket....Cuando se abra el ticket puede cerrar este aviso';
 		    echo "</div>";
 		    echo "</div>";
-
-echo '<meta http-equiv="refresh" content="3;URL=../../lib_heladeria/print.php?file=print_ticket_heladeria_local.php&cliente='.$cliente.'&lugar_venta='.$lugar_venta.'" target="_blank" />';
-
+		        
+		    echo '<meta http-equiv="refresh" content="3;URL=../../lib_heladeria/print.php?file=print_ticket_heladeria_local.php&cliente='.$cliente.'&lugar_venta='.$lugar_venta.'&nro_ticket='.$nro_ticket.'" target="_blank" />';
 
 }
 

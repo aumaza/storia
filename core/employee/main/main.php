@@ -55,6 +55,86 @@
   <link href="../../../assets/img/storia-favicon.png" rel="icon">
   <?php skeleton(); ?>
  
+ <!-- habilita /dehabilita select  -->
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#producto").change(function() {
+      
+      let producto = $("#producto").val().slice(7,13);
+      let cod = $("#producto").val().slice(0,2);
+      
+      if(cod == "hd"){
+        
+        if(producto == "1 Kg"){
+        $('#sabor_1').prop('enabled', true);
+        $('#sabor_2').prop('enabled', true);
+        $('#sabor_3').prop('enabled', true);
+        $('#sabor_4').prop('enabled', true);
+        $('#cantidad').prop('disabled', true);
+        }
+        else if(producto == "1/2 Kg"){
+        $('#sabor_1').prop('enabled', true);
+        $('#sabor_2').prop('enabled', true);
+        $('#sabor_3').prop('enabled', true);
+        $('#sabor_4').prop('disabled', true);
+        $('#cantidad').prop('disabled', true);
+        }
+        else if((producto == "1/4 Kg") || (producto == "1/8 Kg")){
+        $('#sabor_1').prop('enabled', true);
+        $('#sabor_2').prop('enabled', true);
+        $('#sabor_3').prop('disabled', true);
+        $('#sabor_4').prop('disabled', true);
+        $('#cantidad').prop('disabled', true);
+        }
+    }
+    if((cod == "cf") || (cod == "ks")){
+        $('#sabor_1').prop('disabled', true);
+        $('#sabor_2').prop('disabled', true);
+        $('#sabor_3').prop('disabled', true);
+        $('#sabor_4').prop('disabled', true);
+        $('#cantidad').prop('enabled', true);
+      
+      }
+                       
+      });
+    });
+   
+</script>
+
+<!-- Insertar ventas generales en local -->
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#add_venta_general').click(function(){
+        var datos=$('#fr_venta_general_ajax').serialize();
+        $.ajax({
+            type:"POST",
+            url:"../../lib_heladeria/insert_venta_general.php",
+            data:datos,
+            success:function(r){
+                if(r==1){
+                    alert("Producto Agregado Exitosamente!!");
+                    $('#producto').val('');
+                    $('#sabor_1').val('Ninguno');
+                    $('#sabor_2').val('Ninguno');
+                    $('#sabor_3').val('Ninguno');
+                    $('#sabor_4').val('Ninguno');
+                    $('#cantidad').val('1');
+                    $('#empleado').val('');
+                    $('#modo_pago').val('');
+                    $('#producto').focus();
+                }else{
+                    alert("Hubo un problema al intentar Guardar el Producto");
+                    console.log("Datos: " + datos);
+                }
+            }
+        });
+
+        return false;
+    });
+});
+</script>
+
+ 
  
  <!-- Data Table Script -->
 <script>
@@ -361,7 +441,8 @@
         //formulario de nueva ventas
         if(isset($_POST['add_venta'])){
             //formAddVentaLocal($conn);
-            formAddVenta($conn);
+            //formAddVenta($conn);
+            formAddVentaGeneral($conn);
         }
         //persistencia nueva ventas
         if(isset($_POST['addVenta'])){
@@ -409,10 +490,11 @@
             $id = mysqli_real_escape_string($conn,$_POST['id']);
             updateEntregaHelado($id,$conn);
         }
-        if(isset($_POST['ticket_heladeria_local'])){
+        if(isset($_POST['ticket_local'])){
             $cliente = mysqli_real_escape_string($conn,$_POST['cliente']);
             $lugar_venta = mysqli_real_escape_string($conn,$_POST['lugar_venta']);
-            ticketHeladeriaLocal($cliente,$lugar_venta);
+            $nro_ticket = mysqli_real_escape_string($conn,$_POST['nro_ticket']);
+            ticketHeladeriaLocal($cliente,$lugar_venta,$nro_ticket,$conn);
         }
         
         

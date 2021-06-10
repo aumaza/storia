@@ -71,21 +71,24 @@
    
    $cliente = $_GET['cliente'];
    $lugar_venta = $_GET['lugar_venta'];
+   $nro_ticket = $_GET['nro_ticket'];
    
      
        if($conn){
         
              
-        $consulta_1 = "select cliente_nombre, descripcion, importe, fecha_venta from st_ventas where espacio = 'heladeria' and lugar_venta = '$lugar_venta' and fecha_venta = curdate() and cliente_nombre = '$cliente'";
+        $consulta_1 = "select cliente_nombre, descripcion, importe, fecha_venta from st_ventas where nro_ticket = '$nro_ticket' and lugar_venta = '$lugar_venta' and fecha_venta = curdate() and cliente_nombre = '$cliente'";
         $resval = mysqli_query($conn,$consulta_1);
                 
-        $sql = "select sum(importe) as total from st_ventas where espacio = 'heladeria' and lugar_venta = '$lugar_venta' and fecha_venta = curdate() and cliente_nombre = '$cliente'";
+        $sql = "select sum(importe) as total from st_ventas where nro_ticket = '$nro_ticket' and lugar_venta = '$lugar_venta' and fecha_venta = curdate() and cliente_nombre = '$cliente'";
     	mysqli_select_db($conn,'storia');
     	$resultado = mysqli_query($conn,$sql);
     	while($row = mysqli_fetch_array($resultado)){
             $total = $row['total'];
     	}
-	//mostramos fila x fila
+    	
+    	
+	//establecemos contador
 	$count = 0;
 	
    
@@ -103,11 +106,13 @@
                 <td>'.$fila['descripcion'].'</td>
                 <td>$'.$fila['importe'].'</td>
           </tr>';
+          $count++;
             }
     echo '</table><hr>
           </div>
           
           <div class="col-left">
+          <p class="p-center"><strong>Cantidad de Items:</strong> '.$count.'</p><hr>
           <p class="p-center"><strong>Total a Pagar:</strong> $'.$total.'</p><hr>
           <p class="p-center"><img class="img-24" src="../icons/emotes/face-wink.png"> Gracias por Visitarnos!!!</p>
           </div>';
