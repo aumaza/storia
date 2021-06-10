@@ -103,33 +103,53 @@ $(document).ready(function(){
       if(cod == "hd"){
         
         if(producto == "1 Kg"){
-        $('#sabor_1').prop('enabled', true);
-        $('#sabor_2').prop('enabled', true);
-        $('#sabor_3').prop('enabled', true);
-        $('#sabor_4').prop('enabled', true);
-        $('#cantidad').prop('disabled', true);
+        //$('#sabor_1').prop('enabled', true);
+        $('#sabor_1').show();
+        //$('#sabor_2').prop('enabled', true);
+        $('#sabor_2').show();
+        //$('#sabor_3').prop('enabled', true);
+        $('#sabor_3').show();
+        //$('#sabor_4').prop('enabled', true);
+        $('#sabor_4').show();
+        //$('#cantidad').prop('disabled', true);
+        $('#cantidad').hide();
         }
         else if(producto == "1/2 "){
-        $('#sabor_1').prop('enabled', true);
-        $('#sabor_2').prop('enabled', true);
-        $('#sabor_3').prop('enabled', true);
-        $('#sabor_4').prop('disabled', true);
-        $('#cantidad').prop('disabled', true);
+        //$('#sabor_1').prop('enabled', true);
+        $('#sabor_1').show();
+        //$('#sabor_2').prop('enabled', true);
+        $('#sabor_2').show();
+        //$('#sabor_3').prop('enabled', true);
+        $('#sabor_3').show();
+        //$('#sabor_4').prop('disabled', true);
+        $('#sabor_4').hide();
+        //$('#cantidad').prop('disabled', true);
+        $('#cantidad').hide();
         }
         else if((producto == "1/4 ") || (producto == "1/8 ")){
-        $('#sabor_1').prop('enabled', true);
-        $('#sabor_2').prop('enabled', true);
-        $('#sabor_3').prop('disabled', true);
-        $('#sabor_4').prop('disabled', true);
-        $('#cantidad').prop('disabled', true);
+        //$('#sabor_1').prop('enabled', true);
+        $('#sabor_1').show();
+        //$('#sabor_2').prop('enabled', true);
+        $('#sabor_2').show();
+        //$('#sabor_3').prop('disabled', true);
+        $('#sabor_3').hide();
+        //$('#sabor_4').prop('disabled', true);
+        $('#sabor_4').hide();
+        //$('#cantidad').prop('disabled', true);
+        $('#cantidad').hide();
         }
     }
     if((cod == "cf") || (cod == "ks")){
-        $('#sabor_1').prop('disabled', true);
-        $('#sabor_2').prop('disabled', true);
-        $('#sabor_3').prop('disabled', true);
-        $('#sabor_4').prop('disabled', true);
-        $('#cantidad').prop('enabled', true);
+        //$('#sabor_1').prop('disabled', true);
+        $('#sabor_1').hide();
+        //$('#sabor_2').prop('disabled', true);
+        $('#sabor_2').hide();
+        //$('#sabor_3').prop('disabled', true);
+        $('#sabor_3').hide();
+        //$('#sabor_4').prop('disabled', true);
+        $('#sabor_4').hide();
+        //$('#cantidad').prop('enabled', true);
+        $('#cantidad').show();
       
       }
                        
