@@ -178,14 +178,16 @@ function formEditProducto($id,$conn){
 */
 function addProducto($tipo,$cod_producto,$descripcion,$precio,$conn){
 
-    $codigo_producto = $tipo.$cod_producto;
+   if(is_numeric($cod_producto)){
+      
+      $codigo_producto = $tipo.$cod_producto;
 
     $sql = "select cod_producto, descripcion from st_productos where cod_producto = '$codigo_producto' or descripcion = '$descripcion'";
     mysqli_select_db($conn,'storia');
     $query = mysqli_query($conn,$sql);
     $rows = mysqli_num_rows($query);
-    
-    
+      
+      
           
     if($rows == 0){
             
@@ -220,6 +222,18 @@ function addProducto($tipo,$cod_producto,$descripcion,$precio,$conn){
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
 			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Ya existe registro de ese Producto.';
+			    echo "</div>";
+			    echo "</div>";
+			    exit;
+		    
+		    }
+		    }else{
+		    
+                echo "<br>";
+			    echo '<div class="container">';
+			    echo '<div class="alert alert-warning" alert-dismissible">
+				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> El Código de Producto debe tener caracteres numéricos. Por favor Verifique el ingreso de Datos.';
 			    echo "</div>";
 			    echo "</div>";
 			    exit;

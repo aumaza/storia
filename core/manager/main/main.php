@@ -103,7 +103,6 @@ $(document).ready(function(){
       if(cod == "hd"){
         
         if(producto == "1 Kg"){
-        //$('#sabor_1').prop('enabled', true);
         $('#sabor_1').show();
         //$('#sabor_2').prop('enabled', true);
         $('#sabor_2').show();
@@ -137,6 +136,18 @@ $(document).ready(function(){
         $('#sabor_4').hide();
         //$('#cantidad').prop('disabled', true);
         $('#cantidad').hide();
+        }
+        else if(producto == "Pale"){
+        //$('#sabor_1').prop('enabled', true);
+        $('#sabor_1').hide();
+        //$('#sabor_2').prop('enabled', true);
+        $('#sabor_2').hide();
+        //$('#sabor_3').prop('disabled', true);
+        $('#sabor_3').hide();
+        //$('#sabor_4').prop('disabled', true);
+        $('#sabor_4').hide();
+        //$('#cantidad').prop('disabled', true);
+        $('#cantidad').show();
         }
     }
     if((cod == "cf") || (cod == "ks")){
