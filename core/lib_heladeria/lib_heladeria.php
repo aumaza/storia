@@ -7,11 +7,74 @@
 */
 
 
+function ticketsCerrados($conn){
+
+if($conn)
+{
+	$sql = "SELECT * FROM st_ventas where estado_ticket = 'Cerrado' group by nro_ticket order by nro_ticket DESC";
+    	mysqli_select_db($conn,'storia');
+    	$resultado = mysqli_query($conn,$sql);
+	//mostramos fila x fila
+	$count = 0;
+	echo '<div class="panel panel-success" >
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/view-task.png"  class="img-reponsive img-rounded"> Consulta de Tickets Cerrados';
+	echo '</div><br>';
+
+            echo "<table class='table table-condensed table-hover' style='width:100%' id='myTable'>";
+              echo "<thead>
+		    <th class='text-nowrap text-center'>Empleado</th>
+            <th class='text-nowrap text-center'>Canal Venta</th>
+            <th class='text-nowrap text-center'>Modo Pago</th>
+            <th class='text-nowrap text-center'>Fecha Venta</th>
+            <th class='text-nowrap text-center'>Hora Venta</th>
+            <th class='text-nowrap text-center'>Cliente</th>
+            <th class='text-nowrap text-center'>Nro. Ticket</th>
+            <th>&nbsp;</th>
+            </thead>";
+
+
+	while($fila = mysqli_fetch_array($resultado)){
+			  // Listado normal
+			 echo "<tr>";
+			 echo "<td align=center>".$fila['empleado']."</td>";
+			 echo "<td align=center>".$fila['lugar_venta']."</td>";
+			 echo "<td align=center>".$fila['tipo_pago']."</td>";
+			 echo "<td align=center>".$fila['fecha_venta']."</td>";
+			 echo "<td align=center>".$fila['hora_venta']."</td>";
+			 echo "<td align=center>".$fila['cliente_nombre']."</td>";
+			 echo "<td align=center>".$fila['nro_ticket']."</td>";
+			 echo "<td class='text-nowrap'>";
+			                   
+                   echo '<a href="../../lib_heladeria/print.php?file=print_ticket_cerrado.php&nro_ticket='.$fila[nro_ticket].'" target="_blank"><button type="button" class="btn btn-success btn-xs btn-block"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Imprimir Ticket</button></a>';
+                    
+			 echo "</td>";
+			 $count++;
+		}
+
+		echo "</table>";
+		echo "<br>";
+		echo '<button type="button" class="btn btn-primary">Cantidad de Tickets Cerrados:  '.$count.' </button>';
+		echo '</div>';
+		}else{
+		  echo 'Connection Failure...' .mysqli_error($conn);
+		}
+
+    mysqli_close($conn);
+
+}
+
+
+
+/*
+** funcion que carga la tabla de todas las ventas de heladeria
+*/
+
+
 function ventasHeladeriaLocal($conn){
 
 if($conn)
 {
-	$sql = "SELECT * FROM st_ventas where espacio = 'heladeria' and lugar_venta <> 'Web'";
+	$sql = "SELECT * FROM st_ventas where espacio = 'heladeria' and lugar_venta <> 'Web' and fecha_venta = curdate() order by hora_venta DESC";
     	mysqli_select_db($conn,'storia');
     	$resultado = mysqli_query($conn,$sql);
 	//mostramos fila x fila
@@ -221,7 +284,7 @@ function formAddVentaGeneral($conn){
             
             <div class="panel panel-success">
 	      <div class="panel-heading">
-            <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta Heladería</div>
+            <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta</div>
 		  <div class="panel-body">
 		  
 		  
@@ -234,7 +297,7 @@ function formAddVentaGeneral($conn){
             <input type="text" class="form-control" id="importe_parcial" readonly>
             </div>
                
-        <button type="submit" class="btn btn-default btn-sm" id="consultar_importe">Consultar Importe Parcial</button>
+        <button type="submit" class="btn btn-default btn-sm" id="consultar_importe" data-toggle="tooltip" data-placement="right" title="Consulta de importe parcial en ticket actual">Consultar Importe Parcial</button>
         
         </form>
         <hr>
@@ -424,11 +487,11 @@ function formAddVentaGeneral($conn){
             <p align="center"><img src="../../icons/actions/help-about.png"  class="img-reponsive img-rounded"> Si ya no va a ingresar más productos para este cliente, para imprimir el ticket presione "Cerrar Ticket e Imprimir", recuerde que una vez que presione este botón el ticket correspondiente será cerrado.</p>
             </div><hr>
             
-            <button type="submit" class="btn btn-default btn-xs btn-block" name="ticket_local" >
+            <button type="submit" class="btn btn-danger btn-xs btn-block" name="ticket_local" data-toggle="tooltip" data-placement="right" title="Presione aquí para cerrar venta e imprimir el ticket">
                 <img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Cerrar Ticket e Imprimir</button><hr>
                 
-            <button type="button" class="btn btn-success btn-xs btn-block" name="addVenta" id="add_venta_general">
-                <img src="../../icons/actions/dialog-ok.png"  class="img-reponsive img-rounded"> Terminar</button>
+            <button type="button" class="btn btn-success btn-xs btn-block" name="addVenta" id="add_venta_general" data-toggle="tooltip" data-placement="right" title="Presione aquí para agregar items al ticket actual">
+                <img src="../../icons/actions/dialog-ok.png"  class="img-reponsive img-rounded"> Agregar Producto</button>
             </form>
             </div>
             </div>

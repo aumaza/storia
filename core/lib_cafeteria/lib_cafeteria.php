@@ -168,7 +168,7 @@ function ventasCafeteriaLocal($conn){
 
 if($conn)
 {
-	$sql = "SELECT * FROM st_ventas where espacio = 'cafeteria' and lugar_venta <> 'Web'";
+	$sql = "SELECT * FROM st_ventas where espacio = 'cafeteria' and lugar_venta <> 'Web' and estado_ticket = 'Cerrado'";
     	mysqli_select_db($conn,'storia');
     	$resultado = mysqli_query($conn,$sql);
 	//mostramos fila x fila
@@ -188,6 +188,7 @@ if($conn)
             <th class='text-nowrap text-center'>Hora Pedido</th>
             <th class='text-nowrap text-center'>Cliente</th>
             <th class='text-nowrap text-center'>Importe</th>
+            <th class='text-nowrap text-center'>Nro. Ticket</th>
             <th>&nbsp;</th>
             </thead>";
 
@@ -203,6 +204,7 @@ if($conn)
 			 echo "<td align=center>".$fila['hora_venta']."</a></td>";
 			 echo "<td align=center>".$fila['cliente_nombre']."</a></td>";
 			 echo "<td align=center>$".$fila['importe']."</a></td>";
+			 echo "<td align=center>".$fila['nro_ticket']."</a></td>";
 			 echo "<td class='text-nowrap'>";
 			 
 			 echo "</td>";

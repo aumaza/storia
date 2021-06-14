@@ -220,8 +220,6 @@ $(document).ready(function(){
                     $('#sabor_3').val('Ninguno');
                     $('#sabor_4').val('Ninguno');
                     $('#cantidad').val('1');
-                    $('#empleado').val('');
-                    $('#modo_pago').val('');
                     $('#producto').focus();
                 }else{
                     alert("Hubo un problema al intentar Guardar el Producto");
@@ -314,6 +312,11 @@ $(document).ready(function(){
         </form>
         <hr>
 
+        <form action="#" method="POST">
+        
+        <button type="submit" class="btn btn-success btn-xs btn-block" name="add_venta" data-toggle="tooltip" data-placement="right" title="Nueva Venta en Local">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta</button><br>
+        
 <!--   Colapse Group       -->
         
        <div class="panel-group" id="accordion">
@@ -329,11 +332,11 @@ $(document).ready(function(){
       <div class="panel-body">
       
       <ul class="list-group">
-      <form action="#" method="POST">
+      
       
       <li class="list-group-item">
-	  <button type="submit" class="btn btn-default btn-xs btn-block" name="add_venta" data-toggle="tooltip" data-placement="right" title="Nueva Venta en Local">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta</button></li>
+	  <button type="submit" class="btn btn-default btn-xs btn-block" name="buscar_tickets" data-toggle="tooltip" data-placement="right" title="Imprimir tickets cerrados">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-task.png" /> Tickets Cerrados</button></li>
 	 
 	 <li class="list-group-item">
 	<button type="submit" class="btn btn-default btn-xs btn-block" name="ventas_heladeria" data-toggle="tooltip" data-placement="right" title="Ventas Heladería en Local">
@@ -682,6 +685,10 @@ $(document).ready(function(){
             //formAddVentaLocal($conn);
             //formAddVenta($conn);
             formAddVentaGeneral($conn);
+        }
+        // listar tockets cerrados
+        if(isset($_POST['buscar_tickets'])){
+            ticketsCerrados($conn);
         }
         //persistencia nueva ventas
         if(isset($_POST['addVenta'])){
