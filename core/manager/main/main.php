@@ -471,6 +471,14 @@ $(document).ready(function(){
      <li class="list-group-item">
 	<button type="submit" class="btn btn-default btn-xs btn-block" name="ventas" data-toggle="tooltip" data-placement="right" title="Total Ventas en el Día y Acumuladas">
 	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-investment.png" /> Estadísticas Ventas</button></li>
+	    
+    <li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="empleado_ventas_cantidad" data-toggle="tooltip" data-placement="right" title="Cantidad de ventas Empleados">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-process-own.png" /> Empleados</button></li>
+	    
+    <li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="cliente_compra_cantidad" data-toggle="tooltip" data-placement="right" title="Cantidad de Compras por Cliente">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-process-own.png" /> Clientes</button></li>
       
       </form>
       </ul>
@@ -849,6 +857,15 @@ $(document).ready(function(){
         }
         if(isset($_POST['ventas'])){
             ventas($conn);
+        }
+        if(isset($_POST['empleado_ventas_cantidad'])){
+            ventasPorEmpleado($conn);
+        }
+        if(isset($_POST['cliente_compra_cantidad'])){
+            comprasPorCliente($conn);
+        }
+        if(isset($_POST['preferidos_cliente'])){
+            preferidosCliente($conn);
         }
         
     

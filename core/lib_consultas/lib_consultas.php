@@ -65,6 +65,206 @@ if($conn)
 
 }
 
+
+/*
+** funcion que carga la tabla de todos llas ventas por empleado
+*/
+function ventasPorEmpleado($conn){
+
+if($conn)
+{
+	$sql = "select empleado, fecha_venta, count(empleado) as cantidad from st_ventas where estado_ticket = 'Cerrado' group by empleado, fecha_venta";
+    	mysqli_select_db($conn,'storia');
+    	$resultado = mysqli_query($conn,$sql);
+	//mostramos fila x fila
+	$count = 0;
+	echo '<div class="panel panel-success" >
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/view-process-own.png"  class="img-reponsive img-rounded"> Cantidad de Ventas por Empleado';
+	echo '</div><br>';
+
+            echo "<table class='display compact' style='width:100%' id='myTable'>";
+              echo "<thead>
+		    <th class='text-nowrap text-center'>Empleado</th>
+            <th class='text-nowrap text-center'>Fecha Venta</th>
+            <th class='text-nowrap text-center'>Cantidad</th>
+            <th>&nbsp;</th>
+            </thead>";
+
+
+	while($fila = mysqli_fetch_array($resultado)){
+			  // Listado normal
+			 echo "<tr>";
+			 echo "<td align=center>".$fila['empleado']."</td>";
+			 echo "<td align=center>".$fila['fecha_venta']."</td>";
+			 echo "<td align=center>".$fila['cantidad']."</td>";
+			 echo "<td class='text-nowrap'>";
+			 echo "</td>";
+			 $count++;
+		}
+
+		echo "</table>";
+		echo "<br>";
+		echo '<button type="button" class="btn btn-primary">Cantidad de Registros:  '.$count.' </button>';
+		echo '</div>';
+		}else{
+		  echo 'Connection Failure...' .mysqli_error($conn);
+		}
+
+    mysqli_close($conn);
+
+}
+
+
+/*
+** funcion que carga la tabla de todos llas ventas por empleado
+*/
+function comprasPorCliente($conn){
+
+if($conn)
+{
+	$sql = "select cliente_nombre, fecha_venta, count(cliente_nombre) as cantidad from st_ventas where estado_ticket = 'Cerrado' group by cliente_nombre, fecha_venta";
+    	mysqli_select_db($conn,'storia');
+    	$resultado = mysqli_query($conn,$sql);
+	//mostramos fila x fila
+	$count = 0;
+	echo '<div class="panel panel-success" >
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/view-process-own.png"  class="img-reponsive img-rounded"> Cantidad de Compras por Cliente';
+	echo '</div><br>';
+
+            echo "<table class='display compact' style='width:100%' id='myTable'>";
+              echo "<thead>
+		    <th class='text-nowrap text-center'>Cliente</th>
+            <th class='text-nowrap text-center'>Fecha Compra</th>
+            <th class='text-nowrap text-center'>Cantidad</th>
+            <th>&nbsp;</th>
+            </thead>";
+
+
+	while($fila = mysqli_fetch_array($resultado)){
+			  // Listado normal
+			 echo "<tr>";
+			 echo "<td align=center>".$fila['cliente_nombre']."</td>";
+			 echo "<td align=center>".$fila['fecha_venta']."</td>";
+			 echo "<td align=center>".$fila['cantidad']."</td>";
+			 echo "<td class='text-nowrap'>";
+			 echo "</td>";
+			 $count++;
+		}
+
+		echo "</table>";
+		echo "<br>";
+		echo '<form action="#" method="POST">
+                <button type="submit" class="btn btn-default btn-sm" name="preferidos_cliente" data-toggle="tooltip" data-placement="right" title="Productos Preferidos de los Clientes">
+                <img src="../../icons/actions/rating.png"  class="img-reponsive img-rounded"> Productos Preferidos</button>
+              </form><br>';
+		echo '<button type="button" class="btn btn-primary">Cantidad de Registros:  '.$count.' </button>';
+		echo '</div>';
+		}else{
+		  echo 'Connection Failure...' .mysqli_error($conn);
+		}
+
+    mysqli_close($conn);
+
+}
+
+
+/*
+** funcion que carga la tabla de los productos preferidos por clientes
+*/
+function preferidosCliente($conn){
+
+if($conn)
+{
+	$sql = "select cliente_nombre, descripcion, count(descripcion) as cantidad from st_ventas where estado_ticket = 'Cerrado' group by descripcion order by cantidad DESC";
+    	mysqli_select_db($conn,'storia');
+    	$resultado = mysqli_query($conn,$sql);
+	//mostramos fila x fila
+	$count = 0;
+	echo '<div class="panel panel-success" >
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/rating.png"  class="img-reponsive img-rounded"> Productos Preferidos por Cliente';
+	echo '</div><br>';
+
+            echo "<table class='display compact' style='width:100%' id='myTable'>";
+              echo "<thead>
+		    <th class='text-nowrap text-center'>Cliente</th>
+            <th class='text-nowrap text-center'>Producto</th>
+            <th class='text-nowrap text-center'>Cantidad</th>
+            <th>&nbsp;</th>
+            </thead>";
+
+
+	while($fila = mysqli_fetch_array($resultado)){
+			  // Listado normal
+			 echo "<tr>";
+			 echo "<td align=center>".$fila['cliente_nombre']."</td>";
+			 echo "<td align=center>".$fila['descripcion']."</td>";
+			 echo "<td align=center>".$fila['cantidad']."</td>";
+			 echo "<td class='text-nowrap'>";
+			 echo "</td>";
+			 $count++;
+		}
+
+		echo "</table>";
+		echo "<br>";
+		echo '<button type="button" class="btn btn-primary">Cantidad de Registros:  '.$count.' </button>';
+		echo '</div>';
+		}else{
+		  echo 'Connection Failure...' .mysqli_error($conn);
+		}
+
+    mysqli_close($conn);
+
+}
+
+
+/*
+** funcion que carga la tabla de todas las ventas por espacio
+*/
+function espaciosVentas($conn){
+
+if($conn)
+{
+	$sql = "select espacio, fecha_venta, sum(importe) as total from st_ventas where estado_ticket = 'Cerrado' group by espacio, fecha_venta";
+    	mysqli_select_db($conn,'storia');
+    	$resultado = mysqli_query($conn,$sql);
+	//mostramos fila x fila
+	$count = 0;
+	echo '<div class="panel panel-success" >
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/view-investment.png"  class="img-reponsive img-rounded"> Cantidad de Ventas por Espacios (Heladería / Café)';
+	echo '</div><br>';
+
+            echo "<table class='display compact' style='width:100%' id='myTable'>";
+              echo "<thead>
+		    <th class='text-nowrap text-center'>Espacio</th>
+            <th class='text-nowrap text-center'>Fecha Venta</th>
+            <th class='text-nowrap text-center'>Importe</th>
+            <th>&nbsp;</th>
+            </thead>";
+
+
+	while($fila = mysqli_fetch_array($resultado)){
+			  // Listado normal
+			 echo "<tr>";
+			 echo "<td align=center>".$fila['espacio']."</td>";
+			 echo "<td align=center>".$fila['fecha_venta']."</td>";
+			 echo "<td align=center>$".$fila['total']."</td>";
+			 echo "<td class='text-nowrap'>";
+			 echo "</td>";
+			 $count++;
+		}
+
+		echo "</table>";
+		echo "<br>";
+		echo '<button type="button" class="btn btn-primary">Cantidad de Registros:  '.$count.' </button>';
+		echo '</div>';
+		}else{
+		  echo 'Connection Failure...' .mysqli_error($conn);
+		}
+
+    mysqli_close($conn);
+
+}
+
 /*
 ** actualizacion de estado de lectura y respuesta en los mensajes de los usuarios
 */
@@ -1149,6 +1349,7 @@ function ventas($conn){
     echo '<div class="container">
     
             <div class="col-sm-9">
+            
             <div class="well">
                 
                
@@ -1175,7 +1376,20 @@ function ventas($conn){
                
     
         </div>
-        </div>';
+        </div>
+        
+        <div class="container">
+        <div class="col-sm-9">
+        
+        <div class="well">';
+        
+        espaciosVentas($conn);
+        
+        echo '</div>
+        
+        </div>
+        </div>
+        ';
 
 
 
