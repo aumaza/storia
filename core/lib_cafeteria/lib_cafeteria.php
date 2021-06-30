@@ -689,7 +689,6 @@ function detallesMesa($mesa,$conn){
 	
             echo "<table class='table table-condensed' style='width:100%' id='myTable'>";
             echo "<thead>
-		    <th class='text-nowrap text-center'>ID</th>
 		    <th class='text-nowrap text-center'>Item</th>
             <th class='text-nowrap text-center'>Importe</th>
             <th>&nbsp;</th>
@@ -699,10 +698,15 @@ function detallesMesa($mesa,$conn){
 	while($fila = mysqli_fetch_array($resultado)){
 			  // Listado normal
 			 echo "<tr>";
-			 echo "<td align=center>".$fila['id']."</td>";
 			 echo "<td align=center>".$fila['item']."</a></td>";
 			 echo "<td align=center>$".$fila['importe']."</a></td>";
 			 echo "<td class='text-nowrap'>";
+			 echo '<form <action="#" method="POST">
+                   <input type="hidden" name="id" value="'.$fila['id'].'">
+                
+                    <button type="submit" class="btn btn-danger btn-xs" name="eliminar_item_mesa" data-toggle="tooltip" data-placement="right" title="Eliminar Item">
+                    <img src="../../icons/actions/trash-empty.png"  class="img-reponsive img-rounded"> Eliminar</button>
+		      </form><br>';
 			 echo "</td>";
 			 $count++;
 		}
@@ -933,11 +937,54 @@ function formCloseMesa($id_mesa,$mesa,$conn){
             </div>
             </div>';
 
+}
 
 
 
+/*
+** formulario para eliminar item de una mesa
+*/
+function formEliminarItem($id,$conn){
+
+
+    $sql = "select * from st_items_mesa where id = '$id'";
+        mysqli_select_db($conn,'storia');
+        $query = mysqli_query($conn,$sql);
+        while($fila = mysqli_fetch_array($query)){
+                $item = $fila['item'];
+        }
+            
+            echo '<div class="container">
+		    <div class="row">
+		      <div class="col-sm-8">
+            
+            <div class="panel panel-info">
+	      <div class="panel-heading">
+		<img class="img-reponsive img-rounded" src="../../icons/actions/edit-table-delete-row.png" /> Eliminar Item</div>
+            <div class="panel-body">
+            
+            <form action="main.php" method="POST">
+	      <input type="hidden" class="form-control" name="id" value="'.$id.'">
+	                  
+                <div class="alert alert-danger">
+		    <img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> <strong>Atención!</strong><hr>
+		    <p>Está por eliminar el item: <strong>'.$item.'</strong></p>
+		    <p>Si está seguro, presione Aceptar, de lo contrario presione Cancelar.</p>
+                </div><hr>
+            
+            <button type="submit" class="btn btn-success btn-block" name="delete_item">Aceptar</button><br>
+            
+            </form>
+	      <a href="main.php"><button type="button" class="btn btn-danger btn-block">Cancelar</button></a>
+            </div>
+            </div>
+            
+            </div>
+            </div>
+            </div>';
 
 }
+
 
 /*
 ** formulario de ticket para cierre de mesa
@@ -1323,7 +1370,35 @@ function closeMesa($id_mesa,$total,$conn){
   
 }
 
-
+/*
+** persistencia de cierre de mesa
+*/
+function deleteItem($id,$conn){
+    
+           
+    $sql = "delete from st_items_mesa where id = '$id'";
+    mysqli_select_db($conn,'storia');
+    $resp = mysqli_query($conn,$sql);
+    
+    if($resp){
+            echo "<br>";
+		    echo '<div class="container">';
+		    echo '<div class="alert alert-success" alert-dismissible">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Item Eliminado Satisfactoriamente.';
+		    echo "</div>";
+		    echo "</div>";
+    }else{
+			    echo "<br>";
+			    echo '<div class="container">';
+			    echo '<div class="alert alert-warning" alert-dismissible">
+				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al eliminar el item. '  .mysqli_error($conn);
+			    echo "</div>";
+			    echo "</div>";
+		    }
+  
+}
 
 /*
 ** modal que carga los precios de heladeria
