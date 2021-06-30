@@ -623,6 +623,15 @@ $(document).ready(function(){
             $mesa = mysqli_real_escape_string($conn,$_POST['mesa_number']);
             detallesMesa($mesa,$conn);
         }
+        //eliminar un item
+        if(isset($_POST['eliminar_item_mesa'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formEliminarItem($id,$conn);
+        }
+        if(isset($_POST['delete_item'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            deleteItem($id,$conn);
+        }
         //formulario de cierre de mesa
         if(isset($_POST['cerrar_mesa'])){
             $mesa = mysqli_real_escape_string($conn,$_POST['mesa_numero']);
