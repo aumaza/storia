@@ -291,12 +291,20 @@ function mesas($conn){
 			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
        
         </div>
-        <div class="panel-footer">
+        <div class="panel-footer">';
         
+        if($row['estado'] == 'Abierta'){
                     
-            <button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
-			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
-            <button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
+         echo '<button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa" disabled>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>';
+        }else{
+            
+            echo '<button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>';
+        
+        }
+        
+          echo '<button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
 			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
 			  
         </form>
@@ -321,12 +329,19 @@ function mesas($conn){
 			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
        
         </div>
-        <div class="panel-footer">
+        <div class="panel-footer">';
         
-                    
-            <button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
-			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
-            <button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
+        if($row_2['estado'] == 'Abierta'){
+                   
+        echo '<button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa" disabled>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>';
+        }else{
+            
+            echo '<button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>';
+        
+        }
+        echo '<button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
 			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
 			  
         </form>
@@ -351,12 +366,21 @@ function mesas($conn){
 			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
        
         </div>
-        <div class="panel-footer">
+        <div class="panel-footer">';
         
+        if($row_3['estado'] == 'Abierta'){
                     
-            <button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
-			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
-            <button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
+         echo '<button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa" disabled>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>';
+        
+        }else{
+            
+            echo '<button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>';
+            
+        }
+			  
+         echo '<button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
 			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
 			 
         </form>
@@ -386,12 +410,19 @@ function mesas($conn){
 			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
        
         </div>
-        <div class="panel-footer">
+        <div class="panel-footer">';
         
+        if($row_4['estado'] == 'Abierta'){
                     
-            <button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
-			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
-            <button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
+        echo '<button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa" disabled>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>';
+        }else{
+            
+            echo '<button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>';
+        
+        }
+         echo '<button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
 			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
 			  
         </form>
@@ -416,12 +447,19 @@ function mesas($conn){
 			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
        
         </div>
-        <div class="panel-footer">
+        <div class="panel-footer">';
         
+        if($row_5['estado'] == 'Abierta'){
                     
-            <button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
-			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
-            <button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
+        echo '<button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa" disabled>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>';
+        }else{
+        
+            echo '<button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>'; 
+        
+        }
+         echo '<button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
 			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
 			 
         </form>
@@ -446,12 +484,21 @@ function mesas($conn){
 			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Detalles</button>
        
         </div>
-        <div class="panel-footer">
+        <div class="panel-footer">';
         
+        if($row_6['estado'] == 'Abierta'){
                     
-            <button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
-			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>
-            <button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
+            echo '<button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa" disabled>
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>';
+			  
+        }else{
+        
+            echo '<button type="submit" class="btn btn-success btn-block" name="open_mesa" data-toggle="tooltip" data-placement="right" title="Apertura de Mesa">
+			  <img src="../../icons/places/folder-green.png"  class="img-reponsive img-rounded"> Abrir</button>';
+        
+        }
+         
+         echo '<button type="submit" class="btn btn-default btn-block" name="add_producto_mesa" data-toggle="tooltip" data-placement="right" title="Agregar Comanda">
 			  <img src="../../icons/actions/list-add.png"  class="img-reponsive img-rounded"> Agregar Pedido</button>
 			  
         </form>
@@ -748,7 +795,7 @@ function openTable($mesa,$nombre,$conn){
     $fecha_actual = date("Y-m-d");
     $importe = 0.00;
     
-    //$sql = "select * from st_mesas "
+   
     
     echo '<div class="container">
 		    <div class="row">
@@ -856,7 +903,7 @@ function formAddItems($mesa,$conn){
 		  <option value="" disabled selected>Seleccionar</option>';
 		    
 		    if($conn){
-		      $query = "select * from st_productos where cod_producto like 'cf%'";
+		      $query = "select * from st_productos";
 		      mysqli_select_db($conn,'storia');
 		      $res = mysqli_query($conn,$query);
 
