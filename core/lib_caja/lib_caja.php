@@ -500,7 +500,14 @@ function formCerrarCaja($id,$conn){
     
     $hora_actual =  date("H:i:s");
     $fecha_actual = date("Y-m-d");
-        
+    
+    $sql_caja = "select importe_apertura from st_caja where id = '$id'";
+    mysqli_select_db($conn,'storia');
+    $query_caja = mysqli_query($conn,$sql_caja);
+    while($row_caja = mysqli_fetch_array($query_caja)){
+        $importe_apertura = $row_caja['importe_apertura'];
+    }
+    
     $sql_ventas = "select sum(importe) as total from st_ventas where tipo_pago = 'Efectivo' and estado_ticket = 'Cerrado' and fecha_venta = curdate()";
     mysqli_select_db($conn,'storia');
     $query_ventas = mysqli_query($conn,$sql_ventas);
@@ -521,7 +528,7 @@ function formCerrarCaja($id,$conn){
     while($row_pagos = mysqli_fetch_array($query_pagos)){
         $total_pagos = $row_pagos['total'];
     }
-    $total_ingresos = $total_ventas + $total_mesas;
+    $total_ingresos = $total_ventas + $total_mesas + $importe_apertura;
     $importe_cierre = $total_ingresos - $total_pagos;
     
        echo '<div class="container">
