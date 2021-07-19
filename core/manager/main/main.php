@@ -9,6 +9,7 @@
       include "../../lib_cafeteria/lib_cafeteria.php";
       include "../../lib_consultas/lib_consultas.php";
       include "../../lib_delivery/lib_delivery.php";
+      include "../../lib_caja/lib_caja.php";
               
         $usuario = $_SESSION['user'];
         $password = $_SESSION['pass'];
@@ -485,9 +486,37 @@ $(document).ready(function(){
       </div>
     </div>
   </div>
+  
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5" data-toggle="tooltip" data-placement="right" title="Módulo correspondiente a la apertura y cierre de Caja">
+        <img class="img-reponsive img-rounded" src="../../icons/actions/view-financial-transfer.png" /> Apertura/Cierre Caja</a>
+      </h4>
+    </div>
+    <div id="collapse5" class="panel-collapse collapse">
+      <div class="panel-body">
+      
+      <ul class="list-group">
+      <form action="#" method="POST">
+      
+      <li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="pagos" data-toggle="tooltip" data-placement="right" title="Pagos a Proveedores y Gastos por Caja">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-loan-asset.png" /> Pagos / Compras</button></li>
+	    
+     <li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="estado_caja" data-toggle="tooltip" data-placement="right" title="Ver Estado de Caja">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-income-categories.png" /> Estado Caja</button></li>
+	
+      
+      </form>
+      </ul>
+      </div>
+    </div>
+  </div>
+  
  </div>
- 
-  </div>';
+ </div>';
   }
   
   ?>
@@ -839,7 +868,8 @@ $(document).ready(function(){
         if(isset($_POST['close_mesa'])){
             $id_mesa = mysqli_real_escape_string($conn,$_POST['id_mesa']);
             $total = mysqli_real_escape_string($conn,$_POST['total']);
-            closeMesa($id_mesa,$total,$conn);
+            $tipo_pago = mysqli_real_escape_string($conn,$_POST['tipo_pago']);
+            closeMesa($id_mesa,$total,$tipo_pago,$conn);
         }
         //impresion de ticket al cerrar la mesa
         if(isset($_POST['print_ticket'])){
@@ -877,12 +907,74 @@ $(document).ready(function(){
             preferidosCliente($conn);
         }
         
-    
-    
-    
-    
-    
-    
+        // =============================================================================================
+        // MODULO APERTURA / CIERRE DE CAJA
+        // ADMINISTRACION DE PAGOS
+        
+        if(isset($_POST['pagos'])){
+            listarPagos($conn);
+        }
+        if(isset($_POST['add_pago'])){
+            formAddPago();
+        }
+        if(isset($_POST['addPago'])){
+           $fecha_pago = mysqli_real_escape_string($conn,$_POST['fecha_pago']); 
+           $tipo_pago = mysqli_real_escape_string($conn,$_POST['tipo_pago']);
+           $descripcion = mysqli_real_escape_string($conn,$_POST['descripcion']);
+           $importe = mysqli_real_escape_string($conn,$_POST['importe']);
+           addPago($fecha_pago,$tipo_pago,$descripcion,$importe,$conn);
+        }
+        if(isset($_POST['edit_pago'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formEditPago($id,$conn);
+        }
+        if(isset($_POST['editPago'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            $fecha_pago = mysqli_real_escape_string($conn,$_POST['fecha_pago']); 
+            $tipo_pago = mysqli_real_escape_string($conn,$_POST['tipo_pago']);
+            $descripcion = mysqli_real_escape_string($conn,$_POST['descripcion']);
+            $importe = mysqli_real_escape_string($conn,$_POST['importe']);
+            updatePago($id,$fecha_pago,$tipo_pago,$descripcion,$importe,$conn);
+        }
+        if(isset($_POST['del_pago'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formEliminarPago($id,$conn);
+        }
+        if(isset($_POST['delete_pago'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            deletePago($id,$conn);
+        }
+        
+        // APERTURA DE CAJA
+        // LISTAR ESTADO DE LA CAJA
+        if(isset($_POST['estado_caja'])){
+            listarEstadoCaja($conn);
+        }
+        // FORMULARIO DE APERTURA DE CAJA
+        if(isset($_POST['apertura_caja'])){
+            formAperturaCaja($conn);
+        }
+        // PERSISTENCIA DE APERTURA DE CAJA
+        if(isset($_POST['abrir_caja'])){
+            $fecha = mysqli_real_escape_string($conn,$_POST['fecha']);
+            $hora_apertura = mysqli_real_escape_string($conn,$_POST['hora']);
+            $importe_apertura = mysqli_real_escape_string($conn,$_POST['importe']);
+            $estado_caja = mysqli_real_escape_string($conn,$_POST['caja_estado']);
+            openCaja($fecha,$hora_apertura,$importe_apertura,$estado_caja,$conn);
+        }
+        //FORMULARIO CIERRE DE CAJA
+        if(isset($_POST['cierre_caja'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formCerrarCaja($id,$conn);
+        }
+        //CIERRE DE CAJA
+        if(isset($_POST['cerrar_caja'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            $hora_cierre = mysqli_real_escape_string($conn,$_POST['hora']);
+            $importe_cierre = mysqli_real_escape_string($conn,$_POST['importe']);
+            $estado_caja = mysqli_real_escape_string($conn,$_POST['caja_estado']);
+            closeCaja($id,$hora_cierre,$importe_cierre,$estado_caja,$conn);
+        }
     
     }else{
     

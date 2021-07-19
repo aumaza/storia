@@ -81,6 +81,7 @@ fecha date not null,
 empleado varchar(60) not null,
 hora_apertura time not null,
 hora_cierre time not null,
+tipo_pago enum('Efectivo','Tarjeta Debito','Tarjeta Credito'),
 total float(8,2)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -117,4 +118,25 @@ email varchar(90) not null,
 mensaje varchar(240) not null,
 fecha date not null,
 estado enum('Leido','No Leido') not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+#tabla pagos
+create table st_pagos(
+id int(11) auto_increment primary key,
+fecha_pago date not null,
+tipo_pago enum('Pago Proveedor','Compra Menor'),
+descripcion varchar(90) not null,
+importe float(8,2) not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#tabla caja
+create table st_caja(
+id int(11) auto_increment primary key,
+fecha date not null,
+hora_apertura time,
+hora_cierre time,
+importe_apertura float(8,2),
+importe_cierre float(8,2),
+estado_caja enum('Abierta','Cerrada')
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

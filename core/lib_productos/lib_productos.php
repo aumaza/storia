@@ -32,7 +32,7 @@ if($conn)
 			 echo "<tr>";
 			 echo "<td align=center>".$fila['cod_producto']."</td>";
 			 echo "<td align=center>".$fila['descripcion']."</a></td>";
-			 echo "<td align=center>".$fila['precio']."</td>";
+			 echo "<td align=center>$".$fila['precio']."</td>";
 			 echo "<td class='text-nowrap'>";
 			 echo '<form <action="#" method="POST">
                     <input type="hidden" name="id" value="'.$fila['id'].'">';

@@ -18,7 +18,7 @@ if($conn)
 	//mostramos fila x fila
 	$count = 0;
 	echo '<div class="panel panel-success" >
-	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/apps/java.png"  class="img-reponsive img-rounded"> Administración de Ventas en Cafetería';
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/apps/java.png"  class="img-reponsive img-rounded"> Administración de Ventas en Mesas';
 	echo '</div><br>';
 
             echo "<div class='table-responsive'>
@@ -31,6 +31,7 @@ if($conn)
             <th class='text-nowrap text-center'>Empleado</th>
             <th class='text-nowrap text-center'>Hora Apertura</th>
             <th class='text-nowrap text-center'>Hora Cierre</th>
+            <th class='text-nowrap text-center'>Tipo Pago</th>
             <th class='text-nowrap text-center'>Total</th>
             <th>&nbsp;</th>
             </thead>";
@@ -46,6 +47,7 @@ if($conn)
 			 echo "<td align=center>".$fila['empleado']."</a></td>";
 			 echo "<td align=center>".$fila['hora_apertura']."</a></td>";
 			 echo "<td align=center>".$fila['hora_cierre']."</a></td>";
+			 echo "<td align=center>".$fila['tipo_pago']."</a></td>";
 			 echo "<td align=center>$".$fila['total']."</a></td>";
 			 echo "<td class='text-nowrap'>";
 			 echo '<form <action="#" method="POST">
@@ -970,6 +972,17 @@ function formCloseMesa($id_mesa,$mesa,$conn){
 		    <img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> <strong>Atención!</strong><hr>
 		    <p>Está por cerrar la mesa: <strong>'.$mesa.'</strong></p>
 		    <p>Importe Final: $<strong>'.$importe.'</strong></p><hr>
+		    
+		    <div class="form-group">
+            <label for="sel1">Tipo de Pago:</label>
+            <select class="form-control" name="tipo_pago" required>
+                <option value="" disabled selected>Seleccionar</option>
+                <option value="1">Efectivo</option>
+                <option value="2">Tarjeta Débito</option>
+                <option value="3">Tarjeta Crédito</option>
+            </select>
+            </div><hr>
+		    
 		    <p>Si está seguro, presione Aceptar, de lo contrario presione Cancelar.</p>
                 </div><hr>
             
@@ -1388,12 +1401,12 @@ function addProductosCafeLocal($producto,$empleado,$lugar_venta,$modo_pago,$clie
 /*
 ** persistencia de cierre de mesa
 */
-function closeMesa($id_mesa,$total,$conn){
+function closeMesa($id_mesa,$total,$tipo_pago,$conn){
     
     $hora_actual =  date("H:i:s");
     $estado = 'Cerrada';
         
-    $sql = "update st_mesas set estado = '$estado', hora_cierre = '$hora_actual', total = '$total' where id = '$id_mesa'";
+    $sql = "update st_mesas set estado = '$estado', hora_cierre = '$hora_actual', total = '$total', tipo_pago = '$tipo_pago' where id = '$id_mesa'";
     mysqli_select_db($conn,'storia');
     $resp = mysqli_query($conn,$sql);
     

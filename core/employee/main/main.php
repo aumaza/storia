@@ -636,7 +636,8 @@ $(document).ready(function(){
         if(isset($_POST['cerrar_mesa'])){
             $mesa = mysqli_real_escape_string($conn,$_POST['mesa_numero']);
             $id_mesa = mysqli_real_escape_string($conn,$_POST['id_mesa']);
-            formCloseMesa($id_mesa,$mesa,$conn);
+            $tipo_pago = mysqli_real_escape_string($conn,$_POST['tipo_pago']);
+            closeMesa($id_mesa,$total,$tipo_pago,$conn);
         }
         //persistencia cierre de mesa
         if(isset($_POST['close_mesa'])){
