@@ -722,6 +722,7 @@ $(document).ready(function(){
 <script>
 $( document ).ready(function() {
     $('#popupModalEmployee').modal('toggle')
+    setTimeout(function() { $('#popupModalEmployee').modal('hide'); }, 2000);
 });
 </script>
 

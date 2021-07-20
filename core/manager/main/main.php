@@ -1017,6 +1017,7 @@ $(document).ready(function(){
 <script>
 $( document ).ready(function() {
     $('#popupModal').modal('toggle')
+    setTimeout(function() { $('#popupModal').modal('hide'); }, 2000);
 });
 </script>
 
