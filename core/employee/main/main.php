@@ -636,14 +636,14 @@ $(document).ready(function(){
         if(isset($_POST['cerrar_mesa'])){
             $mesa = mysqli_real_escape_string($conn,$_POST['mesa_numero']);
             $id_mesa = mysqli_real_escape_string($conn,$_POST['id_mesa']);
-            $tipo_pago = mysqli_real_escape_string($conn,$_POST['tipo_pago']);
-            closeMesa($id_mesa,$total,$tipo_pago,$conn);
+            formCloseMesa($id_mesa,$mesa,$conn);
         }
         //persistencia cierre de mesa
         if(isset($_POST['close_mesa'])){
             $id_mesa = mysqli_real_escape_string($conn,$_POST['id_mesa']);
             $total = mysqli_real_escape_string($conn,$_POST['total']);
-            closeMesa($id_mesa,$total,$conn);
+            $tipo_pago = mysqli_real_escape_string($conn,$_POST['tipo_pago']);
+            closeMesa($id_mesa,$total,$tipo_pago,$conn);
         }
         //impresion de ticket al cerrar la mesa
         if(isset($_POST['print_ticket'])){
@@ -707,6 +707,7 @@ $(document).ready(function(){
   <p><img class="img-reponsive img-rounded" src="../../../assets/img/storia-favicon.png" /> Storia - Heladería / Café</p>
 </footer>
 
+<?php modalPopUpEmployee(); ?>
 <?php modal_exit(); ?>
 <?php modalNewCliente(); ?>
 <?php modalPreciosHeladeria(); ?>
@@ -716,6 +717,13 @@ $(document).ready(function(){
 
 </body>
 </html>
+
+<!-- script para abrir modal automáticamente -->
+<script>
+$( document ).ready(function() {
+    $('#popupModalEmployee').modal('toggle')
+});
+</script>
 
 <!-- insertar Items en mesas -->
 <script type="text/javascript">

@@ -1002,6 +1002,7 @@ $(document).ready(function(){
   <p><img class="img-reponsive img-rounded" src="../../../assets/img/storia-favicon.png" /> Storia - Heladería / Café</p>
 </footer>
 
+<?php modalPopUpAdmin(); ?>
 <?php modal_exit(); ?>
 <?php modalNewCliente(); ?>
 <?php modalPreciosHeladeria(); ?>
@@ -1011,6 +1012,14 @@ $(document).ready(function(){
 
 </body>
 </html>
+
+<!-- script para abrir modal automáticamente -->
+<script>
+$( document ).ready(function() {
+    $('#popupModal').modal('toggle')
+});
+</script>
+
 
 <!-- Insertar items en mesas -->
 <script type="text/javascript">
