@@ -473,10 +473,14 @@ function formAperturaCaja($conn){
 		<input type="time" class="form-control" name="hora" value="'.$hora_actual.'" readonly required>
             </div><hr>
                  
-                       
+           <div class="alert alert-info">
+            <img class="img-reponsive img-rounded" src="../../icons/status/dialog-information.png" />
+            El importe debería ser el mismo con el que cerró la caja el día anterior, si es correcto continue presionando <strong>Aceptar</strong>, si desea modificarlo puede hacerlo y a continuación presione <strong>Aceptar</strong>
+           </div><hr>
+           
             <div class="form-group">
 	      <label>Importe:</label>
-		<input type="text" class="form-control" name="importe" value="'.$importe.'" readonly required>
+		<input type="text" class="form-control" name="importe" value="'.$importe.'" required>
             </div><hr>
             
                      
