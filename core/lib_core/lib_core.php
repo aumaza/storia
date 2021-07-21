@@ -11,6 +11,7 @@ function skeleton(){
   echo '<link rel="stylesheet" href="/storia/skeleton/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="/storia/skeleton/css/bootstrap-theme.css" >
 	<link rel="stylesheet" href="/storia/skeleton/css/bootstrap-theme.min.css" >
+	<link rel="stylesheet" href="/storia/skeleton/css/animate.min.css" >
 	<link rel="stylesheet" href="/storia/skeleton/css/jquery.dataTables.min.css" >
 	<link rel="stylesheet" href="/storia/skeleton/Chart.js/Chart.min.css" >
 	<link rel="stylesheet" href="/storia/skeleton/Chart.js/Chart.css" >
@@ -21,6 +22,7 @@ function skeleton(){
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
 
     <script src="/storia/skeleton/js/jquery-3.4.1.min.js"></script>
+    <script src="/storia/skeleton/js/js.cookie.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/storia/skeleton/js/bootstrap.min.js"></script>
 	<script src="/storia/core/lib_core/lib_scripts.js"></script>
@@ -323,79 +325,6 @@ function modalEntregaHelado(){
 
 }
 
-/*
-** modal popup aviso apertura / cierre caja
-*/
-function modalPopUpAdmin(){
-
-
-    echo '<!-- Modal -->
-<div id="popupModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">
-        <img class="img-reponsive img-rounded" src="../../icons/status/dialog-information.png" /> Importante</h4>
-      </div>
-      <div class="modal-body">
-      <div class="alert alert-success">
-        <p align="center"><strong>Antes de Realizar cualquier venta realice la apertura de la caja.<strong></p>
-        <p align="center"><strong>Y al terminar el día realice el cierre de la misma.</strong></p>
-      </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
-      </div>
-    </div>
-
-  </div>
-</div>';
-
-
-
-
-}
-
-
-/*
-** modal popup aviso apertura / cierre caja
-*/
-function modalPopUpEmployee(){
-
-
-    echo '<!-- Modal -->
-<div id="popupModalEmployee" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">
-        <img class="img-reponsive img-rounded" src="../../icons/status/dialog-information.png" /> Importante</h4>
-      </div>
-      <div class="modal-body">
-      <div class="alert alert-success">
-        <p align="center"><strong>Antes de Realizar cualquier venta realice la apertura de la caja.<strong></p>
-        <p align="center"><strong>Y al terminar el día realice el cierre de la misma.</strong></p><hr>
-        <p align="center"><strong>Solicite permiso al Administrador para realizar esta operación.</strong></p>
-      </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
-      </div>
-    </div>
-
-  </div>
-</div>';
-
-
-
-
-}
 
 
 ?>

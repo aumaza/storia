@@ -260,7 +260,7 @@ $(document).ready(function(){
 
 <div class="container-fluid">
   <div class="row content">
-    <div class="col-sm-2 sidenav"><hr>
+    <div class="col-sm-2 sidenav animate__animated animate__zoomIn"><hr>
     <!-- Trigger the modal with a button -->
     <button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#exit" data-toggle="tooltip" data-placement="right" title="Desconectarse del Sistema">
         <img class="img-reponsive img-rounded" src="../../icons/actions/system-shutdown.png" /> Salir</button><br>
@@ -429,6 +429,13 @@ $(document).ready(function(){
         <img class="img-reponsive img-rounded" src="../../icons/actions/dashboard-show.png" /> <strong>Espacio de Trabajo Empleado</strong> - <strong> Bienvenido <?php echo $nombre ?></strong>
       </div>
       <hr>
+      <div class="alert alert-success alert-dismissible animate__animated animate__swing">
+       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <p align="center"><img class="img-reponsive img-rounded" src="../../icons/status/dialog-information.png" /> <strong>Importante</strong></p>
+        <p align="center">Antes de Realizar cualquier venta, proceda a la apertura de la caja.</p>
+        <p align="center">Y al terminar el día realice el cierre de la misma.</p><hr>
+        <p align="center">Solicite permiso al Administrador para realizar esta operación.</p>
+      </div>
       
 <!-- Inicio Espacio de Trabajo -->
     
@@ -707,7 +714,7 @@ $(document).ready(function(){
   <p><img class="img-reponsive img-rounded" src="../../../assets/img/storia-favicon.png" /> Storia - Heladería / Café</p>
 </footer>
 
-<?php modalPopUpEmployee(); ?>
+
 <?php modal_exit(); ?>
 <?php modalNewCliente(); ?>
 <?php modalPreciosHeladeria(); ?>
@@ -718,13 +725,7 @@ $(document).ready(function(){
 </body>
 </html>
 
-<!-- script para abrir modal automáticamente -->
-<script>
-$( document ).ready(function() {
-    $('#popupModalEmployee').modal('toggle')
-    setTimeout(function() { $('#popupModalEmployee').modal('hide'); }, 2000);
-});
-</script>
+
 
 <!-- insertar Items en mesas -->
 <script type="text/javascript">
