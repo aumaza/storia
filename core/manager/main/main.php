@@ -50,6 +50,7 @@
         $cantidad_mensajes = $row_mensajes['cantidad'];
 	}
 	
+	// se verifica el estado de caja (Abierto / Cerrado)
 	$estado_caja = queryEstadoCaja($conn);
 	
 ?>

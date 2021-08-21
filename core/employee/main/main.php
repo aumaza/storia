@@ -9,7 +9,8 @@
       include "../../lib_cafeteria/lib_cafeteria.php";
       include "../../lib_consultas/lib_consultas.php";
       include "../../lib_delivery/lib_delivery.php";
-       include "../../lib_password/lib_password.php";
+      include "../../lib_password/lib_password.php";
+      include "../../lib_caja/lib_caja.php"; 
               
         $usuario = $_SESSION['user'];
         $password = $_SESSION['pass'];
@@ -41,8 +42,9 @@
             die();
             echo '</body></html>';
 	}
-
 	
+	// se verifica el estado de caja (Abierto / Cerrado)
+	$estado_caja = queryEstadoCaja($conn);
 	
 ?>
 
@@ -258,7 +260,11 @@ $(document).ready(function(){
 </head>
 <body onload="nobackbutton();">
 
-<div class="container-fluid">
+<?php
+
+if($estado_caja == 1){
+
+echo '<div class="container-fluid">
   <div class="row content">
     <div class="col-sm-2 sidenav animate__animated animate__zoomIn"><hr>
     <!-- Trigger the modal with a button -->
@@ -270,7 +276,7 @@ $(document).ready(function(){
         </form>
         <hr>
 
-<!--   Colapse Group       -->
+
         
         <form action="#" method="POST">
         
@@ -313,11 +319,11 @@ $(document).ready(function(){
       
       </div>
     </div>
-  </div>
-<!-- fin moludo heladeria   -->
+  </div>';
+// <!-- fin moludo heladeria   -->
   
-<!--  inicio modulo cafeteria  -->
-  <div class="panel panel-default">
+// <!--  inicio modulo cafeteria  -->
+echo '<div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" data-toggle="tooltip" data-placement="right" title="Espacio Administración de Cafetería">
@@ -352,11 +358,11 @@ $(document).ready(function(){
       
       </div>
     </div>
-  </div>
-<!-- fin modulo cafeteria   -->
+  </div>';
+// <!-- fin modulo cafeteria   -->
 
-<!-- inicio modulo consultas  -->
-  <div class="panel panel-default">
+// <!-- inicio modulo consultas  -->
+echo '<div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" data-toggle="tooltip" data-placement="right" title="Espacio Consultas Rápidas">
@@ -383,11 +389,11 @@ $(document).ready(function(){
       
       </div>
     </div>
-  </div>
-<!-- fin modulo consultas  -->
+  </div>';
+// <!-- fin modulo consultas  -->
 
-<!-- inicio modulo datos personales  -->
-  <div class="panel panel-default">
+// <!-- inicio modulo datos personales  -->
+echo '<div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse4" data-toggle="tooltip" data-placement="right" title="Espacio para Administración de Datos Personales">
@@ -414,14 +420,61 @@ $(document).ready(function(){
       
       </div>
     </div>
-  </div>
-<!-- fin modulo datos personales  -->
-  
-  
-    </div>
-    </div>
+  </div>';
+// <!-- fin modulo datos personales  -->
 
+// <!-- inicio modulo apertura/cierre de caja
+echo '<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5" data-toggle="tooltip" data-placement="right" title="Módulo correspondiente a la apertura y cierre de Caja">
+        <img class="img-reponsive img-rounded" src="../../icons/actions/view-financial-transfer.png" /> Apertura/Cierre Caja</a>
+      </h4>
+    </div>
+    <div id="collapse5" class="panel-collapse collapse">
+      <div class="panel-body">
+      
+      <ul class="list-group">
+      <form action="#" method="POST">
+      
+      <li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="pagos" data-toggle="tooltip" data-placement="right" title="Pagos a Proveedores y Gastos por Caja">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-loan-asset.png" /> Pagos / Compras</button></li>
+	    
+     <li class="list-group-item">
+	<button type="submit" class="btn btn-default btn-xs btn-block" name="estado_caja" data-toggle="tooltip" data-placement="right" title="Ver Estado de Caja">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-income-categories.png" /> Estado Caja</button></li>
+	
+      
+      </form>
+      </ul>
+      </div>
+    </div>
+  </div>';
+// <!-- fin modulo apertura/cierre de caja 
   
+echo '</div>
+    </div>';
+
+}
+if($estado_caja == 0){
+    
+   echo '<div class="container-fluid">
+	  <div class="row content">
+	    <div class="col-sm-12 animate__animated animate__zoomIn"><hr>
+	      <div class="alert alert-warning">
+		<p align="center"><img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" />
+		  Bienvenido, para comenzar con las ventas, primero proceda a la apertura de caja</p>
+	      </div><hr>';
+	      
+	      formAperturaCaja($conn,$nombre);
+  
+  echo '</div>
+	  </div>  
+	</div>';
+  }
+
+?>  
    
 
 
@@ -678,17 +731,79 @@ $(document).ready(function(){
         if(isset($_POST['buscar_cliente'])){
             customer($conn);
         }
+        
+        // =============================================================================================
+        // MODULO APERTURA / CIERRE DE CAJA
+        // ADMINISTRACION DE PAGOS
+        
+        if(isset($_POST['pagos'])){
+            listarPagos($conn);
+        }
+        if(isset($_POST['add_pago'])){
+            formAddPago();
+        }
+        if(isset($_POST['addPago'])){
+           $fecha_pago = mysqli_real_escape_string($conn,$_POST['fecha_pago']); 
+           $tipo_pago = mysqli_real_escape_string($conn,$_POST['tipo_pago']);
+           $descripcion = mysqli_real_escape_string($conn,$_POST['descripcion']);
+           $importe = mysqli_real_escape_string($conn,$_POST['importe']);
+           addPago($fecha_pago,$tipo_pago,$descripcion,$importe,$conn);
+        }
+        if(isset($_POST['edit_pago'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formEditPago($id,$conn);
+        }
+        if(isset($_POST['editPago'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            $fecha_pago = mysqli_real_escape_string($conn,$_POST['fecha_pago']); 
+            $tipo_pago = mysqli_real_escape_string($conn,$_POST['tipo_pago']);
+            $descripcion = mysqli_real_escape_string($conn,$_POST['descripcion']);
+            $importe = mysqli_real_escape_string($conn,$_POST['importe']);
+            updatePago($id,$fecha_pago,$tipo_pago,$descripcion,$importe,$conn);
+        }
+        if(isset($_POST['del_pago'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formEliminarPago($id,$conn);
+        }
+        if(isset($_POST['delete_pago'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            deletePago($id,$conn);
+        }
+        
+        // APERTURA DE CAJA
+        // LISTAR ESTADO DE LA CAJA
+        if(isset($_POST['estado_caja'])){
+            listarEstadoCaja($conn);
+        }
+        // FORMULARIO DE APERTURA DE CAJA
+        if(isset($_POST['apertura_caja'])){
+            formAperturaCaja($conn,$nombre);
+        }
+        // PERSISTENCIA DE APERTURA DE CAJA
+        if(isset($_POST['abrir_caja'])){
+            $fecha = mysqli_real_escape_string($conn,$_POST['fecha']);
+            $hora_apertura = mysqli_real_escape_string($conn,$_POST['hora']);
+            $importe_apertura = mysqli_real_escape_string($conn,$_POST['importe']);
+            $estado_caja = mysqli_real_escape_string($conn,$_POST['caja_estado']);
+            $usuario = mysqli_real_escape_string($conn,$_POST['usuario']);
+            openCaja($fecha,$hora_apertura,$importe_apertura,$estado_caja,$usuario,$conn);
+        }
+        //FORMULARIO CIERRE DE CAJA
+        if(isset($_POST['cierre_caja'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            formCerrarCaja($id,$nombre,$conn);
+        }
+        //CIERRE DE CAJA
+        if(isset($_POST['cerrar_caja'])){
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            $hora_cierre = mysqli_real_escape_string($conn,$_POST['hora']);
+            $importe_cierre = mysqli_real_escape_string($conn,$_POST['importe']);
+            $estado_caja = mysqli_real_escape_string($conn,$_POST['caja_estado']);
+            $usuario = mysqli_real_escape_string($conn,$_POST['usuario']);
+            closeCaja($id,$hora_cierre,$importe_cierre,$estado_caja,$usuario,$conn);
+        }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        
     }else{
     
         echo "<br>";

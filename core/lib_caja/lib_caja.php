@@ -401,10 +401,6 @@ if($conn)
 
 		echo "</table>";
 		echo "<br>";
-		echo '<form <action="#" method="POST">
-			<button type="submit" class="btn btn-success btn-sm" name="apertura_caja">
-			  <img src="../../icons/status/dialog-password.png"  class="img-reponsive img-rounded"> Realizar Apertura</button>
-            </form><br>';
 		echo '<button type="button" class="btn btn-primary">Cantidad de Registros:  '.$count.' </button>';
 		echo '</div>';
 		}else{
@@ -580,7 +576,7 @@ function formCerrarCaja($id,$nombre,$conn){
                        
             <div class="form-group">
 	      <label>Importe Cierre:</label>
-		<input type="text" class="form-control" name="importe" value="'.$importe_cierre.'" readonly required>
+		<input type="text" class="form-control" name="importe" value="'.$importe_cierre.'" required>
             </div><hr>
             
                      
