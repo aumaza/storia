@@ -365,6 +365,8 @@ if($conn)
             <th class='text-nowrap text-center'>Importe Apertura</th>
             <th class='text-nowrap text-center'>Importe Cierre</th>
             <th class='text-nowrap text-center'>Estado Caja</th>
+            <th class='text-nowrap text-center'>Usuario Apertura</th>
+            <th class='text-nowrap text-center'>Usuario Cierre</th>
             <th>&nbsp;</th>
             </thead>";
 
@@ -383,6 +385,8 @@ if($conn)
 			 }
 			 
 			 echo "<td align=center>".$fila['estado_caja']."</td>";
+			 echo "<td align=center>".$fila['usuario_apertura']."</td>";
+			 echo "<td align=center>".$fila['usuario_cierre']."</td>";
 			 echo "<td class='text-nowrap'>";
 			 echo '<form <action="#" method="POST">
                     <input type="hidden" name="id" value="'.$fila['id'].'">';
@@ -418,7 +422,7 @@ if($conn)
 /*
 ** formulario de apertura de caja
 */
-function formAperturaCaja($conn){
+function formAperturaCaja($conn,$nombre){
     
     $hora_actual =  date("H:i:s");
     $fecha_actual = date("Y-m-d");
@@ -472,10 +476,15 @@ function formAperturaCaja($conn){
         <label>Hora Actual:</label>
 		<input type="time" class="form-control" name="hora" value="'.$hora_actual.'" readonly required>
             </div><hr>
+            
+        <div class="form-group">
+        <label>Usuario:</label>
+	<input type="text" class="form-control" name="usuario" value="'.$nombre.'" readonly required>
+        </div><hr>
                  
            <div class="alert alert-info">
             <img class="img-reponsive img-rounded" src="../../icons/status/dialog-information.png" />
-            El importe debería ser el mismo con el que cerró la caja el día anterior, si es correcto continue presionando <strong>Aceptar</strong>, si desea modificarlo puede hacerlo y a continuación presione <strong>Aceptar</strong>
+            El importe debería ser el mismo con el que cerró la caja el turno anterior o día anterior, si es correcto continue presionando <strong>Aceptar</strong>, si desea modificarlo puede hacerlo y a continuación presione <strong>Aceptar</strong>
            </div><hr>
            
             <div class="form-group">
@@ -500,7 +509,7 @@ function formAperturaCaja($conn){
 /*
 ** formulario de apertura de caja
 */
-function formCerrarCaja($id,$conn){
+function formCerrarCaja($id,$nombre,$conn){
     
     $hora_actual =  date("H:i:s");
     $fecha_actual = date("Y-m-d");
@@ -562,6 +571,11 @@ function formCerrarCaja($id,$conn){
         <label>Hora Actual:</label>
 		<input type="time" class="form-control" name="hora" value="'.$hora_actual.'" readonly required>
             </div><hr>
+            
+        <div class="form-group">
+        <label>Usuario:</label>
+	<input type="text" class="form-control" name="usuario" value="'.$nombre.'" readonly required>
+        </div><hr>
                  
                        
             <div class="form-group">
@@ -589,33 +603,37 @@ function formCerrarCaja($id,$conn){
 /*
 ** funcion que guardar pago
 */
-function openCaja($fecha,$hora_apertura,$importe_apertura,$estado_caja,$conn){
+function openCaja($fecha,$hora_apertura,$importe_apertura,$estado_caja,$usuario,$conn){
 
+	if(is_numeric($importe_apertura)){
             
            $consulta = "INSERT INTO st_caja".
-            "(fecha,hora_apertura,importe_apertura,estado_caja)".
+            "(fecha,hora_apertura,importe_apertura,estado_caja,usuario_apertura)".
             "VALUES ".
-        "('$fecha','$hora_apertura','$importe_apertura','$estado_caja')";
+        "('$fecha','$hora_apertura','$importe_apertura','$estado_caja','$usuario')";
         mysqli_select_db($conn,'storia');
         $resp = mysqli_query($conn,$consulta);
             
             if($resp){
-            echo "<br>";
-		    echo '<div class="container">';
-		    echo '<div class="alert alert-success" alert-dismissible">
-			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Apertura realizada Satisfactoriamente.';
-		    echo "</div>";
-		    echo "</div>";
+            
+		    echo "<script>alert('Apertura realizada Exitosamente. Deberá Reiniciar sesión para terminar el proceso')</script>";
+		    echo '<meta http-equiv="refresh" content="1;URL=../../logout.php"/>';
     }else{
 			    echo "<br>";
 			    echo '<div class="container">';
 			    echo '<div class="alert alert-warning" alert-dismissible">
 				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al realizar la Apertura de Caja. '  .mysqli_error($conn);
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> Hubo un problema al realizar la Apertura de Caja. Aguarde un instante...'  .mysqli_error($conn);
 			    echo "</div>";
 			    echo "</div>";
+			    echo '<meta http-equiv="refresh" content="5;URL=../../logout.php"/>';
 		    }
+	}else{
+	
+			    echo "<script>alert('El importe debe ser un valor numérico. Reinicie la sesion y reintente...')</script>";
+			    echo '<meta http-equiv="refresh" content="1;URL=../../logout.php"/>';
+	
+	}
 		    
 		    
 }
@@ -624,9 +642,11 @@ function openCaja($fecha,$hora_apertura,$importe_apertura,$estado_caja,$conn){
 /*
 ** funcion actualizar estado caja con cierre
 */
-function closeCaja($id,$hora_cierre,$importe_cierre,$estado_caja,$conn){
+function closeCaja($id,$hora_cierre,$importe_cierre,$estado_caja,$usuario,$conn){
 
-        $sql = "update st_caja set hora_cierre = '$hora_cierre', importe_cierre = '$importe_cierre', estado_caja = '$estado_caja' where id = '$id'";
+        if(is_numeric($importe_cierre)){
+        
+        $sql = "update st_caja set hora_cierre = '$hora_cierre', importe_cierre = '$importe_cierre', estado_caja = '$estado_caja', usuario_cierre = '$usuario' where id = '$id'";
         mysqli_select_db($conn,'storia');
         $query = mysqli_query($conn,$sql);
         
@@ -635,9 +655,10 @@ function closeCaja($id,$hora_cierre,$importe_cierre,$estado_caja,$conn){
 		    echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Caja Cerrada Satisfactoriamente.';
+		    echo '<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-ok-apply.png" /> Caja Cerrada Satisfactoriamente. Aguarde un instante que se reiniciará la sesión';
 		    echo "</div>";
 		    echo "</div>";
+		    echo '<meta http-equiv="refresh" content="5;URL=../../logout.php"/>';
         }else{
                     echo "<br>";
                     echo '<div class="container">';
@@ -647,9 +668,51 @@ function closeCaja($id,$hora_cierre,$importe_cierre,$estado_caja,$conn){
                     echo "</div>";
                     echo "</div>";
                 }
+        }else{
+        
+			    echo "<br>";
+			    echo '<div class="container">';
+			    echo '<div class="alert alert-warning" alert-dismissible">
+				    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+			    echo '<img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" /> El campo importe debe ser un valor numérico';
+			    exit();
+			    echo "</div>";
+			    echo "</div>";
+        
+        }
 
 
 }
 
+
+// ========================================================================= //
+// CONSULTA ESTADO DE CAJA
+function queryEstadoCaja($conn){
+  
+  $fecha_actual = date("Y-m-d");
+
+  $sql = "select estado_caja from st_caja where fecha = '$fecha_actual'";
+  mysqli_select_db($conn,'storia');
+  $query = mysqli_query($conn,$sql);
+  while($row = mysqli_fetch_array($query)){
+  
+    $estado = $row['estado_caja'];
+  
+  }
+  
+  if($estado == 'Abierta'){
+  
+      $flag = 1;
+  }
+  else if($estado == 'Cerrada'){
+    
+      $flag = 0;
+  
+  }
+  
+  return $flag;
+  
+  
+}
 
 ?>

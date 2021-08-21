@@ -185,14 +185,14 @@ if($conn)
 		    <th class='text-nowrap text-center' hidden>ID</th>
 		    <th class='text-nowrap text-center'>Producto</th>
 		    <th class='text-nowrap text-center'>Cantidad</th>
-            <th class='text-nowrap text-center'>Modo de Pago</th>
-            <th class='text-nowrap text-center'>Fecha Pedido</th>
-            <th class='text-nowrap text-center'>Hora Pedido</th>
-            <th class='text-nowrap text-center'>Cliente</th>
-            <th class='text-nowrap text-center'>Importe</th>
-            <th class='text-nowrap text-center'>Nro. Ticket</th>
-            <th>&nbsp;</th>
-            </thead>";
+		    <th class='text-nowrap text-center'>Modo de Pago</th>
+		    <th class='text-nowrap text-center'>Fecha Pedido</th>
+		    <th class='text-nowrap text-center'>Hora Pedido</th>
+		    <th class='text-nowrap text-center'>Cliente</th>
+		    <th class='text-nowrap text-center'>Importe</th>
+		    <th class='text-nowrap text-center'>Nro. Ticket</th>
+		    <th>&nbsp;</th>
+		    </thead>";
 
 
 	while($fila = mysqli_fetch_array($resultado)){
@@ -214,7 +214,11 @@ if($conn)
 		}
 
 		echo "</table></div>";
-		echo "<br>";
+		echo '<br>
+		      <form action="#" method="POST">
+		      <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#busqueda_avanzada_cafe">
+		       <img src="../../icons/actions/edit-find.png"  class="img-reponsive img-rounded"> Búsqueda Avanzada</button>
+		      </form><br>';
 		echo '<a data-toggle="precios_cafeteria" data-target="#precios_cafeteria" href="#" class="btn btn-success btn-sm openCafe"><span class="glyphicon glyphicon-usd"></span> Precios Cafetería</a><br><br>';
 		echo '<button type="button" class="btn btn-primary">Cantidad de Ventas:  '.$count.' </button>';
 		echo '</div>';
@@ -1460,6 +1464,9 @@ function deleteItem($id,$conn){
   
 }
 
+// ======================================================================= //
+// MODALES
+// ======================================================================= //
 /*
 ** modal que carga los precios de heladeria
 */
@@ -1489,6 +1496,75 @@ function modalPreciosCafeteria(){
 
 
 }
+
+
+/*
+** MODAL CARGA BUSQUEDA AVANZADA CAFE
+*/
+function modalBusquedaCafe(){
+
+  echo '<div id="busqueda_avanzada_cafe" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">
+	  <img class="img-reponsive img-rounded" src="../../icons/actions/edit-find-project.png" /> Búsqueda Avanzada</h4>
+      </div>
+      
+      <div class="modal-body">
+        
+	  <div class="container-fluid">
+	    <div class="alert alert-success">
+	    <p align="justify">Seleccione el Modo de Pago y las fechas entre las que desea filtrar la búsqueda</p>
+	    </div><hr>
+	    
+	    <form action="#" method="POST">
+	      
+	      <div class="form-group">
+		<label for="email">Fecha Desde:</label>
+		<input type="date" class="form-control" id="fecha_desde" name="fecha_desde">
+	      </div>
+	      
+	      <div class="form-group">
+		<label for="pwd">Fecha Hasta:</label>
+		<input type="date" class="form-control" id="fecha_hasta" name="fecha_hasta">
+	      </div>
+	      
+	       <div class="form-group">
+		<label for="sel1">Modo de Pago:</label>
+		<select class="form-control" id="sel1" name="modo_pago">
+		  <option value="" selected disabled>Seleccionar</option>
+		  <option value="Efectivo">Efectivo</option>
+		  <option value="Tarjeta Debito">Tarjeta Débito</option>
+		  <option value="Tarjeta Credito">Tarjeta Crédito</option>
+		</select>
+	      </div><hr>
+	      
+	      <button type="submit" class="btn btn-success btn-block" name="search_cafe">
+		<img class="img-reponsive img-rounded" src="../../icons/actions/edit-find.png" /> Buscar</button>
+	    </form>
+	  </div>
+        
+        
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+	  <img class="img-reponsive img-rounded" src="../../icons/actions/dialog-close.png" /> Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>';
+
+
+
+
+}
+
 
 
 ?>

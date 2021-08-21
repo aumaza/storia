@@ -275,7 +275,10 @@ $(document).ready(function(){
         <form action="#" method="POST">
         
         <button type="submit" class="btn btn-success btn-xs btn-block" name="add_venta" data-toggle="tooltip" data-placement="right" title="Nueva Venta en Local">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta</button><br>
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta</button><hr>
+	    
+	    <button type="submit" class="btn btn-default btn-xs btn-block" name="buscar_cliente" data-toggle="tooltip" data-placement="right" title="Buscar Datos de Cliente">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/edit-find-user.png" /> Clientes</button><br>
         
         
        <div class="panel-group" id="accordion">
@@ -429,14 +432,7 @@ $(document).ready(function(){
         <img class="img-reponsive img-rounded" src="../../icons/actions/dashboard-show.png" /> <strong>Espacio de Trabajo Empleado</strong> - <strong> Bienvenido <?php echo $nombre ?></strong>
       </div>
       <hr>
-      <div class="alert alert-success alert-dismissible animate__animated animate__swing">
-       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <p align="center"><img class="img-reponsive img-rounded" src="../../icons/status/dialog-information.png" /> <strong>Importante</strong></p>
-        <p align="center">Antes de Realizar cualquier venta, proceda a la apertura de la caja.</p>
-        <p align="center">Y al terminar el día realice el cierre de la misma.</p><hr>
-        <p align="center">Solicite permiso al Administrador para realizar esta operación.</p>
-      </div>
-      
+            
 <!-- Inicio Espacio de Trabajo -->
     
     <?php
@@ -675,6 +671,13 @@ $(document).ready(function(){
             vistaMesas($conn);
         }
         
+        
+        // =============================================================================================
+        //CONSULTAR CLIENTES
+        //carga todos los clientes
+        if(isset($_POST['buscar_cliente'])){
+            customer($conn);
+        }
     
     
     

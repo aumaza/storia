@@ -72,6 +72,68 @@ if($conn)
 
 
 /*
+** funcion que carga la tabla de todos los clientes
+*/
+
+
+function customer($conn){
+
+if($conn)
+{
+	    $sql = "SELECT * FROM st_clientes where espacio = 'CLI'";
+    	mysqli_select_db($conn,'storia');
+    	$resultado = mysqli_query($conn,$sql);
+	//mostramos fila x fila
+	$count = 0;
+	echo '<div class="panel panel-success" >
+	      <div class="panel-heading"><span class="pull-center "><img src="../../icons/actions/meeting-attending.png"  class="img-reponsive img-rounded"> Consulta de Datos de Clientes';
+	echo '</div><br>';
+
+            echo "<table class='display compact' style='width:100%' id='myTable'>";
+              echo "<thead>
+		    <th class='text-nowrap text-center'>ID</th>
+		    <th class='text-nowrap text-center'>Cliente</th>
+		    <th class='text-nowrap text-center'>DNI</th>
+            <th class='text-nowrap text-center'>Email</th>
+            <th class='text-nowrap text-center'>Dirección</th>
+            <th class='text-nowrap text-center'>Localidad</th>
+            <th class='text-nowrap text-center'>Teléfono</th>
+            <th class='text-nowrap text-center'>Movil</th>
+            <th>&nbsp;</th>
+            </thead>";
+
+
+	while($fila = mysqli_fetch_array($resultado)){
+			  // Listado normal
+			 echo "<tr>";
+			 echo "<td align=center>".$fila['id']."</td>";
+			 echo "<td align=center>".$fila['cliente_nombre']."</td>";
+			 echo "<td align=center>".$fila['dni']."</td>";
+			 echo "<td align=center>"."<a href='mailto:".$fila['email']."'>".$fila['email']."</a></td>";
+			 echo "<td align=center>".$fila['direccion']."</td>";
+			 echo "<td align=center>".$fila['localidad']."</td>";
+			 echo "<td align=center>".$fila['telefono']."</td>";
+			 echo "<td align=center>".$fila['movil']."</td>";
+			 echo "<td class='text-nowrap'>";
+			 echo "</td>";
+			 $count++;
+		}
+
+		echo "</table>";
+		echo "<br>";
+		echo '<button type="button" class="btn btn-primary">Cantidad de Clientes:  '.$count.' </button>';
+		echo '</div>';
+		}else{
+		  echo 'Connection Failure...' .mysqli_error($conn);
+		}
+
+    mysqli_close($conn);
+
+}
+
+
+
+/*
 ** funcion que carga los datos de un cliente determinado
 */
 

@@ -50,6 +50,7 @@
         $cantidad_mensajes = $row_mensajes['cantidad'];
 	}
 	
+	$estado_caja = queryEstadoCaja($conn);
 	
 ?>
 
@@ -301,22 +302,27 @@ $(document).ready(function(){
 </head>
 <body onload="nobackbutton();">
 
-<div class="container-fluid">
-  <div class="row content">
-    <div class="col-sm-2 sidenav animate__animated animate__zoomIn"><hr>
-    <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#exit" data-toggle="tooltip" data-placement="right" title="Desconectarse del Sistema">
-        <img class="img-reponsive img-rounded" src="../../icons/actions/system-shutdown.png" /> Salir</button><br>
-        <form action="#" method="POST">
-            <button type="submit" class="btn btn-default btn-block" name="home" data-toggle="tooltip" data-placement="right" title="Limpiar Espacio de Trabajo">
-            <img class="img-reponsive img-rounded" src="../../icons/actions/go-home.png" /> Home</button>
-        </form>
-        <hr>
+<?php 
+
+if($estado_caja == 1){
+
+echo '<div class="container-fluid">
+	<div class="row content">
+	  <div class="col-sm-2 sidenav animate__animated animate__zoomIn"><hr>
+	    <!-- Trigger the modal with a button -->
+	    <button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#exit" data-toggle="tooltip" data-placement="right" title="Desconectarse del Sistema">
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/system-shutdown.png" /> Salir</button><br>
+	    
+	    <form action="#" method="POST">
+	      <button type="submit" class="btn btn-default btn-block" name="home" data-toggle="tooltip" data-placement="right" title="Limpiar Espacio de Trabajo">
+	      <img class="img-reponsive img-rounded" src="../../icons/actions/go-home.png" /> Home</button>
+	    </form><hr>
 
         <form action="#" method="POST">
         
         <button type="submit" class="btn btn-success btn-xs btn-block" name="add_venta" data-toggle="tooltip" data-placement="right" title="Nueva Venta en Local">
-	    <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta</button><br>
+	    <img class="img-reponsive img-rounded" src="../../icons/actions/list-add.png" /> Nueva Venta</button><hr>
+              
         
 <!--   Colapse Group       -->
         
@@ -389,9 +395,10 @@ $(document).ready(function(){
       
       </div>
     </div>
-  </div>
+  </div>';
   
-  <?php
+  
+   
   
   if($_SESSION['user'] == 'root'){
   
@@ -518,6 +525,23 @@ $(document).ready(function(){
  </div>
  </div>';
   }
+  }
+  if($estado_caja == 0){
+    
+   echo '<div class="container-fluid">
+	  <div class="row content">
+	    <div class="col-sm-12 animate__animated animate__zoomIn"><hr>
+	      <div class="alert alert-warning">
+		<p align="center"><img class="img-reponsive img-rounded" src="../../icons/status/task-attempt.png" />
+		  Bienvenido, para comenzar con las ventas, primero proceda a la apertura de caja</p>
+	      </div><hr>';
+	      
+	      formAperturaCaja($conn,$nombre);
+  
+  echo '</div>
+	  </div>  
+	</div>';
+  }
   
   ?>
   
@@ -530,12 +554,7 @@ $(document).ready(function(){
         <img class="img-reponsive img-rounded" src="../../icons/actions/dashboard-show.png" /> <strong>Espacio de Trabajo</strong> - <strong> Bienvenido <?php echo $nombre ?></strong>
       </div>
       <hr>
-      <div class="alert alert-success alert-dismissible animate__animated animate__swing">
-       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <p align="center"><img class="img-reponsive img-rounded" src="../../icons/status/dialog-information.png" /> <strong>Importante</strong></p>
-        <p align="center">Antes de Realizar cualquier venta, proceda a la apertura de la caja.</p>
-        <p align="center">Y al terminar el día realice el cierre de la misma.</p>
-      </div>
+      
       
 <!-- Inicio Espacio de Trabajo -->
     
@@ -958,7 +977,7 @@ $(document).ready(function(){
         }
         // FORMULARIO DE APERTURA DE CAJA
         if(isset($_POST['apertura_caja'])){
-            formAperturaCaja($conn);
+            formAperturaCaja($conn,$nombre);
         }
         // PERSISTENCIA DE APERTURA DE CAJA
         if(isset($_POST['abrir_caja'])){
@@ -966,12 +985,13 @@ $(document).ready(function(){
             $hora_apertura = mysqli_real_escape_string($conn,$_POST['hora']);
             $importe_apertura = mysqli_real_escape_string($conn,$_POST['importe']);
             $estado_caja = mysqli_real_escape_string($conn,$_POST['caja_estado']);
-            openCaja($fecha,$hora_apertura,$importe_apertura,$estado_caja,$conn);
+            $usuario = mysqli_real_escape_string($conn,$_POST['usuario']);
+            openCaja($fecha,$hora_apertura,$importe_apertura,$estado_caja,$usuario,$conn);
         }
         //FORMULARIO CIERRE DE CAJA
         if(isset($_POST['cierre_caja'])){
             $id = mysqli_real_escape_string($conn,$_POST['id']);
-            formCerrarCaja($id,$conn);
+            formCerrarCaja($id,$nombre,$conn);
         }
         //CIERRE DE CAJA
         if(isset($_POST['cerrar_caja'])){
@@ -979,7 +999,8 @@ $(document).ready(function(){
             $hora_cierre = mysqli_real_escape_string($conn,$_POST['hora']);
             $importe_cierre = mysqli_real_escape_string($conn,$_POST['importe']);
             $estado_caja = mysqli_real_escape_string($conn,$_POST['caja_estado']);
-            closeCaja($id,$hora_cierre,$importe_cierre,$estado_caja,$conn);
+            $usuario = mysqli_real_escape_string($conn,$_POST['usuario']);
+            closeCaja($id,$hora_cierre,$importe_cierre,$estado_caja,$usuario,$conn);
         }
     
     }else{
@@ -1012,6 +1033,7 @@ $(document).ready(function(){
 <?php modalNewCliente(); ?>
 <?php modalPreciosHeladeria(); ?>
 <?php modalPreciosCafeteria(); ?>
+<?php modalBusquedaCafe(); ?>
 
        
 

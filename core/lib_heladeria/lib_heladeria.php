@@ -440,7 +440,7 @@ function formAddVentaGeneral($conn){
                     
         <div class="form-group">
         <label for="usr">Cantidad:</label>
-        <input type="number" class="form-control" name="cantidad" value="1" id="cantidad">
+        <input type="number" class="form-control" name="cantidad" min="1" value="1" id="cantidad">
         </div><hr>
 		
 		 <div class="form-group">
@@ -1486,11 +1486,14 @@ function ticketHeladeriaLocal($cliente,$lugar_venta,$nro_ticket,$conn){
             echo '<div class="container">';
 		    echo '<div class="alert alert-success" alert-dismissible">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-		    echo '<img class="img-reponsive img-rounded" src="../../icons/status/user-away-extended.png" /> Aguarde...estamos generando el Ticket....Cuando se abra el ticket puede cerrar este aviso';
+		    echo '<p><img class="img-reponsive img-rounded" src="../../icons/actions/edit-select.png" /> Seleccione el tipo de ticket que desea imprimir</p><hr>';
+		    
+		    echo '<a href="../../lib_heladeria/print.php?file=print_ticket_heladeria_local.php&cliente='.$cliente.'&lugar_venta='.$lugar_venta.'&nro_ticket='.$nro_ticket.'" target="_blank"><button type="button" class="btn btn-default"><img src="../../icons/devices/printer.png"  class="img-reponsive img-rounded"> Ticket Cliente</button></a>';
+		        
 		    echo "</div>";
 		    echo "</div>";
 		        
-		    echo '<meta http-equiv="refresh" content="3;URL=../../lib_heladeria/print.php?file=print_ticket_heladeria_local.php&cliente='.$cliente.'&lugar_venta='.$lugar_venta.'&nro_ticket='.$nro_ticket.'" target="_blank" />';
+		    
 
 }
 
