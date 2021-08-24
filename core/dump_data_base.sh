@@ -1,5 +1,5 @@
-//#!/usr/local/bin/bash
-#!/bin/bash
+#!/usr/local/bin/bash
+
 
 fecha=`date +%d-%m-%Y`
 archivo="storia-$fecha.sql"
