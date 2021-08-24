@@ -1497,6 +1497,70 @@ function ticketHeladeriaLocal($cliente,$lugar_venta,$nro_ticket,$conn){
 
 }
 
+// ======================================================================= //
+// BUSQUEDAS AVANZADA HELADERIA - RESULTADOS
+// ======================================================================= //
+/*
+** funcion que devuelve el resultado de la busqueda avanzada en HELADERIA
+** recibe como parámetros @fecha_desde, @fecha_hasta y @modo_pago (efectivo, tarjeta debito, tarjeta credito)
+*/
+function resultadoBusquedaHeladeria($fecha_desde,$fecha_hasta,$modo_pago,$conn){
+
+	$sql = "select cod_producto, descripcion, empleado, tipo_pago, fecha_venta, hora_venta, importe, nro_ticket 
+			  from st_ventas 
+			  where fecha_venta BETWEEN '$fecha_desde' AND '$fecha_hasta'
+			  and tipo_pago = '$modo_pago' 
+			  and estado_ticket = 'Cerrado' 
+			  and cod_producto like 'hd%'";
+	
+	$query = mysqli_query($conn,$sql);
+	
+	
+	$total = 0;
+	  echo '<div class="panel panel-success" >
+			<div class="panel-heading"><span class="pull-center ">
+		  <img src="../../icons/actions/quickopen-function.png"  class="img-reponsive img-rounded"> Resultado Búsqueda Avanzada Heladería';
+	  echo '</div><br>';
+  
+			  echo "<div class='table-responsive'>
+					  <table class='table table-condensed table-hover' style='width:100%' id='myTable'>";
+				echo "<thead>
+			  <th class='text-nowrap text-center'>Producto</th>
+			  <th class='text-nowrap text-center'>Empleado</th>
+			  <th class='text-nowrap text-center'>Modo de Pago</th>
+			  <th class='text-nowrap text-center'>Fecha Pedido</th>
+			  <th class='text-nowrap text-center'>Hora Pedido</th>
+			  <th class='text-nowrap text-center'>Importe</th>
+			  <th class='text-nowrap text-center'>Nro. Ticket</th>
+			  <th>&nbsp;</th>
+			  </thead>";
+  
+  
+	  while($fila = mysqli_fetch_array($query)){
+				// Listado normal
+			   echo " <tr>";
+		 	   echo "<td align=center>".$fila['descripcion']."</td>";
+		 	   echo "<td align=center>".$fila['empleado']."</td>";
+			   echo "<td align=center>".$fila['tipo_pago']."</td>";
+			   echo "<td align=center>".$fila['fecha_venta']."</a></td>";
+			   echo "<td align=center>".$fila['hora_venta']."</a></td>";
+			   echo "<td align=center>$".$fila['importe']."</a></td>";
+			   echo "<td align=center>".$fila['nro_ticket']."</a></td>";
+			   echo "<td class='text-nowrap'>";
+			   echo "</td>";
+			   $total += $fila['importe'];
+		  }
+  
+		  echo "</table></div>";
+		  echo '<br>';
+		  echo '<button type="button" class="btn btn-primary">Importe Total sobre Filtrado:  $'.$total.' </button>';
+		  echo '</div>';
+		  
+  
+	  mysqli_close($conn);
+  
+  }
+
 
 // ===================================================================================== // 
 // MODALES //
@@ -1531,6 +1595,71 @@ function modalPreciosHeladeria(){
 
 
 }
+
+/*
+** MODAL CARGA BUSQUEDA AVANZADA CAFE
+*/
+function modalBusquedaHeladeria(){
+
+	echo '<div id="busqueda_avanzada_heladeria" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+  
+	  <!-- Modal content-->
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">
+		<img class="img-reponsive img-rounded" src="../../icons/actions/edit-find-project.png" /> Búsqueda Avanzada</h4>
+		</div>
+		
+		<div class="modal-body">
+		  
+		<div class="container-fluid">
+		  <div class="alert alert-success">
+		  <p align="justify">Seleccione el Modo de Pago y las fechas entre las que desea filtrar la búsqueda</p>
+		  </div><hr>
+		  
+		  <form action="#" method="POST">
+			
+			<div class="form-group">
+		  <label for="email">Fecha Desde:</label>
+		  <input type="date" class="form-control" id="fecha_desde" name="fecha_desde">
+			</div>
+			
+			<div class="form-group">
+		  <label for="pwd">Fecha Hasta:</label>
+		  <input type="date" class="form-control" id="fecha_hasta" name="fecha_hasta">
+			</div>
+			
+			 <div class="form-group">
+		  <label for="sel1">Modo de Pago:</label>
+		  <select class="form-control" id="sel1" name="modo_pago">
+			<option value="" selected disabled>Seleccionar</option>
+			<option value="Efectivo">Efectivo</option>
+			<option value="Tarjeta Debito">Tarjeta Débito</option>
+			<option value="Tarjeta Credito">Tarjeta Crédito</option>
+		  </select>
+			</div><hr>
+			
+			<button type="submit" class="btn btn-success btn-block" name="search_helado">
+		  <img class="img-reponsive img-rounded" src="../../icons/actions/edit-find.png" /> Buscar</button>
+		  </form>
+		</div>
+		  
+		  
+		</div>
+		
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-default" data-dismiss="modal">
+		<img class="img-reponsive img-rounded" src="../../icons/actions/dialog-close.png" /> Cerrar</button>
+		</div>
+	  </div>
+  
+	</div>
+  </div>';
+    
+  
+  }
 
 
 ?>

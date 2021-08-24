@@ -1465,6 +1465,77 @@ function deleteItem($id,$conn){
 }
 
 // ======================================================================= //
+// BUSQUEDAS AVANZADA CAFE - RESULTADOS
+// ======================================================================= //
+/*
+** funcion que devuelve el resultado de la busqueda avanzada en cafeteria
+** recibe como parámetros @fecha_desde, @fecha_hasta y @modo_pago (efectivo, tarjeta debito, tarjeta credito)
+*/
+function resultadoBusquedaCafe($fecha_desde,$fecha_hasta,$modo_pago,$conn){
+
+  $sql = "select cod_producto, descripcion, empleado, tipo_pago, fecha_venta, hora_venta, importe, nro_ticket 
+            from st_ventas 
+            where fecha_venta BETWEEN '$fecha_desde' AND '$fecha_hasta'
+            and tipo_pago = '$modo_pago' 
+            and estado_ticket = 'Cerrado' 
+            and cod_producto not like 'hd%'";
+  
+  $query = mysqli_query($conn,$sql);
+  
+  
+  $total = 0;
+	echo '<div class="panel panel-success" >
+	      <div class="panel-heading"><span class="pull-center ">
+        <img src="../../icons/actions/quickopen-function.png"  class="img-reponsive img-rounded"> Resultado Búsqueda Avanzada Cafetería';
+	echo '</div><br>';
+
+            echo "<div class='table-responsive'>
+                    <table class='table table-condensed table-hover' style='width:100%' id='myTable'>";
+              echo "<thead>
+        <th class='text-nowrap text-center'>Producto</th>
+        <th class='text-nowrap text-center'>Empleado</th>
+		    <th class='text-nowrap text-center'>Modo de Pago</th>
+		    <th class='text-nowrap text-center'>Fecha Pedido</th>
+		    <th class='text-nowrap text-center'>Hora Pedido</th>
+		    <th class='text-nowrap text-center'>Importe</th>
+		    <th class='text-nowrap text-center'>Nro. Ticket</th>
+		    <th>&nbsp;</th>
+		    </thead>";
+
+
+	while($fila = mysqli_fetch_array($query)){
+			  // Listado normal
+			 echo " <tr>";
+       if((substr($fila['cod_producto'], 0, 2) == 'cf')){
+			 echo "<td align=center style='background-color:#d2691e' data-toggle='tooltip' data-placement='left' title='Producto de Cafetería'>".$fila['descripcion']."</td>";
+       }
+       if((substr($fila['cod_producto'], 0, 2) == 'ks')){
+        echo "<td align=center style='background-color:#9370db' data-toggle='tooltip' data-placement='left' title='Producto de Kiosko'>".$fila['descripcion']."</td>";
+       }
+			 echo "<td align=center>".$fila['empleado']."</td>";
+			 echo "<td align=center>".$fila['tipo_pago']."</td>";
+			 echo "<td align=center>".$fila['fecha_venta']."</a></td>";
+			 echo "<td align=center>".$fila['hora_venta']."</a></td>";
+			 echo "<td align=center>$".$fila['importe']."</a></td>";
+			 echo "<td align=center>".$fila['nro_ticket']."</a></td>";
+			 echo "<td class='text-nowrap'>";
+			 echo "</td>";
+			 $total += $fila['importe'];
+		}
+
+		echo "</table></div>";
+		echo '<br>';
+		echo '<button type="button" class="btn btn-primary">Importe Total sobre Filtrado:  $'.$total.' </button>';
+		echo '</div>';
+		
+
+    mysqli_close($conn);
+
+}
+
+
+
+// ======================================================================= //
 // MODALES
 // ======================================================================= //
 /*
@@ -1559,9 +1630,6 @@ function modalBusquedaCafe(){
 
   </div>
 </div>';
-
-
-
 
 }
 

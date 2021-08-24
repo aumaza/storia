@@ -353,6 +353,10 @@ echo '<div class="container-fluid">
     <li class="list-group-item">
 	<button type="submit" class="btn btn-default btn-xs btn-block" name="ventas_heladeria_web" data-toggle="tooltip" data-placement="right" title="Ventas Heladería vía Web">
 	    <img class="img-reponsive img-rounded" src="../../icons/actions/view-bank-account.png" /> Ventas Web</button></li>
+
+    <li class="list-group-item">
+    <button type="button" class="btn btn-default btn-xs btn-block" data-toggle="modal" data-target="#busqueda_avanzada_heladeria" data-toggle="tooltip" data-placement="right" title="Filtro de Búsqueda avanzada de Facturación en Heladería">
+    <img class="img-reponsive img-rounded" src="../../icons/actions/edit-find-project.png" /> Filtro Avanzado</button></li>
     
       </form>
       </ul>
@@ -822,7 +826,13 @@ echo '<div class="container-fluid">
             $nro_ticket = mysqli_real_escape_string($conn,$_POST['nro_ticket']);
             ticketHeladeriaLocal($cliente,$lugar_venta,$nro_ticket,$conn);
         }
-        
+        // BUSQUEDA AVANZADA EN FACTURACION PARA EL MODULO HELADERIA POR FECHAS Y TIPO DE PAGO
+        if(isset($_POST['search_helado'])){
+            $fecha_desde = mysqli_real_escape_string($conn,$_POST['fecha_desde']);
+            $fecha_hasta = mysqli_real_escape_string($conn,$_POST['fecha_hasta']);
+            $modo_pago = mysqli_real_escape_string($conn,$_POST['modo_pago']);
+            resultadoBusquedaHeladeria($fecha_desde,$fecha_hasta,$modo_pago,$conn);
+        }
         
         // =============================================================================================
         //CAFETERIA
@@ -910,6 +920,13 @@ echo '<div class="container-fluid">
             $fecha_desde = mysqli_real_escape_string($conn,$_POST['fecha_desde']);
             $fecha_hasta = mysqli_real_escape_string($conn,$_POST['fecha_hasta']);
             totalCafeteria($mesa_numero,$fecha_desde,$fecha_hasta,$conn);
+        }
+        // RESULTADO BUSQUEDA AVANZADA DE FACTURADO EN CAFETERIA POR FECHAS Y MODO DE PAGO
+        if(isset($_POST['search_cafe'])){
+            $fecha_desde = mysqli_real_escape_string($conn,$_POST['fecha_desde']);
+            $fecha_hasta = mysqli_real_escape_string($conn,$_POST['fecha_hasta']);
+            $modo_pago = mysqli_real_escape_string($conn,$_POST['modo_pago']);
+            resultadoBusquedaCafe($fecha_desde,$fecha_hasta,$modo_pago,$conn);
         }
         
         
@@ -1035,6 +1052,7 @@ echo '<div class="container-fluid">
 <?php modalPreciosHeladeria(); ?>
 <?php modalPreciosCafeteria(); ?>
 <?php modalBusquedaCafe(); ?>
+<?php modalBusquedaHeladeria(); ?>
 
        
 
