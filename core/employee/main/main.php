@@ -178,11 +178,13 @@ $(document).ready(function(){
             success:function(r){
                 if(r==1){
                     alert("Producto Agregado Exitosamente!!");
+                    $('#cliente').val('1STORIA');
                     $('#producto').val('');
                     $('#sabor_1').val('Ninguno');
                     $('#sabor_2').val('Ninguno');
                     $('#sabor_3').val('Ninguno');
                     $('#sabor_4').val('Ninguno');
+                    $('#cliente').focus();
                     $('#cantidad').val('1');
                     $('#producto').focus();
                 }else{

@@ -217,12 +217,14 @@ $(document).ready(function(){
             success:function(r){
                 if(r==1){
                     alert("Producto Agregado Exitosamente!!");
+                    $('#cliente').val('1STORIA');
                     $('#producto').val('');
                     $('#sabor_1').val('Ninguno');
                     $('#sabor_2').val('Ninguno');
                     $('#sabor_3').val('Ninguno');
                     $('#sabor_4').val('Ninguno');
                     $('#cantidad').val('1');
+                    $('#cliente').focus();
                     $('#producto').focus();
                 }else{
                     alert("Hubo un problema al intentar Guardar el Producto");
